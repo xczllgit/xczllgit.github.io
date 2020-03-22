@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>Category: designPattern | xczll的博客</title>
+  <title>计算机网络之应用层协议原理 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/categories/designPattern/index.html">
+  <meta name="description" content="介绍应用层包含了能进行人机交互并且产生网络流量的程序经典的基于文本的几种应用：电子邮件、计算机远程访问、文件传输、新闻组、文本聊天等，后来又出现了万维网(包含web冲浪、搜索、电商)，即时通讯等 应用层的程序是数之不尽的，对应用层的学习主要集中于原理和实现 协议原理研发网络应用程序的核心是写出能够运行在不同的端系统和通过网络彼此通信的程序。如web应用程序、p2p文件共享系统等。 应用程序体系在编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络之应用层协议原理">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="介绍应用层包含了能进行人机交互并且产生网络流量的程序经典的基于文本的几种应用：电子邮件、计算机远程访问、文件传输、新闻组、文本聊天等，后来又出现了万维网(包含web冲浪、搜索、电商)，即时通讯等 应用层的程序是数之不尽的，对应用层的学习主要集中于原理和实现 协议原理研发网络应用程序的核心是写出能够运行在不同的端系统和通过网络彼此通信的程序。如web应用程序、p2p文件共享系统等。 应用程序体系在编">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1584843377.jpg">
+<meta property="article:published_time" content="2020-03-22T01:50:57.000Z">
+<meta property="article:modified_time" content="2020-03-22T07:04:18.042Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/computerScience/1584843377.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -221,568 +226,430 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-computerscience/2020-03-22-applicationLayerProtocolPrinciple" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-22T00:41:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/" target="_blank">设计模式之迭代器模式</a>
   
+    <h1 class="article-title" itemprop="name">
+      计算机网络之应用层协议原理
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" class="archive-article-date">
+        <time datetime="2020-03-22T01:50:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.7k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">5分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>应用层包含了能进行人机交互并且产生网络流量的程序<br>经典的基于文本的几种应用：电子邮件、计算机远程访问、文件传输、新闻组、文本聊天等，后来又出现了万维网(包含web冲浪、搜索、电商)，即时通讯等</p>
+<p>应用层的程序是数之不尽的，对应用层的学习主要集中于原理和实现</p>
+<h2 id="协议原理"><a href="#协议原理" class="headerlink" title="协议原理"></a>协议原理</h2><p>研发网络应用程序的核心是写出能够运行在不同的端系统和通过网络彼此通信的程序。如web应用程序、p2p文件共享系统等。</p>
+<h3 id="应用程序体系"><a href="#应用程序体系" class="headerlink" title="应用程序体系"></a>应用程序体系</h3><p>在编写应用程序之前需要有一个宽泛的体系结构计划。应用程序体系不同于网络结构体系(五层、七层模型等)那么固定，应用程序体系由程序研发者设计。目前有两种主流体系结构：</p>
+<ul>
+<li>客户机/服务器体系结构<ul>
+<li>将多个计算机分为客户机和服务器两种<ul>
+<li>服务器接收来自客户机的请求并处理</li>
+<li>客户机之间一般不相互通信</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对等(P2P)体系结构<ul>
+<li>任意两台计算机彼此依赖，直接相互通信，不需要通过专门的服务器。</li>
+<li>任意间断连接的主机对——称为对等方</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h3><p>在操作系统的术语中，<strong>进行通信的实际上是进程（ process）而不是程序</strong>。进程可以被认为是运行在端系统中的程序。当进程运行在<strong>相同的端系统</strong>上的时候，它们使用<strong>进程间通信机制相互通信</strong>。<strong>进程间通信的规则由端系统上的操作系统确定</strong>。</p>
+<p>不同端系统，进程间的通信通过<strong>跨越计算机网络交换报文</strong>而进行。发送进程创建报文并向网络中发送，接收进程接收这些报文并可能负责回送报文。</p>
+<h4 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h4><p>一个进程向另一个进程发送报文必须通过网络。进程通过一个称为<strong>“套接字”的软件接口</strong>向网络发送报文和从网络接收报文。</p>
+<ul>
+<li>进程可类比于一座房子，而它的套接字可以类比于它的门。当一个进程想向位于另外一台主机上的另一个进程发送报文时，它把报文推出该门(套接字)该发送进程假定该门到另外一侧之间有运输的基础设施 ， 该设施将把报文传送到目的进程的门口。一旦该报文抵达目的主机，它通过接收进程的门(套接字)传递，然后接收进程对该报文进行处理</li>
+</ul>
+<p><img src="/assets/img/computerScience/1584843377.jpg" alt="transmission"></p>
+<p>套接字是同一台主机内应用层与运输层之间的接口</p>
+<h4 id="进程寻址"><a href="#进程寻址" class="headerlink" title="进程寻址"></a>进程寻址</h4><p>在一台主机上运行的进程为了向在另一台主机上运行的进程发送分组，接收进程需要有一个地址。<br>为了标识目的接收进程，需要定义两种信息：</p>
+<ol>
+<li>主机的地址<ul>
+<li>网络中，主机地址由IP地址标识</li>
+</ul>
+</li>
+<li>定义在目的主机中的接收进程的标识符<ul>
+<li>也就是接收进程在目的主机中的端口号。</li>
+</ul>
+</li>
+</ol>
+<h3 id="可供应用程序使用的运输服务"><a href="#可供应用程序使用的运输服务" class="headerlink" title="可供应用程序使用的运输服务"></a>可供应用程序使用的运输服务</h3><p>应用程序将报文推进套接字(Soceket)后，套接字另一侧，运输层协议负责将此报文传输到目的主机接收进程的套接字。</p>
+<p>开发应用程序必须选择一种可用的运输层协议，它能提供服务：</p>
+<ul>
+<li>可靠数据传输<ul>
+<li>当数据在传输中丢失能得到处理，确保了数据一定能交付</li>
+</ul>
+</li>
+<li>吞吐量<ul>
+<li>沿着一条网络路径上的两个进程之间的通信会话场景中，可用吞吐量就是发送进程能够向接收进程交付比特的速率</li>
+<li>运输层协议能够以某种特定的速率提供确保的<strong>可用吞吐量</strong></li>
+</ul>
+</li>
+<li>定时<ul>
+<li>保证数据交付有严格的时间限制</li>
+</ul>
+</li>
+<li>安全性<ul>
+<li>可以加密传输的数据，防止数据泄露</li>
+</ul>
+</li>
+</ul>
+<h3 id="因特网提供的运输服务"><a href="#因特网提供的运输服务" class="headerlink" title="因特网提供的运输服务"></a>因特网提供的运输服务</h3><p>因特网(准确说是TCP/IP网络)为应用程序提供两个运输层协议，即UDP和TCP</p>
+<h4 id="TCP服务"><a href="#TCP服务" class="headerlink" title="TCP服务"></a>TCP服务</h4><p>TCP服务模型包括<strong>面向连接服务</strong>和<strong>可靠数据传输服务</strong>。当某个应用程序调用TCP作为其运输协议时，该应用程序就能获得来自TCP的这两种服务。</p>
+<ul>
+<li><strong>面向连接服务</strong>：在数据传输之前，两个主机进行三次握手过程从而建立连接<ul>
+<li>这条连接是全双工的，双方可以同时进行报文收发。</li>
+<li>当应用程序结束报文发送时，必须拆除该连接</li>
+</ul>
+</li>
+<li>可靠的数据传送服务：通信进程可以依靠TCP，无差错，按适当顺序交付所有发送的数据，<ul>
+<li>TCP进行了额外的一些操作如差错重传，保证了所传输数据的完整，可靠性。</li>
+</ul>
+</li>
+</ul>
+<p>注意：TCP协议还拥有<strong>拥塞控制机制</strong>，并且无论是<strong>TCP或者UDP都没有提供任何加密机制</strong>。</p>
+<ul>
+<li>因此出现了TCP的加强版：安全套接字层SSL，用SSL加强后的TCP不仅能做到之前的一切，还提供了关键的进程到进程的安全性服务，如加密，数据完整性，端点鉴别。</li>
+</ul>
+<h4 id="UDP服务"><a href="#UDP服务" class="headerlink" title="UDP服务"></a>UDP服务</h4><p>UDP是一种不提供非必要服务的轻量级运输协议，仅提供最小服务，是无连接的。</p>
+<ul>
+<li>两个进程通信前没有握手过程</li>
+<li>提供的是<strong>不可靠数据传送服务</strong></li>
+<li><strong>没有拥塞控制机制</strong>。</li>
+</ul>
+<p><strong>常见因特网应用及其应用程序协议和支撑的运输协议</strong></p>
+<table>
+<thead>
+<tr>
+<th>应用</th>
+<th>应用层协议</th>
+<th>支撑的运输协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电子邮件</td>
+<td>SMTP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>远程终端访问</td>
+<td>Telnet</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Web</td>
+<td>Http</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>文件传输</td>
+<td>FTP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>流式多媒体</td>
+<td>HTTP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>因特网电话</td>
+<td>SIP</td>
+<td>TCP或UDP</td>
+</tr>
+</tbody></table>
+<h3 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h3><p>应用层协议定义了运行在不同端系统上的应用程序进程如何相互传递报文，定义了：</p>
+<ul>
+<li>交换的报文类型，例如请求报文和响应报文</li>
+<li>各种报文类型的语法，如报文中的各个字段及这些字段是如何描述的</li>
+<li>字段的语义，即这些字段中包含的信息的含义</li>
+<li>一个进程何时以及如何发送报文，对报文进行相应的规则</li>
+</ul>
+<p>应用层协议只是网络应用的一个部分，并不是整个应用</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="">计算机网络:自顶向下法</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" title="计算机网络之应用层协议原理" target="_blank">https://xczllgit.github.io/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
+        			<a href="/categories/computerNetwork//" class="article-tag-list-link color1">computerNetwork</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/20/designPattern/2020-03-20-proxyPattern/" class="archive-article-date">
-        <time datetime="2020-03-20T07:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之迭代器模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/20/designPattern/2020-03-20-proxyPattern/" target="_blank">设计模式之代理模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协议原理"><span class="toc-number">2.</span> <span class="toc-text">协议原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#应用程序体系"><span class="toc-number">2.1.</span> <span class="toc-text">应用程序体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程通信"><span class="toc-number">2.2.</span> <span class="toc-text">进程通信</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#套接字"><span class="toc-number">2.2.1.</span> <span class="toc-text">套接字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进程寻址"><span class="toc-number">2.2.2.</span> <span class="toc-text">进程寻址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可供应用程序使用的运输服务"><span class="toc-number">2.3.</span> <span class="toc-text">可供应用程序使用的运输服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网提供的运输服务"><span class="toc-number">2.4.</span> <span class="toc-text">因特网提供的运输服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP服务"><span class="toc-number">2.4.1.</span> <span class="toc-text">TCP服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP服务"><span class="toc-number">2.4.2.</span> <span class="toc-text">UDP服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用层协议"><span class="toc-number">2.5.</span> <span class="toc-text">应用层协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">2.6.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/19/designPattern/2020-03-19-bridgePattern/" class="archive-article-date">
-        <time datetime="2020-03-19T13:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/19/designPattern/2020-03-19-bridgePattern/" target="_blank">设计模式之桥接模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/17/designPattern/2020-03-17-compositePattern/" class="archive-article-date">
-        <time datetime="2020-03-17T14:46:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/17/designPattern/2020-03-17-compositePattern/" target="_blank">设计模式之组合模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" class="archive-article-date">
-        <time datetime="2020-03-16T11:39:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" target="_blank">设计模式之享元模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" class="archive-article-date">
-        <time datetime="2020-03-15T13:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" target="_blank">设计模式之适配器模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-14T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" class="archive-article-date">
-        <time datetime="2020-03-14T13:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" target="_blank">设计模式之外观模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" class="archive-article-date">
-        <time datetime="2020-03-09T13:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" target="_blank">设计模式之原型模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" class="archive-article-date">
-        <time datetime="2020-03-07T14:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" target="_blank">设计模式之单例模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/categories/designPattern/page/2/">2</a><a class="extend next" rel="next" href="/categories/designPattern/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -821,10 +688,10 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
