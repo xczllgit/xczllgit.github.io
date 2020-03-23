@@ -6,22 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>计算机网络之应用层Http协议 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/7/index.html">
+  <meta name="description" content="介绍在因特网出现的开始，主要用途是科研，到了20世纪90年代，万维网登上了舞台。万维网WWW(World Wide Web)是一个大规模的、联机式的信息储藏所&#x2F;资料空间，是无数个网络站点和网页的集合 人们可以在Web上发布信息，可以进行交互，越来越多的Web站点存储着海量的信息，吸引着更多的人前来。 Web的应用层协议是超文本传输协议HTTP(HyperText Transfer Protocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络之应用层Http协议">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/23/computerscience/2020-03-23-applicationProtocol/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="介绍在因特网出现的开始，主要用途是科研，到了20世纪90年代，万维网登上了舞台。万维网WWW(World Wide Web)是一个大规模的、联机式的信息储藏所&#x2F;资料空间，是无数个网络站点和网页的集合 人们可以在Web上发布信息，可以进行交互，越来越多的Web站点存储着海量的信息，吸引着更多的人前来。 Web的应用层协议是超文本传输协议HTTP(HyperText Transfer Protocol">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1584951828.png">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1584951989.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1584952615.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1584953285.jpg">
+<meta property="article:published_time" content="2020-03-23T07:50:39.000Z">
+<meta property="article:modified_time" content="2020-03-23T09:10:02.090Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/computerScience/1584951828.png">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,466 +229,272 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-designPattern/2020-03-07-factoryMethod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-computerscience/2020-03-23-applicationProtocol" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/07/designPattern/2020-03-07-factoryMethod/" target="_blank">设计模式之工厂方法</a>
-  
+    <h1 class="article-title" itemprop="name">
+      计算机网络之应用层Http协议
     </h1>
   
 
 
   
   
-<a href="/2020/03/07/designPattern/2020-03-07-factoryMethod/" class="archive-article-date">
-        <time datetime="2020-03-07T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/" class="archive-article-date">
+        <time datetime="2020-03-23T07:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义一个创建对象的接口，但具体是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。</p>
-<p>工厂父类负责定义创建对象的公共接口，而子类则负责生成具体的对象。（创建型）</p>
-<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>将类的实例化（具体产品的创建）延迟到工厂类的子类（具体工厂）中完成，即<strong>由子类来决定应该实例化（创建）哪一个类</strong>。</p>
-    
-    <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-factoryMethod/#more">more >></a>
-    
-    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在因特网出现的开始，主要用途是科研，到了20世纪90年代，万维网登上了舞台。<br><strong>万维网WWW</strong>(World Wide Web)是一个大规模的、联机式的<strong>信息储藏所/资料空间</strong>，是<strong>无数个网络站点和网页的集合</strong></p>
+<p>人们可以在Web上发布信息，可以进行交互，越来越多的Web站点存储着海量的信息，吸引着更多的人前来。</p>
+<p>Web的应用层协议是<strong>超文本传输协议HTTP</strong>(HyperText Transfer Protocol)</p>
+<a id="more"></a>
 
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-factoryMethod/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-06-designPatternCategories" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" target="_blank">设计模式之三大分类</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" class="archive-article-date">
-        <time datetime="2020-03-06T12:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="设计模式三大分类"><a href="#设计模式三大分类" class="headerlink" title="设计模式三大分类"></a>设计模式三大分类</h3><p>GOF23种设计模式共分为三种类型：</p>
+<p>HTTP协议由两部分程序实现：<strong>一个客户机程序和一个服务器程序</strong>，运行在不同的端系统中，通过交换HTTP报文进行对话，<strong>HTTP协议规定了这些报文的格式以及如何进行报文交换</strong>。</p>
+<h3 id="web页面"><a href="#web页面" class="headerlink" title="web页面"></a>web页面</h3><p>web页面是由<strong>对象构成</strong>的，对象就是文件，如Html文件、图片文件等。<br>web页面通常含有一个HTML文本对象，在基本HTML文件中，是通过对象的<strong>URL地址</strong>对其他对象进行引用：</p>
+<ul>
+<li>URL地址组成：存放对象的服务器主机名和对象的路径名</li>
+<li>如 <code>https://www.xczll.cn/image/example.jpg</code>中的<code>www.xczll.cn</code>就是主机名,<code>/image/example.jpg</code>就是路径名。</li>
+</ul>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>当用户请求一个web页面时，浏览器向服务器发出对该页面中所包含对象的HTTP请求。<br>HTTP使用<strong>TCP(而不是UDP)作为它的运输层协议</strong>。</p>
+<ul>
+<li>客户机发起TCP连接，连接建立后，浏览器和服务器进程就可以通过套接字接口访问TCP</li>
+</ul>
+<p>服务器向客户机发送文件时，不会存储任何关于该客户机的状态信息，即时客户机再次请求相同文件，服务器仍然会发送文件。    因此说<strong>HTTP是一个无状态协议</strong></p>
+<h4 id="非持久连接与持久连接"><a href="#非持久连接与持久连接" class="headerlink" title="非持久连接与持久连接"></a>非持久连接与持久连接</h4><p>当存在多个请求时，如果多个请求分别使用多个TCP连接，就称为使用<strong>非持久连接</strong>。 如果多个请求使用同一个TCP连接，就称为使用<strong>持久连接</strong>。</p>
+<p><strong>TCP三次握手</strong>：</p>
+<ul>
+<li>客户机向服务器发送一个小TCP报文段</li>
+<li>服务器用一个小TCP报文段做出确认和响应</li>
+<li>客户机向服务器返回确认</li>
+</ul>
+<p>客户机发出请求：</p>
+<ul>
+<li>客户机向服务器发送一个小TCP报文段</li>
+<li>服务器用一个小TCP报文段做出确认和响应</li>
+<li>客户机向服务器返回确认并且<strong>附加了一个HTTP请求报文</strong></li>
+<li>服务器返回文件<br>以客户机发送请求到接收到回应，为一个RTT时延，因此一个全新的HTTP请求报文会消耗2个RTT时延</li>
+</ul>
+<p>每一个TCP连接，客户机与服务器都需要分配空间资源，对于<strong>非持久连接的方式会给服务器带来严重的负担</strong>。</p>
+<p>在持久连接情况下，HTTP默认采用流水线方式，将多个请求一个接一个的发出，而不需要等待未决请求的回答，一般来说，一个连接经过一定时间间隔未被使用，HTTP服务器就关闭该连接。</p>
+<p><img src="/assets/img/computerScience/1584951828.png" alt="Correspondence"></p>
+<h3 id="HTTP报文格式"><a href="#HTTP报文格式" class="headerlink" title="HTTP报文格式"></a>HTTP报文格式</h3><h4 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h4><p><img src="/assets/img/computerScience/1584951989.jpg" alt="Correspondence"><br>这是一个典型的HTTP请求报文，可以看到：</p>
+<ul>
+<li>报文是用普通的ASCII文本书写</li>
+<li>共5行，每一行以换行符结束<ul>
+<li>第一行叫做<strong>请求行</strong><ul>
+<li>请求行有3个字段：方法字段、URL字段、HTTP协议版本字段</li>
+<li>请求方法：Get、Post、Put、Head、Delete等</li>
+<li>/somedir/page.html就是请求对象的URL地址</li>
+</ul>
+</li>
+<li>后继的行叫做<strong>首部行</strong><ul>
+<li><code>Host:www.xczll.cn</code>指明了目标所在的主机</li>
+<li>Connection: close 告诉服务器在发送完被请求的对象后，就关闭连接</li>
+<li>User-agent 用来定义用户代理，即发出请求的浏览器类型</li>
+<li>Accept-language：表示用户想得到该对象的语法版本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>请求报文通用格式</strong>：<br><img src="/assets/img/computerScience/1584952615.jpg" alt="Correspondence"><br>主要组成：请求行、消息头部、空行、请求正文</p>
+<p><strong>常见请求方法</strong>：</p>
 <ol>
-<li>创建型模式：简单工厂（不是GOF23种之一）、工厂方法、抽象工厂、建造者、单例、原型</li>
-<li>结构型模式：外观、装饰者、适配器、享元、组合、桥接、代理</li>
-<li>行为型模式：模板、迭代器、策略、解释器、观察者、备忘录、命令、中介者、责任链、访问者、状态</li>
+<li><strong>Get</strong><ul>
+<li>最为常见的请求方式</li>
+<li><strong>请求参数和对应的值附加在URL后面</strong>，利用一个问号（“?”）代表URL的结尾与请求参数的开始<ul>
+<li>传递参数长度受限制</li>
+<li><strong>并且参数直接在地址栏中，不适合传送私密数据</strong></li>
+</ul>
+</li>
+<li>要求服务器将URL定位的<strong>资源放在响应报文的数据部分</strong>，回送给客户端。</li>
+</ul>
+</li>
+<li><strong>Post</strong><ul>
+<li>允许客户端给服务器提供信息较多</li>
+<li>请求参数封装在Http请求数据中，以名称/值的方式出现，不会显现在URL中、</li>
+</ul>
+</li>
+<li><strong>Head</strong><ul>
+<li>类似Get</li>
+<li>只不过服务端接受到HEAD请求后只返回响应头，而不会发送响应内容。</li>
+<li>对于查看页面状态十分高效</li>
+</ul>
+</li>
+<li><strong>Put</strong><ul>
+<li>从客户端向服务器传送的数据取代指定的文档的内容。</li>
+</ul>
+</li>
+<li><strong>Delete</strong><ul>
+<li>请求服务器删除指定的页面。</li>
+</ul>
+</li>
 </ol>
-    
-    <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-06-simpleFactory" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" target="_blank">设计模式之简单工厂模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" class="archive-article-date">
-        <time datetime="2020-03-06T11:25:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><p>由一个工厂对象决定创建出哪一种产品类的实例</p>
-</li>
-<li><p>又称为静态方法模式（创建型，但是不属于GOF23种设计模式）</p>
-</li>
-<li><p>现实生活中，工厂是负责生产产品的；同样，在设计模式种，简单工厂模式我们可以理解为是负责生产对象的一个类，称为”工厂类“</p>
+<h4 id="HTTP响应报文"><a href="#HTTP响应报文" class="headerlink" title="HTTP响应报文"></a>HTTP响应报文</h4><p><img src="/assets/img/computerScience/1584953285.jpg" alt="Correspondence"></p>
+<p>响应报文也由四个部分组成：响应行、响应头、空行、响应体</p>
+<ul>
+<li>响应行组成：服务器HTTP协议版本、响应状态代码、状态代码的文本描述<ul>
+<li>状态码负责表示客户端请求的返回结果、标记服务器端是否正常、通知出现的错误。<strong>状态代码由三位数字组成</strong>，<strong>第一个数字定义了响应的类别，且有五种可能取值</strong></li>
+</ul>
 </li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-05-designPrinciple" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" target="_blank">设计模式之六大原则</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" class="archive-article-date">
-        <time datetime="2020-03-05T10:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h3><ul>
-<li>开闭原则</li>
-<li>依赖倒置原则</li>
-<li>单一职责原则</li>
-<li>接口隔离原则</li>
-<li>迪米特法则（最少知道原则）</li>
-<li>里氏替换原则</li>
+<p>响应状态代码:</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx</td>
+<td>指示信息–表示请求已接收，继续处理</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>响应成功</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td><strong>重定向</strong>–要完成请求必须进行更进一步的操作</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td><strong>客户端错误</strong>–请求有语法错误或请求无法实现</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td><strong>服务器端错误</strong>–服务器未能实现合法的请求</td>
+</tr>
+</tbody></table>
+<p>常见状态码：</p>
+<ul>
+<li>200 OK：请求成功，信息包含在返回的响应报文中</li>
+<li>301: Moved Permanently：请求的对象已经永久转移了，新的URL定义在响应报文的Localtion:首部行中指定。客户机软件自动用新的URL获取该对象</li>
+<li>400 Bad Request：差错代码，指示该请求不能被服务器理解</li>
+<li>404 Not Found：被请求的文档不在服务器上</li>
+<li>505 Http Version Not Supported：服务器不支持请求报文使用的HTTP协议版本</li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/#more">more >></a>
-    
-    
+<h3 id="用户与服务器的交互：Cookie"><a href="#用户与服务器的交互：Cookie" class="headerlink" title="用户与服务器的交互：Cookie"></a>用户与服务器的交互：Cookie</h3><p>HTTP连接是无状态的，但web站点通常希望能够识别用户，因此出现了Cookie</p>
+<p>Cookie组成部分：</p>
+<ol>
+<li>在HTTP响应报文有一个cookie首部行</li>
+<li>在HTTP请求报文中有一个cookie首部行</li>
+<li>在用户端系统中保留有一个cookie文件</li>
+<li>在web站点有一个后端数据库</li>
+</ol>
+<p>通过cookie，站点可以识别用户，从而进行相应针对，并且cookie容易侵犯隐私，web站点能够知道很多用户信息，并依此获取利益。</p>
+<h3 id="Web缓存"><a href="#Web缓存" class="headerlink" title="Web缓存"></a>Web缓存</h3><p><strong>Web缓存器</strong>(Web Cache)也叫<strong>代理服务器</strong>，是能代表初始Web服务器满足HTTP请求的网络实体。<br>Web缓存器有自己的磁盘存储空间，并在该存储空间中保存最近请求过的对象的拷贝，可以让用户的HTTP请求首先指向Web缓存器。</p>
+<p>浏览器请求对象：</p>
+<ol>
+<li>浏览器建立一个到Web缓存器的TCP连接，向缓存器中的对象发送一个HTTP请求</li>
+<li>Web缓存器检查本地是否缓存了此对象，如果有，就向客户机返回此对象</li>
+<li>没有缓存，就与该对象的初始服务器打开一个TCP连接，发送获取该对象的HTTP请求</li>
+<li>在Web缓存器收到该对象后，在本地存储空间存储一份拷贝，并用HTTP响应报文向客户机的浏览器发送该拷贝。</li>
+</ol>
+<p>Web缓存器可以降低服务器的压力，减少客户机请求的响应时间。</p>
+<h4 id="条件Get方法"><a href="#条件Get方法" class="headerlink" title="条件Get方法"></a>条件Get方法</h4><p>目的是让缓存器证实它的对象是最新的，没有过时</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="">计算机网络:自顶向下法</a></li>
+<li><a href="https://www.cnblogs.com/biyeymyhjob/archive/2012/07/28/2612910.html" target="_blank" rel="noopener">HTTP请求报文</a></li>
+<li><a href="https://juejin.im/post/5ad73fa9f265da50463e3703" target="_blank" rel="noopener">HTTP响应报文</a></li>
+</ul>
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/23/computerscience/2020-03-23-applicationProtocol/" title="计算机网络之应用层Http协议" target="_blank">https://xczllgit.github.io/2020/03/23/computerscience/2020-03-23-applicationProtocol/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -696,7 +506,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
@@ -708,7 +518,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
+        			<a href="/categories/computerNetwork//" class="article-tag-list-link color1">computerNetwork</a>
         		</li>
       		
 		</ul>
@@ -716,16 +526,76 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/23/computerscience/2020-03-23-applicationProtocol/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java虚拟机内存结构</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -740,8 +610,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web页面"><span class="toc-number">2.</span> <span class="toc-text">web页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP请求"><span class="toc-number">3.</span> <span class="toc-text">HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#非持久连接与持久连接"><span class="toc-number">3.1.</span> <span class="toc-text">非持久连接与持久连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP报文格式"><span class="toc-number">4.</span> <span class="toc-text">HTTP报文格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP请求报文"><span class="toc-number">4.1.</span> <span class="toc-text">HTTP请求报文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP响应报文"><span class="toc-number">4.2.</span> <span class="toc-text">HTTP响应报文</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户与服务器的交互：Cookie"><span class="toc-number">5.</span> <span class="toc-text">用户与服务器的交互：Cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web缓存"><span class="toc-number">6.</span> <span class="toc-text">Web缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#条件Get方法"><span class="toc-number">6.1.</span> <span class="toc-text">条件Get方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -780,147 +673,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-designPattern/2020-03-04-designPattern-UML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" class="archive-article-date">
-        <time datetime="2020-03-04T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-04</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>UML类图由许多模型元素以及不同的线、箭头组成，这些元素、线、箭头分别代表了Java中的接口、类、继承依赖关系等，将Java中各个类的关系以UML类图的方式展示出来，有助于我们理清依赖与继承实现关系。</strong></p>
-    
-    <a class="article-more-a" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -958,8 +710,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
