@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>Archives: 2020/3 | xczll的博客</title>
+  <title>java虚拟机内存结构 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/archives/2020/03/page/2/index.html">
+  <meta name="description" content="虚拟机内存区域划分在《java虚拟机规范》中，并没有提到java虚拟机内存结构，而是使用的”运行时数据区”这个术语，也就是说java虚拟机内存结构 &#x3D; 运行时数据区。 在hotspot中，通常来讲，运行时数据区被划分为两块区域：线程独占区和线程共享区。  线程独占区 java虚拟机栈 本地方法栈 程序计数器   线程共享区 java堆 方法区   直接内存（Direct Memory）：并不是ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java虚拟机内存结构">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="虚拟机内存区域划分在《java虚拟机规范》中，并没有提到java虚拟机内存结构，而是使用的”运行时数据区”这个术语，也就是说java虚拟机内存结构 &#x3D; 运行时数据区。 在hotspot中，通常来讲，运行时数据区被划分为两块区域：线程独占区和线程共享区。  线程独占区 java虚拟机栈 本地方法栈 程序计数器   线程共享区 java堆 方法区   直接内存（Direct Memory）：并不是ja">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1584940719.jpg">
+<meta property="article:published_time" content="2020-03-23T04:15:36.000Z">
+<meta property="article:modified_time" content="2020-03-23T05:45:08.012Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1584940719.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -221,568 +226,384 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-jvm/2020-03-23-jvmMemoryRegion" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/17/designPattern/2020-03-17-compositePattern/" class="archive-article-date">
-        <time datetime="2020-03-17T14:46:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/17/designPattern/2020-03-17-compositePattern/" target="_blank">设计模式之组合模式</a>
   
+    <h1 class="article-title" itemprop="name">
+      java虚拟机内存结构
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" class="archive-article-date">
+        <time datetime="2020-03-23T04:15:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.5k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">5分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="虚拟机内存区域划分"><a href="#虚拟机内存区域划分" class="headerlink" title="虚拟机内存区域划分"></a>虚拟机内存区域划分</h3><p>在《java虚拟机规范》中，并没有提到java虚拟机内存结构，而是使用的”运行时数据区”这个术语，也就是说java虚拟机内存结构 = 运行时数据区。</p>
+<p>在hotspot中，通常来讲，运行时数据区被划分为两块区域：线程独占区和线程共享区。</p>
+<ul>
+<li>线程独占区<ul>
+<li>java虚拟机栈</li>
+<li>本地方法栈</li>
+<li>程序计数器</li>
+</ul>
+</li>
+<li>线程共享区<ul>
+<li>java堆</li>
+<li>方法区</li>
+</ul>
+</li>
+<li>直接内存（Direct Memory）：并不是java虚拟机运行时数据区的一部分，但是经常使用<br><img src="/assets/img/jvm/1584940719.jpg" alt="strategy"></li>
+</ul>
+<a id="more"></a>
+
+<h3 id="线程独占区"><a href="#线程独占区" class="headerlink" title="线程独占区"></a>线程独占区</h3><h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p><strong>当前线程</strong>所<strong>执行的字节码</strong>的<strong>行号指示器</strong>，用于记录正在执行的虚拟机字节指令地址，线程私有。<br><strong>程序计数器</strong>是<strong>唯一一个</strong>在Java虚拟机规范中没有规定<strong>任何 OutOfMemoryError 情况的区域</strong>。<br>特点：</p>
+<ul>
+<li>程序计数器是一块较小的内存空间，它可以看做是当前线程所执行的字节码的行号指示器</li>
+<li>处于线程独占区</li>
+<li>如果线程执行的是Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址。如果正在执行的是 native方法，这个计数器的值为 undefined</li>
+</ul>
+<h4 id="java虚拟机栈"><a href="#java虚拟机栈" class="headerlink" title="java虚拟机栈"></a>java虚拟机栈</h4><p>虚拟机栈描述的是Java执行的动态内存模式<br>java虚拟机的<strong>每一条线程都有自己私有的Java虚拟机栈</strong>，这个Java虚拟机栈跟线程同时创建，所以它<strong>与线程有着相同的生命周期</strong>。</p>
+<p><strong>栈帧</strong>：</p>
+<ul>
+<li>每个java方法执行，都会在虚拟机栈中创建一个栈帧，伴随着方法从创建到执行完成。用于存储局部变量表，操作数栈，动态链接、方法出口等。</li>
+<li>如果栈满了，再放入新的栈帧，就会报 <strong>StackOverflowError</strong>错误<ul>
+<li>常见的递归深度太过，就会抛出此异常</li>
+</ul>
+</li>
+<li>如果把栈的深度设置为非常非常大，超出了java虚拟机的内存或物理机器的内存，然后不断的往虚拟机栈中存放栈帧，直到超出了实际物理内存的容纳限制之后，会报<strong>OutOfMemory</strong>错误</li>
+</ul>
+<p><strong>局部变量表</strong>：</p>
+<ul>
+<li>存放编译器可知的各种基本数据类型，引用类型，returnAddress类型<ul>
+<li>returnAddress类型的值是指向jvm指令操作符的指针,不对应java类型，不能被运行程序修改</li>
+</ul>
+</li>
+<li><strong>局部变量表的内存空间在编译期完成分配</strong>，当进入一个方法时，这个方法需要在帧分配多少内存是固定的，在方法运行期间是不会改变局部变量表的大小的。</li>
+</ul>
+<h4 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h4><p>和虚拟机栈类似，只不过<strong>服务于native方法</strong>，<strong>线程私有</strong><br>本地方法栈区域也会抛出 StackOverflowError 和 OutOfMemoryError 异常。</p>
+<h3 id="线程共享区"><a href="#线程共享区" class="headerlink" title="线程共享区"></a>线程共享区</h3><h4 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h4><p>Java堆是所有线程共享，在<strong>虚拟机启动时就会被创建</strong></p>
+<ul>
+<li>占据内存空间最大的一块区域</li>
+<li>用于存放对象实例以及数组<ul>
+<li>new出来的对象都放这里</li>
+</ul>
+</li>
+</ul>
+<p>Java堆可以根据分代划分：</p>
+<ul>
+<li>年轻代<ul>
+<li><strong>Eden区</strong></li>
+<li><strong>Survivor1</strong>(from)</li>
+<li><strong>Survivor2</strong>(to)</li>
+<li>一般来说，三个区的大小比例为： Eden:from:to = 8:1:1</li>
+</ul>
+</li>
+<li>老年代</li>
+</ul>
+<p>Survivor的存在意义，就是减少被送到老年代的对象，进而减少Full GC的发生，Survivor的预筛选保证，只有经历16次Minor GC(默认次数)还能在新生代中存活的对象，才会被送到老年代。</p>
+<p>可以通过指令指定java堆大小：</p>
+<ul>
+<li>-Xms:堆容量初始大小（堆包括新生代和老年代）。 例如：-Xms 20M</li>
+<li>-Xmx： 堆最大容量。 例如：-Xmx 30M</li>
+<li>-Xmn： 新生代容量大小。例如：-Xmn 10M</li>
+<li>-XX： SurvivorRatio 设置参数Eden、form和to的比例 【比例参数Eden、form和to默认是8：1：1】例如：-XX： SurvivorRatio=8 代表比例8：1：1</li>
+</ul>
+<p>当Java 堆内没有足够的空间去完成实例分配时，并且堆也无法扩展，将会抛出我们常见的<strong>OutOfMemoryError</strong> 异常，也就是我们常说的<strong>OOM</strong> 异常</p>
+<h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h4><p>在JDK1.8以前，方法区被称为永久代。<br>方法区是各线程共享，它<strong>存储了每个类的结构信息</strong>，例如<strong>运行时常量池</strong>、字段、方法数据、构造函数和普通方法的字节码内容，还包括一些在类、实例、接口初始化时用到的特殊方法。</p>
+<p>运行时常量池：</p>
+<ul>
+<li>存在一个<strong>字符串常量池</strong>，相当于一个HashSet<String>，每次创建一个String对象，就会往这里面放一次，但是HashSet这种数据结构<strong>不允许重复元素</strong>，所以创建的相同字符串的String对象，只会存在一个<ul>
+<li>这里说的创建String对象，不是通过new，是  String str = “abc”;这种方式创建String对象</li>
+<li><strong>new创建对象一定是在堆内存</strong></li>
+<li>String.intern()方法，会把堆内存中的String对象放到运行时常量池中的字符串常量池中去。</li>
+</ul>
+</li>
+<li>当常量池无法申请到内存时，也会抛出 OutOfMemory错误</li>
+</ul>
+<h3 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h3><p>直接内存并不是虚拟机运行时数据区的一部分，也不是Java 虚拟机规范中农定义的内存区域。<br>在    JDK1.4 中新加入了<strong>NIO(New Input/Output)类</strong>，引入了一种基于通道(Channel)与缓冲区（Buffer）的I/O 方式，它可以<strong>使用native 函数库直接分配堆外内存</strong>，然后通过一个存储在Java堆中的<strong>DirectByteBuffer对象**</strong>作为这块内存的引用进行操作。<strong>这样能在一些场景中显著</strong>提高性能<strong>，因为</strong>避免了在Java堆和Native堆中来回复制数据**。</p>
+<p>本机<strong>直接内存的分配不会受到Java堆大小的限制</strong>，<strong>受到本机总内存大小限制</strong></p>
+<p>配置虚拟机参数时，不要忽略直接内存，防止出现OutOfMemoryError异常。</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.roncoo.com/view/67" target="_blank" rel="noopener">深入理解java虚拟机</a></li>
+<li><a href="https://blog.csdn.net/qq_44543508/article/details/103448553" target="_blank" rel="noopener">JVM 内存结构基于JDK1.8</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" title="java虚拟机内存结构" target="_blank">https://xczllgit.github.io/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
+        			<a href="/categories/jvm//" class="article-tag-list-link color4">jvm</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/17/concurrent/2020-03-17-javaMemoryModel/" class="archive-article-date">
-        <time datetime="2020-03-17T13:45:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/23/jvm/2020-03-23-jvmIntroduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java虚拟机介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/17/concurrent/2020-03-17-javaMemoryModel/" target="_blank">java并发之Java内存模型</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机内存区域划分"><span class="toc-number">1.</span> <span class="toc-text">虚拟机内存区域划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程独占区"><span class="toc-number">2.</span> <span class="toc-text">线程独占区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器"><span class="toc-number">2.1.</span> <span class="toc-text">程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java虚拟机栈"><span class="toc-number">2.2.</span> <span class="toc-text">java虚拟机栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈"><span class="toc-number">2.3.</span> <span class="toc-text">本地方法栈</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程共享区"><span class="toc-number">3.</span> <span class="toc-text">线程共享区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java堆"><span class="toc-number">3.1.</span> <span class="toc-text">Java堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区"><span class="toc-number">3.2.</span> <span class="toc-text">方法区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接内存"><span class="toc-number">4.</span> <span class="toc-text">直接内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" class="archive-article-date">
-        <time datetime="2020-03-16T12:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" target="_blank">java并发之线程安全</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" class="archive-article-date">
-        <time datetime="2020-03-16T11:39:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" target="_blank">设计模式之享元模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" class="archive-article-date">
-        <time datetime="2020-03-15T13:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" target="_blank">设计模式之适配器模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" class="archive-article-date">
-        <time datetime="2020-03-15T12:17:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" target="_blank">java并发之线程属性</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadException/" class="archive-article-date">
-        <time datetime="2020-03-15T11:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadException/" target="_blank">java并发之异常处理</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/hello-world/" class="archive-article-date">
-        <time datetime="2020-03-15T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">介绍</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/欢迎//" class="article-tag-list-link color3">欢迎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-14T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/concurrent/2020-03-14-threadMethods/" class="archive-article-date">
-        <time datetime="2020-03-14T14:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/concurrent/2020-03-14-threadMethods/" target="_blank">java并发之Thread和Object类中线程相关方法</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/03/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/03/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/03/page/3/">3</a><a class="page-number" href="/archives/2020/03/page/4/">4</a><a class="extend next" rel="next" href="/archives/2020/03/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -821,8 +642,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
