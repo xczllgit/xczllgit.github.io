@@ -6,22 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>java虚拟机垃圾回收 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/7/index.html">
+  <meta name="description" content="概述不同于C&#x2F;C++，java语言有着自动垃圾回收机制，这让程序员免于手动操作对象或其他资源回收问题，提高了实际开发效率。但是在实际工程中，当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集成为了高并发系统的瓶颈时，垃圾回收机制的原理就是绕不开的一道坎，因此对于这些“自动化”的技术仍然有着必要去深入了解。 对于java虚拟机内存结构，其中对于线程独占区的程序计数器、虚拟机栈、本地方法栈3个区域的内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java虚拟机垃圾回收">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="概述不同于C&#x2F;C++，java语言有着自动垃圾回收机制，这让程序员免于手动操作对象或其他资源回收问题，提高了实际开发效率。但是在实际工程中，当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集成为了高并发系统的瓶颈时，垃圾回收机制的原理就是绕不开的一道坎，因此对于这些“自动化”的技术仍然有着必要去深入了解。 对于java虚拟机内存结构，其中对于线程独占区的程序计数器、虚拟机栈、本地方法栈3个区域的内">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585135219.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585135790.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585138144.jpg">
+<meta property="article:published_time" content="2020-03-25T09:51:13.000Z">
+<meta property="article:modified_time" content="2020-03-25T12:14:29.584Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1585135219.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,467 +228,192 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-concurrent/2020-03-11-stopThread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-jvm/2020-03-25-jvmGarbageCollection" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/11/concurrent/2020-03-11-stopThread/" target="_blank">java并发之停止线程的正确和错误方式</a>
-  
+    <h1 class="article-title" itemprop="name">
+      java虚拟机垃圾回收
     </h1>
   
 
 
   
   
-<a href="/2020/03/11/concurrent/2020-03-11-stopThread/" class="archive-article-date">
-        <time datetime="2020-03-11T12:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" class="archive-article-date">
+        <time datetime="2020-03-25T09:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2.2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在上一篇文章介绍了线程如何正确启动，接下来就来认识下线程的停止。<br>线程属于一次性消耗品，正常情况下当线程执行完run()方法之后，线程就会自动结束了。然而在某些特殊场景，如run方法陷入了无限循环、死锁等情形，run()方法就不能正常执行结束并让线程退出了，那么当需要结束线程时，到底应该如何退出线程呢？</p>
-<h4 id="通常线程会在什么情况下停止"><a href="#通常线程会在什么情况下停止" class="headerlink" title="通常线程会在什么情况下停止"></a>通常线程会在什么情况下停止</h4><p>首先我们先了解线程一般在什么情况下停止：</p>
-<ol>
-<li>当线程的run()方法所有代码执行完成了</li>
-<li>当有异常出现，而方法中没有捕获</li>
-</ol>
-    
-    <a class="article-more-a" href="/2020/03/11/concurrent/2020-03-11-stopThread/#more">more >></a>
-    
-    
+    <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>不同于C/C++，java语言有着自动垃圾回收机制，这让程序员免于手动操作对象或其他资源回收问题，提高了实际开发效率。但是在实际工程中，当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集成为了高并发系统的瓶颈时，垃圾回收机制的原理就是绕不开的一道坎，因此对于这些“自动化”的技术仍然有着必要去深入了解。</p>
+<p>对于java虚拟机内存结构，其中对于线程独占区的程序计数器、虚拟机栈、本地方法栈3个区域的内存随着线程而生灭，栈帧随着方法的开始和结束有序入栈与出栈，因此这3个区域的内存回收与分配不需要过多考虑。<br>而对于线程共享区的Java堆和方法区，它们由多个线程共享，每个线程对于内存的要求都是不同的，只有在程序运行时才能知道具体情况，因此这部分的内存回收与分配是我们需要关注的。</p>
+<a id="more"></a>
 
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/11/concurrent/2020-03-11-stopThread/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-10-startThread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/10/concurrent/2020-03-10-startThread/" target="_blank">java并发之启动线程的正确和错误方式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/10/concurrent/2020-03-10-startThread/" class="archive-article-date">
-        <time datetime="2020-03-10T13:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><p>多线程并发是一件很美妙的事情，并发的出现使得能够同时运行多个线程，极大的提升了计算机资源的使用效率，并且使得计算机可以同时运行多个程序，而多线程的基础是多个线程的启动，接下来就来好好看看在Java中的线程启动的方式</p>
-<p>Thread类的启动方式常见的观点有start()和run()两种方法。</p>
-    
-    <a class="article-more-a" href="/2020/03/10/concurrent/2020-03-10-startThread/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/10/concurrent/2020-03-10-startThread/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-09-ProtypePattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" target="_blank">设计模式之原型模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" class="archive-article-date">
-        <time datetime="2020-03-09T13:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>用原型示例指定创建对象的种类，并且通过<strong>拷贝这些原型创建新的对象。</strong></p>
-<p><strong>主要解决</strong>：在运行期建立和删除原型。</p>
-<p><strong>何时使用</strong>:</p>
-<ol>
-<li>当一个系统应该独立于它的产品创建、构成和表示时。</li>
-<li>当要实例化的类是在运行时才指定，比如通过动态装载。</li>
-<li>为了避免创建一个与产品类层次平行的工厂类层次时。</li>
-<li>当一个类的实例只能由几个不同状态组合中的一种时，建立相应数目的原型并克隆它们，可能比每次用合适的状态手工实例化该类更方便一些。</li>
-</ol>
-<p><strong>如何解决</strong>：利用已有的一个原型对象，快速地生成和原型对象一样的实例。</p>
-    
-    <a class="article-more-a" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-09-multiThread-build" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/" target="_blank">java并发之实现多线程的方法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/09/concurrent/2020-03-09-multiThread-build/" class="archive-article-date">
-        <time datetime="2020-03-09T02:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="一锤定音"><a href="#一锤定音" class="headerlink" title="一锤定音"></a>一锤定音</h3><p>Oracle官网的文档中：<br>实现多线程的方式一共有<strong>两种</strong>：</p>
+<h3 id="对象是否存活"><a href="#对象是否存活" class="headerlink" title="对象是否存活"></a>对象是否存活</h3><p>虚拟机进行垃圾回收的首要步骤就是判断哪些对象需要回收(即哪些对象已经不再存活了),判断的方法在目前主流java虚拟机中主要为: 引用计数法和可达性分析法</p>
+<h4 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h4><p>在对象中添加一个引用计数器,每当有一个地方引用这个对象时,计数器的值就+1,当引用失效(如引用对象值置为null)，计数器的值就-1，当计数器的值为0时，就判断此时的对象是不可能再被使用的了，就可以被回收了。</p>
+<p><strong>缺陷</strong>：</p>
 <ul>
-<li>方法一：实现Runnable接口</li>
-<li>方法二：继承Thread类<br><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html" target="_blank" rel="noopener">官方文档</a><br><img src="/assets/img/concurrent/1583753792.jpg" alt="docs"></li>
+<li>引用计数法存在一个巨大的缺陷：当两个或多个对象互相引用，它们的计数器就不会为0，那这些对象就不可能被垃圾回收了。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xcz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Test.java</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2020年03月25日 19:03:00</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 测试引用计数法进行垃圾收集</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> num20MB = <span class="number">1024</span>*<span class="number">1024</span>*<span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] BigStorage = <span class="keyword">new</span> <span class="keyword">byte</span>[num20MB];   <span class="comment">//此时此数组所占内存为20MB</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Test test1 = <span class="keyword">new</span> Test();</span><br><span class="line">        Test test2 = <span class="keyword">new</span> Test();</span><br><span class="line">        test1.instance = test2;</span><br><span class="line">        test2.instance = test1;</span><br><span class="line">        test1 = <span class="keyword">null</span>;</span><br><span class="line">        test2 = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+在IDEA中的run选项，进入找到Edit Configurations，然后找到当前类的配置项，在VM options中添加<code>-verbose:gc -XX:+PrintGCDetails</code>就能打印出GC的详细日志<br>从程序中可以看到，有两个Test对象，每个对象有一个20MB大小的数组，然后执行System.gc(), 输出日志：<br><img src="/assets/img/jvm/1585135219.jpg" alt="strategy"><br>从图中我们可以看到，此次System.gc()回收了大约40MB的内存，由此可以判断java8的垃圾回收中并不是使用的引用计数法寻找垃圾对象。</li>
 </ul>
-<h3 id="方法一：实现Runnable接口"><a href="#方法一：实现Runnable接口" class="headerlink" title="方法一：实现Runnable接口"></a>方法一：实现Runnable接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xcz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> RunnableStyle.java</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2020年02月28日 11:25:00</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 用Runnable方式创建线程</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableStyle</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableStyle());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"用Runnable方法实现线程"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用Runnable方法实现线程</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/#more">more >></a>
-    
-    
+<h4 id="可达性分析法"><a href="#可达性分析法" class="headerlink" title="可达性分析法"></a>可达性分析法</h4><p>基本思路：通过一系列的称为“<strong>GC Roots</strong>”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为<strong>引用链</strong>，当一个对象到GC Roots没有任何引用链时，则证明此对象是不可用的，可以进行回收了</p>
+<p>示例：<br><img src="/assets/img/jvm/1585135790.jpg" alt="strategy"></p>
+<p>图中的Object5、Object6、Object7三个对象虽然彼此之间存在引用关系，但是由于从GC Roots不可达，仍然属于需要被回收的范畴。</p>
+<p>GC Roots是一组必须活跃的引用：</p>
+<ul>
+<li>所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。        （线程独占区指向线程共享区）</li>
+<li>VM的一些静态数据结构里指向GC堆里的对象的引用</li>
+<li>java本地接口句柄</li>
+<li>（看情况）所有当前被加载的Java类</li>
+<li>（看情况）Java类的引用类型静态变量</li>
+<li>（看情况）Java类的运行时常量池里的引用类型常量（String或Class类型）</li>
+<li>（看情况）String常量池（StringTable）里的引用</li>
+</ul>
+<p>注意，是一组必须<strong>活跃的引用，不是对象</strong>。</p>
+<p>GC Roots的选择必须完整全面，不然会漏掉一些应该存活的对象，导致这些对象被误回收了。</p>
+<p>分代式GC对GC roots的定义有什么影响呢？</p>
+<p>答案是：分代式GC是一种部分收集（partial collection）的做法。在执行部分收集时，从GC堆的非收集部分指向收集部分的引用，也必须作为GC roots的一部分。<br>具体到分两代的分代式GC来说，如果第0代叫做young gen，第1代叫做old gen，那么如果有minor GC / young GC只收集young gen里的垃圾，则young gen属于“<strong>收集部分</strong>”，而old gen属于“<strong>非收集部分</strong>”，那么<strong>从old gen指向young gen的引用就必须作为minor GC / young GC的GC roots的一部分。</strong><br>继续具体到HotSpot VM里的分两代式GC来说，除了old gen到young gen的引用之外，有些带有弱引用语义的结构，例如说记录所有当前被加载的类的SystemDictionary、记录字符串常量引用的StringTable等，在young GC时必须要作为strong GC roots，而在收集整堆的full GC时则不会被看作strong GC roots。<br>换句话说，young GC比full GC的GC roots还要更大一些。</p>
+<p><strong>总结：就是从非收集部分中的引用设置为GC Roots，指向GC收集部分，当收集部分中有对象处于引用链，就不需要回收了，因为这些对象是非收集部分中引用所需要的对象。</strong></p>
+<p>一般情况下，Java语言中可以作为GC Roots的对象包括：</p>
+<ul>
+<li>虚拟机栈(栈帧中的本地变量表)中的引用的对象</li>
+<li>方法区中的类静态属性引用的对象</li>
+<li>方法区中的常量引用的对象</li>
+<li>本地方法栈中JNI的引用的对象</li>
+</ul>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><h4 id="标记清除法"><a href="#标记清除法" class="headerlink" title="标记清除法"></a>标记清除法</h4><p>通过判断对象是否存活的算法标记区分对象后，在随后的阶段，通过STW(Stop The World，中断整个JVM中程序的执行)的形式将需要回收的对象清除。</p>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>效率：标记与清除的过程性能较低</li>
+<li>空间问题：将对象直接清除，会造成越来越多的不连续的内存空间出现，如果后序找不到合适的内存大小分配给新对象，就可能会再次触发垃圾回收，十分消耗性能。</li>
+</ul>
+<h4 id="复制清除法"><a href="#复制清除法" class="headerlink" title="复制清除法"></a>复制清除法</h4><p>思想：将内存划分为两块，一块区域未使用，一块区域已经使用，在垃圾回收时，将不需要回收的对象全部复制到另一块区域，然后将原本的区域整体回收，这样就能得到一块连续的内存区域，如此循环两块区域即可。</p>
+<p>为了方便内存回收，jvm的堆内存进一步细分：</p>
+<ul>
+<li>新生代<ul>
+<li>Eden区：新创建的对象基本都会放到这个区域</li>
+<li>Survivor区：在Eden区的对象，经过了GC后而存活下来，就会移到Survivor区<ul>
+<li>Survivor1(from)</li>
+<li>Survivor2(to)</li>
+<li>两个survivor区，一般只使用其中一个，另一个备用。这样两个survivor就可以使用复制清除算法。</li>
+<li>当复制清除时，另一个区域如果装不下放过来的对象，就需要内存分配担保机制，将这些放不下的对象，放到老年代里去。</li>
+</ul>
+</li>
+<li>Ternured区：在Survivor中，经过了多次GC都存活下来了，就会移动到Tenured区</li>
+</ul>
+</li>
+<li>老年代<ul>
+<li>在新生代中<strong>存活多次GC</strong>(默认15次)后，就会移到老年代中</li>
+<li>大对象直接进入老年代</li>
+</ul>
+</li>
+</ul>
+<p>可以看出，<strong>复制清除算法主要针对的是新生代内存</strong>。</p>
+<h4 id="标记整理算法"><a href="#标记整理算法" class="headerlink" title="标记整理算法"></a>标记整理算法</h4><p>复制算法在存活对象较多时进行对象复制就比较消耗资源，效率会降低，并且会浪费一块额外的空间作为备用区域。<br>因此老年代区域一般不使用复制清除算法。</p>
+<p>标记整理算法：标记过程与标记清除的过程相同，但是标记完成后，会将所有存活的对象整体都向一端移动，然后直接清理掉端边界以外的内存。<br><img src="/assets/img/jvm/1585138144.jpg" alt="strategy"></p>
+<h4 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h4><p>即将java堆划分为新生代、老年代，每种代又各自具体进行划分。<br>然后根据不同区域的具体情况分别使用不同的垃圾回收算法，如</p>
+<ul>
+<li>新生代使用标记复制算法</li>
+<li>老年代使用标记整理算法</li>
+</ul>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
+<li><a href="https://blog.csdn.net/leishenop/article/details/53728605?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">GC ROOT的真实含义</a></li>
+</ul>
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" title="java虚拟机垃圾回收" target="_blank">https://xczllgit.github.io/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -697,7 +425,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
@@ -709,7 +437,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
+        			<a href="/categories/jvm//" class="article-tag-list-link color4">jvm</a>
         		</li>
       		
 		</ul>
@@ -717,16 +445,76 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/25/designPattern/2020-03-25-observerPattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之观察者模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -741,8 +529,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象是否存活"><span class="toc-number">2.</span> <span class="toc-text">对象是否存活</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#引用计数法"><span class="toc-number">2.1.</span> <span class="toc-text">引用计数法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可达性分析法"><span class="toc-number">2.2.</span> <span class="toc-text">可达性分析法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垃圾回收算法"><span class="toc-number">3.</span> <span class="toc-text">垃圾回收算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#标记清除法"><span class="toc-number">3.1.</span> <span class="toc-text">标记清除法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复制清除法"><span class="toc-number">3.2.</span> <span class="toc-text">复制清除法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#标记整理算法"><span class="toc-number">3.3.</span> <span class="toc-text">标记整理算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分代收集算法"><span class="toc-number">3.4.</span> <span class="toc-text">分代收集算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -781,147 +592,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-designPattern/2020-03-07-sigletonPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" target="_blank">设计模式之单例模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" class="archive-article-date">
-        <time datetime="2020-03-07T14:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>定义</strong>：保证一个类仅有一个实例，并提供一个全局访问点。<br>类型：创建型<br>适用场景：想确保任何一个场景下都绝对只有一个实例,只能通过getInstace()方法来获取对象的唯一实例。</p>
-    
-    <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -959,8 +629,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

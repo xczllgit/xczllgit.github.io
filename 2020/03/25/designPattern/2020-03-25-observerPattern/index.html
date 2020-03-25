@@ -6,21 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>设计模式之观察者模式 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/7/index.html">
+  <meta name="description" content="介绍当一个对象存在多个依赖它的对象时，此对象的改变就会影响众多因素，因此我们希望当此对象改变时，可以自动通知它的依赖对象并自动更新依赖对象中的值。观察者模式就是为此而生，定义对象间的一对多的依赖关系，当一个对象状态改变时，所有依赖于它的对象都得到通知并被自动更新。属于行为型模式 优点：1、观察者和被观察者是抽象耦合的。  2、需要建立一套触发机制 缺点：  观察者过多，通知观察者需要花费大量时间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之观察者模式">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/25/designPattern/2020-03-25-observerPattern/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="介绍当一个对象存在多个依赖它的对象时，此对象的改变就会影响众多因素，因此我们希望当此对象改变时，可以自动通知它的依赖对象并自动更新依赖对象中的值。观察者模式就是为此而生，定义对象间的一对多的依赖关系，当一个对象状态改变时，所有依赖于它的对象都得到通知并被自动更新。属于行为型模式 优点：1、观察者和被观察者是抽象耦合的。  2、需要建立一套触发机制 缺点：  观察者过多，通知观察者需要花费大量时间。">
+<meta property="article:published_time" content="2020-03-25T09:11:42.000Z">
+<meta property="article:modified_time" content="2020-03-25T09:38:04.243Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
@@ -225,600 +224,162 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-concurrent/2020-03-11-stopThread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-designPattern/2020-03-25-observerPattern" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/11/concurrent/2020-03-11-stopThread/" target="_blank">java并发之停止线程的正确和错误方式</a>
-  
+    <h1 class="article-title" itemprop="name">
+      设计模式之观察者模式
     </h1>
   
 
 
   
   
-<a href="/2020/03/11/concurrent/2020-03-11-stopThread/" class="archive-article-date">
-        <time datetime="2020-03-11T12:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/25/designPattern/2020-03-25-observerPattern/" class="archive-article-date">
+        <time datetime="2020-03-25T09:11:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.1k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">4分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在上一篇文章介绍了线程如何正确启动，接下来就来认识下线程的停止。<br>线程属于一次性消耗品，正常情况下当线程执行完run()方法之后，线程就会自动结束了。然而在某些特殊场景，如run方法陷入了无限循环、死锁等情形，run()方法就不能正常执行结束并让线程退出了，那么当需要结束线程时，到底应该如何退出线程呢？</p>
-<h4 id="通常线程会在什么情况下停止"><a href="#通常线程会在什么情况下停止" class="headerlink" title="通常线程会在什么情况下停止"></a>通常线程会在什么情况下停止</h4><p>首先我们先了解线程一般在什么情况下停止：</p>
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>当一个对象存在多个依赖它的对象时，此对象的改变就会影响众多因素，因此我们希望当此对象改变时，可以自动通知它的依赖对象并自动更新依赖对象中的值。<br>观察者模式就是为此而生，定义对象间的<strong>一对多的依赖关系</strong>，当一个对象状态改变时，所有依赖于它的对象都<strong>得到通知并被自动更新。</strong>属于<strong>行为型模式</strong></p>
+<p><strong>优点</strong>：1、观察者和被观察者是抽象耦合的。  2、需要建立一套触发机制</p>
+<p><strong>缺点</strong>：</p>
 <ol>
-<li>当线程的run()方法所有代码执行完成了</li>
-<li>当有异常出现，而方法中没有捕获</li>
+<li>观察者过多，通知观察者需要花费大量时间。  </li>
+<li>如果存在某些bug，如观察者与被观察者彼此观察，就会导致无限循环。</li>
+<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
 </ol>
-    
-    <a class="article-more-a" href="/2020/03/11/concurrent/2020-03-11-stopThread/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/11/concurrent/2020-03-11-stopThread/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-10-startThread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/10/concurrent/2020-03-10-startThread/" target="_blank">java并发之启动线程的正确和错误方式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/10/concurrent/2020-03-10-startThread/" class="archive-article-date">
-        <time datetime="2020-03-10T13:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><p>多线程并发是一件很美妙的事情，并发的出现使得能够同时运行多个线程，极大的提升了计算机资源的使用效率，并且使得计算机可以同时运行多个程序，而多线程的基础是多个线程的启动，接下来就来好好看看在Java中的线程启动的方式</p>
-<p>Thread类的启动方式常见的观点有start()和run()两种方法。</p>
-    
-    <a class="article-more-a" href="/2020/03/10/concurrent/2020-03-10-startThread/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/10/concurrent/2020-03-10-startThread/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-09-ProtypePattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" target="_blank">设计模式之原型模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/" class="archive-article-date">
-        <time datetime="2020-03-09T13:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>用原型示例指定创建对象的种类，并且通过<strong>拷贝这些原型创建新的对象。</strong></p>
-<p><strong>主要解决</strong>：在运行期建立和删除原型。</p>
-<p><strong>何时使用</strong>:</p>
-<ol>
-<li>当一个系统应该独立于它的产品创建、构成和表示时。</li>
-<li>当要实例化的类是在运行时才指定，比如通过动态装载。</li>
-<li>为了避免创建一个与产品类层次平行的工厂类层次时。</li>
-<li>当一个类的实例只能由几个不同状态组合中的一种时，建立相应数目的原型并克隆它们，可能比每次用合适的状态手工实例化该类更方便一些。</li>
-</ol>
-<p><strong>如何解决</strong>：利用已有的一个原型对象，快速地生成和原型对象一样的实例。</p>
-    
-    <a class="article-more-a" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/09/designPattern/2020-03-09-ProtypePattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-09-multiThread-build" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/" target="_blank">java并发之实现多线程的方法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/09/concurrent/2020-03-09-multiThread-build/" class="archive-article-date">
-        <time datetime="2020-03-09T02:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="一锤定音"><a href="#一锤定音" class="headerlink" title="一锤定音"></a>一锤定音</h3><p>Oracle官网的文档中：<br>实现多线程的方式一共有<strong>两种</strong>：</p>
+<p><strong>使用场景</strong>：</p>
 <ul>
-<li>方法一：实现Runnable接口</li>
-<li>方法二：继承Thread类<br><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html" target="_blank" rel="noopener">官方文档</a><br><img src="/assets/img/concurrent/1583753792.jpg" alt="docs"></li>
+<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
+<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
+<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
+<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……，可以使用观察者模式创建一种链式触发机制。</li>
 </ul>
-<h3 id="方法一：实现Runnable接口"><a href="#方法一：实现Runnable接口" class="headerlink" title="方法一：实现Runnable接口"></a>方法一：实现Runnable接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xcz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> RunnableStyle.java</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2020年02月28日 11:25:00</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 用Runnable方式创建线程</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableStyle</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableStyle());</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"用Runnable方法实现线程"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p><strong>注意</strong>：</p>
+<ul>
+<li>Java中已经有了对观察者模式支持的类<ul>
+<li>Observer接口与Observable接口可以分别指代观察者类与被观察者类</li>
+</ul>
+</li>
+<li>避免循环引用</li>
+<li>如果顺序执行，某一观察者错误会导致系统卡壳</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>通过创建观察者类与被观察类，当被观察类发生改变时，执行通知方法，通知所有观察者这次改变的发生</p>
+<h4 id="被观察者类"><a href="#被观察者类" class="headerlink" title="被观察者类"></a>被观察者类</h4><p><strong>被观察者类需要继承Observable类</strong>,通知方法是notifyObservers</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//辅助类，用于此次演示类中的变量属性</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Question</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String questionContent;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getQuestionContent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> questionContent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setQuestionContent</span><span class="params">(String questionContent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.questionContent = questionContent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 被观察者类（主体对象类）</span></span><br><span class="line"><span class="comment">     被观察者类需要继承Observable类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Course</span> <span class="keyword">extends</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String courseName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Course</span><span class="params">(String courseName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.courseName = courseName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCourseName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> courseName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通知观察者类们 被观察者类已经发生了改变</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produceQuestion</span><span class="params">(Course course, Question question)</span> </span>&#123;</span><br><span class="line">        System.out.println(question.getUsername() + <span class="string">"在"</span> + course.getCourseName() + <span class="string">"提交了问题"</span>);</span><br><span class="line">            setChanged();<span class="comment">//设置发生了改变</span></span><br><span class="line">        notifyObservers(question);<span class="comment">//通知观察者类，传递信息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="观察类"><a href="#观察类" class="headerlink" title="观察类"></a>观察类</h4><p>观察类需要实现Observer接口，并重写收到通知后的处理方法update</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String teacherName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Teacher</span><span class="params">(String teacherName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.teacherName = teacherName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//被通知 被观察者类已经发生改变之后，做出反应的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable o, Object arg)</span> </span>&#123;</span><br><span class="line">        Course course = (Course) o;</span><br><span class="line">        Question question = (Question) arg;</span><br><span class="line">        System.out.println(teacherName+<span class="string">"老师的"</span>+course.getCourseName()+<span class="string">"课程接收到一个"</span>+question.getUsername()</span><br><span class="line">                +<span class="string">"同学提出的问题，问题内容是："</span>+question.getQuestionContent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Course course = <span class="keyword">new</span> Course(<span class="string">"java设计模式精讲"</span>);</span><br><span class="line">        Teacher teacher = <span class="keyword">new</span> Teacher(<span class="string">"alphaGo"</span>);</span><br><span class="line">        Teacher teacher2 = <span class="keyword">new</span> Teacher(<span class="string">"alphaGoGo"</span>);</span><br><span class="line">        course.addObserver(teacher);</span><br><span class="line">        course.addObserver(teacher2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//业务逻辑代码</span></span><br><span class="line">        Question question = <span class="keyword">new</span> Question();</span><br><span class="line">        question.setUsername(<span class="string">"xxx"</span>);</span><br><span class="line">        question.setQuestionContent(<span class="string">"java设计模式的问题"</span>);</span><br><span class="line"></span><br><span class="line">        course.produceQuestion(course, question);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用Runnable方法实现线程</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/#more">more >></a>
-    
-    
+<blockquote>
+<p>xxx在java设计模式精讲提交了问题<br>alphaGoGo老师的java设计模式精讲课程接收到一个xxx同学提出的问题，问题内容是：java设计模式的问题<br>alphaGo老师的java设计模式精讲课程接收到一个xxx同学提出的问题，问题内容是：java设计模式的问题</p>
+</blockquote>
+<p>注意，由于在Observable源码中，使用的是倒序遍历观察者集合，所以后添加进入观察者集合的观察类先收到通知。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = arrLocal.length-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)</span><br><span class="line">            ((Observer)arrLocal[i]).update(<span class="keyword">this</span>, arg);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.runoob.com/design-pattern/observer-pattern.html" target="_blank" rel="noopener">观察者模式</a></li>
+</ul>
 
     
 
     
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/09/concurrent/2020-03-09-multiThread-build/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-        
-        
+      </a>
     </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-07-sigletonPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" target="_blank">设计模式之单例模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/" class="archive-article-date">
-        <time datetime="2020-03-07T14:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>定义</strong>：保证一个类仅有一个实例，并提供一个全局访问点。<br>类型：创建型<br>适用场景：想确保任何一个场景下都绝对只有一个实例,只能通过getInstace()方法来获取对象的唯一实例。</p>
-    
-    <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/#more">more >></a>
-    
     
 
     
-
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/25/designPattern/2020-03-25-observerPattern/" title="设计模式之观察者模式" target="_blank">https://xczllgit.github.io/2020/03/25/designPattern/2020-03-25-observerPattern/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -850,16 +411,85 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/07/designPattern/2020-03-07-sigletonPattern/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/25/designPattern/2020-03-25-observerPattern/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java虚拟机垃圾回收
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">计算机网络之应用层FTP协议</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -874,8 +504,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">2.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#被观察者类"><span class="toc-number">2.1.</span> <span class="toc-text">被观察者类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#观察类"><span class="toc-number">2.2.</span> <span class="toc-text">观察类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">2.3.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -914,14 +567,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -959,8 +604,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
