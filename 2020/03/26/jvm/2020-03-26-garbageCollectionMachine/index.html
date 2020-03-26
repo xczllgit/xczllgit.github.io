@@ -6,22 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>java虚拟机垃圾收集器 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/6/index.html">
+  <meta name="description" content="介绍垃圾收集算法是内存回收的方法，那么垃圾收集器就是根据算法去进行垃圾回收的具体实现。java虚拟机规范没有规定垃圾收集器应该如何实现，所以不同公司有着不同的垃圾收集器，下面介绍java7 Update14之后的HotSpot虚拟机，需要注意的是没有最好的，只有最适合的垃圾收集器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java虚拟机垃圾收集器">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="介绍垃圾收集算法是内存回收的方法，那么垃圾收集器就是根据算法去进行垃圾回收的具体实现。java虚拟机规范没有规定垃圾收集器应该如何实现，所以不同公司有着不同的垃圾收集器，下面介绍java7 Update14之后的HotSpot虚拟机，需要注意的是没有最好的，只有最适合的垃圾收集器">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585189135.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585189556.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585189135.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585191299.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585192802.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585196996.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585197887.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585198431.jpg">
+<meta property="article:published_time" content="2020-03-26T02:02:43.000Z">
+<meta property="article:modified_time" content="2020-03-26T04:54:41.645Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1585189135.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,471 +233,251 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-concurrent/2020-03-15-threadAttribute" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-jvm/2020-03-26-garbageCollectionMachine" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" target="_blank">java并发之线程属性</a>
-  
+    <h1 class="article-title" itemprop="name">
+      java虚拟机垃圾收集器
     </h1>
   
 
 
   
   
-<a href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" class="archive-article-date">
-        <time datetime="2020-03-15T12:17:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" class="archive-article-date">
+        <time datetime="2020-03-26T02:02:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2.2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>主要介绍Java线程属性<br>Java线程属性有：</p>
-<ol>
-<li>线程ID：每个线程都有自己的ID，用于标识不同的线程</li>
-<li>线程名称：让用户或程序员在开发、调试或运行过程中，更容易区分每个不同的线程，定位问题等。</li>
-<li>是否是守护线程：true代表该线程是[守护线程]，false代表线程是非守护线程，也就是[用户线程]。</li>
-<li>优先级：优先级这个属性的目的是告诉线程调度器，用户希望哪些线程相对多运行、哪些少运行。</li>
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>垃圾收集算法是内存回收的方法，那么垃圾收集器就是根据算法去进行垃圾回收的具体实现。java虚拟机规范没有规定垃圾收集器应该如何实现，所以不同公司有着不同的垃圾收集器，下面介绍java7 Update14之后的HotSpot虚拟机，需要注意的是<strong>没有最好的，只有最适合的垃圾收集器</strong></p>
+<a id="more"></a>
+
+<h3 id="新生代收集器"><a href="#新生代收集器" class="headerlink" title="新生代收集器"></a>新生代收集器</h3><h4 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h4><p>jdk 1.3以前，回收新生代内存的唯一选择</p>
+<ul>
+<li>最基本、发展最悠久</li>
+<li><strong>单线程</strong>垃圾收集器<ul>
+<li>回收垃圾时，会暂停其他线程(Stop The World)</li>
+<li>收集完成之后，其他线程才能继续执行</li>
+</ul>
+</li>
+<li>效率比较低</li>
+<li>简单而高效（与其他收集器的单线程相比）<br>仍然是虚拟机运行在Client模式下的默认新生代收集器</li>
+</ul>
+<p>运行示意图：<br><img src="/assets/img/jvm/1585189135.jpg" alt="strategy"></p>
+<h4 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h4><p>ParNew收集器相当于Serial收集器的多线程版本，除了使用多条线程进行垃圾收集之外，其他行为与Serial收集器完全一样。</p>
+<ul>
+<li>并行多线程收集器<ul>
+<li>回收垃圾时，会暂停其他线程，多个垃圾收集器同时进行收集，从而降低了回收时间</li>
+<li><strong>并行：指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态</strong></li>
+</ul>
+</li>
+<li>收集完成之后，其他线程才能继续执行</li>
+<li>新生代收集器</li>
+</ul>
+<p>运行示意图：<br><img src="/assets/img/jvm/1585189556.jpg" alt="strategy"></p>
+<h4 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h4><ul>
+<li>新生代收集器</li>
+<li>垃圾回收算法：<strong>标记复制算法</strong></li>
+<li>并行多线程收集器</li>
+<li>目标：达到一个可控的吞吐量<ul>
+<li>吞吐量 = 程序运行时间/(程序运行时间+GC时间)</li>
+<li>也就是说Parallel收集器是为了控制垃圾回收时间</li>
+</ul>
+</li>
+<li>提供了两个参数用于精确控制吞吐量：<ul>
+<li>控制最大垃圾收集停顿时间：-XX:MaxGCPauseMills<ul>
+<li>不是越小越好，小了，收集不完全，就会让垃圾收集更加频繁，反而适得其反</li>
+</ul>
+</li>
+<li>直接设置吞吐量：-XX:GCTimeRatio</li>
+</ul>
+</li>
+<li>开关参数： -XX:+UseAdaptiveSizePolicy<ul>
+<li>打开此参数后，系统会根据系统的运行情况收集性能监控信息，动态调整jvm内存细节参数，以提供最合适的停顿时间或最大的吞吐量</li>
+<li>GC自适应的调节策略</li>
+</ul>
+</li>
+</ul>
+<h3 id="老年代收集器"><a href="#老年代收集器" class="headerlink" title="老年代收集器"></a>老年代收集器</h3><h4 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h4><p>Serial Old是Serial收集器的老年代版本</p>
+<ul>
+<li>单线程收集器</li>
+<li><strong>标记-整理算法</strong></li>
+<li>主要是给Client模式下的虚拟机使用</li>
+<li>在JDK1.5及之前的版本，与Parallel Scavenge收集器配合使用</li>
+<li>作为CMS收集器的后备预案，在并发收集发生Concurrent Mode Failure时使用</li>
+</ul>
+<p>运行示意图：<br><img src="/assets/img/jvm/1585189135.jpg" alt="strategy"></p>
+<h4 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h4><p>Parallel Old是Parallel Scavenge收集器的老年代版本，用于老年代的垃圾回收，与Parallel Scavenge不同的是，它使用的是“<strong>标记-整理算法</strong>”。适用于注重于吞吐量及CPU资源敏感的场合。</p>
+<ul>
+<li>使用方式：-XX:+UseParallelOldGC，打开该收集器后，将使用Parallel Scavenge（年轻代）+Parallel Old（老年代）的组合进行GC。</li>
+<li>吞吐量太大，会导致GC次数增加，会降低性能</li>
+<li>吞吐量太小，停顿时间太长，也会降低性能</li>
+</ul>
+<p>注意，Parallel Scavenge收集器只能与Serial Old或者Parallel Old收集器配合使用</p>
+<p>运行示意图：<br><img src="/assets/img/jvm/1585191299.jpg" alt="strategy"></p>
+<h4 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h4><p>CMS收集器的目标是<strong>获取最短回收停顿时间</strong>，牺牲了系统的吞吐量来追求收集速度，适合追求垃圾收集速度的服务器上。</p>
+<ul>
+<li>老年代垃圾收集器</li>
+<li>并发收集器：可以与用户线程并发操作,指用户线程与垃圾收集线程同时执行（但不一定是并行的，可能会交替执行），用户程序在继续运行，而垃圾手机程序运行在另一个CPU上</li>
+<li>最短回收停顿时间</li>
+<li>收集过程:<ol>
+<li><strong>初始标记</strong>：标记一下<strong>GC Roots能直接关联到的对象</strong>。<strong>需要STW</strong>(Stop The World)，速度很快。</li>
+<li><strong>并发标记</strong>（CMS concurrent mark）：<strong>进行GC Roots Tracing</strong>。不需要STW。会产生浮动垃圾。<ul>
+<li>并发清理阶段用户线程还在运行着，伴随程序运行自然就还会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在当次收集中处理掉它们，只好留待下一次GC时再清理掉。这部分垃圾就称为<strong>“浮动垃圾”</strong></li>
+</ul>
+</li>
+<li><strong>重新标记</strong>：<strong>找到</strong>并发标记期间产生的<strong>浮动垃圾</strong>。<strong>需要STW</strong>，停顿时间一般会比初始标记稍长，但远比并发标记短。</li>
+<li><strong>并发清除</strong>：清除已标记的垃圾。<strong>不需要STW</strong>，会<strong>产生浮动垃圾</strong>，只能等待下一次GC清理</li>
 </ol>
-<h3 id="线程ID"><a href="#线程ID" class="headerlink" title="线程ID"></a>线程ID</h3><ul>
-<li>主线程main的线程id是1</li>
-<li>在启动我们定义的线程之前，会有其他的辅助线程已经启动，所以<strong>用户定义的线程执行时的线程ID早已不是2</strong></li>
-<li>Thread类的线程ID变量时synchronized修饰的静态变量，每新增一个线程，静态变量就会+1，保证<strong>线程的ID不会重复</strong>。</li>
+</li>
+<li>优点：<ul>
+<li>并发收集</li>
+<li>低停顿</li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-15-threadException" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/15/concurrent/2020-03-15-threadException/" target="_blank">java并发之异常处理</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/15/concurrent/2020-03-15-threadException/" class="archive-article-date">
-        <time datetime="2020-03-15T11:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>异常，是异常是程序中的一些错误，但并不是所有的错误都是异常。<br>在实际开发中，有时候会有一些小的异常没有及时处理，在这些细微之处的异常抛出来之前，我们可以设置一个全局异常处理器，来把它们catch住，如果不这么做，异常堆栈信息就可能打印在前端，被用户看到，万一被黑客看到，拿到堆栈信息，就可能发现代码中的漏洞，从而发动攻击。</p>
-    
-    <a class="article-more-a" href="/2020/03/15/concurrent/2020-03-15-threadException/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/15/concurrent/2020-03-15-threadException/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/15/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/15/hello-world/" class="archive-article-date">
-        <time datetime="2020-03-15T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p><img src="/assets/img/huyao.png" alt="ss"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-    
-    <a class="article-more-a" href="/2020/03/15/hello-world/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">介绍</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/欢迎//" class="article-tag-list-link color3">欢迎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/15/hello-world/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-14-decoratorPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-14T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>装饰者模式(Decorator Pattern)允许<strong>向一个现有的对象添加新的功能，同时不改变其结构</strong>。这种类型的设计模式是<strong>结构型模式</strong>，是对原有类的一个包装。<br>这种模式创建了一个装饰类，用来包装原有的类，并在保持原有类功能和结构的前提下，提供了新的功能。<br><strong>注意</strong>：装饰者模式与外观模式需要进行分辨</p>
+</li>
+<li>缺点：<ul>
+<li>占用大量CPU资源</li>
+<li>无法处理浮动垃圾</li>
+<li>可能出现 <strong>Concurrent Mode Failure</strong></li>
+<li>空间碎片</li>
+</ul>
+</li>
+</ul>
+<p>运行示意图：<br><img src="/assets/img/jvm/1585192802.jpg" alt="strategy"></p>
+<p><strong>Concurrent Mode Failure</strong>：<br>当young gc的时候，把eden和survivor里的都还存活的对象，统一移到另一个survivor区中时，发现装不下了，就需要把部分对象，放到老年代中去，结果老年代空间也不足，这种场景呢，叫做<strong>promotion failed</strong><br>在promotion failed的前提下，老年代恰好还正在full gc，那么就会有字样提示：concurrent mode failure。</p>
+<h4 id="G1垃圾收集器"><a href="#G1垃圾收集器" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h4><p>设计初衷是为了<strong>尽量缩短处理超大堆（大于4GB）时产生的停顿</strong>。相对于CMS的优势而言是内存碎片的产生率大大降低。</p>
 <ul>
-<li>装饰者模式是对现有类(系统)进行包装，并<strong>提供新功能</strong></li>
-<li>外观模式是对现有类(系统)进行包装，向外界隐藏系统复杂性并提供操作系统的接口，<strong>没有提供新功能</strong></li>
+<li>G1收集器是面向服务端应用的垃圾收集器，目标是为了替换掉CMS收集器</li>
+<li>并行与并发：利用</li>
+<li>分代收集</li>
+<li>最大特点：引入分区概念，弱化了分代</li>
 </ul>
-<h3 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h3><p>动态地给一个对象添加一些额外的职责。就增加功能来说，<strong>装饰器模式相比生成子类更为灵活</strong>。</p>
+<p>G1相对于CMS的改进：</p>
 <ul>
-<li>装饰者模式一般是通过方法传入已有类的对象作为参数，在方法中实现新的功能，就不会破坏原有类的结构</li>
+<li><strong>空间整合</strong>算法：G1基于标记-整理算法, 不会产生空间碎片，分配大对象时不会无法得到连续的空间而提前触发一次FULL GC。</li>
+<li><strong>停顿时间可控</strong>： G1可以通过设置预期停顿时间（Pause Time）来控制垃圾收集时间避免应用雪崩现象。<ul>
+<li>通过考察各个区域，<strong>哪个区域回收后的效果最大，就去回收哪个区域</strong>（分区）</li>
+<li>会在后台存放一张表Remember Set，用于考察各个区域的回收效率</li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/#more">more >></a>
-    
-    
+</li>
+<li>G1能<strong>更充分的利用CPU</strong>，多核环境下的硬件优势来缩短stop the world的停顿时间。</li>
+</ul>
+<p><strong>CMS和G1的区别</strong>：</p>
+<ul>
+<li>CMS中，堆被分为PermGen，YoungGen，OldGen；而YoungGen又分了两个survivo区域。<strong>在G1中，堆被平均分成几个区域(region)</strong>，在每个区域中，虽然也保留了新老代的概念，但是<strong>收集器是以整个区域为单位收集的</strong>。</li>
+<li>G1在<strong>回收内存后会马上同时做合并空闲内存</strong>的工作、而<strong>CMS默认是在STW（stop the world）的时候做</strong>。</li>
+<li>G1会在Young GC中使用、而CMS只能在O区使用。</li>
+</ul>
+<p>G1垃圾收集算法主要应用在<strong>多CPU大内存的服务中</strong>，在满足高吞吐量的同时，尽可能的满足垃圾    回收时的暂停时间。</p>
+<p>G1收集过程示意图：<br><img src="/assets/img/jvm/1585196996.jpg" alt="strategy"></p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记</li>
+<li>筛选回收（CMS这里是并发清除，所以会产生浮动垃圾），G1这里可以并发也可以串行</li>
+</ul>
+<p><strong>G1堆内存结构</strong><br>堆内存会被切分成很多个固定大小区域(Region)，每个是连续范围的虚拟内存<br>堆内存中一个区域的大小，可以通过 <code>-XX:G1HeapRegionSize</code>参数指定，大小区间最小1M，最大32M，是2的幂次方<br>默认是把堆内存按照2048份均分</p>
+<p><strong>G1堆内存分配</strong><br>每个Region被标记了E、S、O和H，这些区域在逻辑上被映射为Eden，Survivor和老年代。<br>存活的对象从一个区域转移（即复制或移动）到另一个区域。<strong>区域被设计为并行收集垃圾，可能会暂停所有应用线程</strong>。<br>如下图所示，区域可以分配到Eden，survivor和老年代。此外，还有第四种类型，被称为<strong>巨型区域</strong>（Humongous Region）。Humongous区域是为了那些存储超过50%标准region大小的对象而设计的，它用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了能找到连续的H区，有时候不得不启动Full GC。<br><img src="/assets/img/jvm/1585197887.jpg" alt="strategy"></p>
+<h3 id="垃圾收集器的配合"><a href="#垃圾收集器的配合" class="headerlink" title="垃圾收集器的配合"></a>垃圾收集器的配合</h3><p><img src="/assets/img/jvm/1585198431.jpg" alt="strategy"><br>图中用线连起来的两个收集器可以相互配合使用</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
+<li><a href="https://www.roncoo.com/view/67" target="_blank" rel="noopener">深入理解java虚拟机</a></li>
+</ul>
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" title="java虚拟机垃圾收集器" target="_blank">https://xczllgit.github.io/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -701,7 +489,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
@@ -713,7 +501,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
+        			<a href="/categories/jvm//" class="article-tag-list-link color4">jvm</a>
         		</li>
       		
 		</ul>
@@ -721,16 +509,76 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/26/designPattern/2020-03-26-mementoPattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之备忘录模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -745,8 +593,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新生代收集器"><span class="toc-number">2.</span> <span class="toc-text">新生代收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Serial收集器"><span class="toc-number">2.1.</span> <span class="toc-text">Serial收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ParNew收集器"><span class="toc-number">2.2.</span> <span class="toc-text">ParNew收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Parallel-Scavenge收集器"><span class="toc-number">2.3.</span> <span class="toc-text">Parallel Scavenge收集器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#老年代收集器"><span class="toc-number">3.</span> <span class="toc-text">老年代收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Serial-Old收集器"><span class="toc-number">3.1.</span> <span class="toc-text">Serial Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Parallel-Old收集器"><span class="toc-number">3.2.</span> <span class="toc-text">Parallel Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMS收集器"><span class="toc-number">3.3.</span> <span class="toc-text">CMS收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#G1垃圾收集器"><span class="toc-number">3.4.</span> <span class="toc-text">G1垃圾收集器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垃圾收集器的配合"><span class="toc-number">4.</span> <span class="toc-text">垃圾收集器的配合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -785,204 +656,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-concurrent/2020-03-14-threadMethods" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/14/concurrent/2020-03-14-threadMethods/" target="_blank">java并发之Thread和Object类中线程相关方法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/14/concurrent/2020-03-14-threadMethods/" class="archive-article-date">
-        <time datetime="2020-03-14T14:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Thread类中主要方法：</p>
-<table>
-<thead>
-<tr>
-<th align="left">类</th>
-<th>方法名</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Thread</td>
-<td>sleep相关</td>
-<td>线程休眠指定时间</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>join</td>
-<td>执行此方法的线程等待此方法所属线程执行完毕</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>yield</td>
-<td>放弃已经获取到的CPU资源，并马上进行资源竞争</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>currentThread</td>
-<td>获取当前执行线程的引用</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>start,run相关</td>
-<td>启动线程相关</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>Interrupt相关</td>
-<td>中断线程</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>stop(),suspend(),resume()</td>
-<td>已废弃</td>
-</tr>
-<tr>
-<td align="left">Object</td>
-<td>wait/notify/notifyAll相关</td>
-<td>让线程暂时休息和唤醒</td>
-</tr>
-</tbody></table>
-<p>​    <strong>相关</strong>，指的重载方法，也就是方法名相同，但是参数不同，例如sleep有多个方法，只是参数不同，实际作用大同小异。</p>
-<p>关于Thread类的众多方法在前面文章基本已经提到</p>
-<ul>
-<li><a href="/2020/03/09/concurrent/2020-03-09-multiThread-build/">java并发之实现多线程的方法</a></li>
-<li><a href="/2020/03/10/concurrent/2020-03-10-startThread/">java并发之启动线程的正确和错误方式</a></li>
-<li><a href="/2020/03/11/concurrent/2020-03-11-stopThread/">java并发之线程停止、中断之最佳实践</a></li>
-</ul>
-<p>本文主要介绍Object类的并发相关方法，最后附加介绍一些Thread类的方法</p>
-    
-    <a class="article-more-a" href="/2020/03/14/concurrent/2020-03-14-threadMethods/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Concurrent//" class="article-tag-list-link color1">Concurrent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/14/concurrent/2020-03-14-threadMethods/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1020,8 +693,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
