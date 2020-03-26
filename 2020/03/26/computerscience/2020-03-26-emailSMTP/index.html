@@ -6,22 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>因特网中的电子邮件 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/2/index.html">
+  <meta name="description" content="简介电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP) 当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。 典型的邮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因特网中的电子邮件">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/26/computerscience/2020-03-26-emailSMTP/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="简介电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP) 当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。 典型的邮">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1585210200.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/computerScience/1585211670.jpg">
+<meta property="article:published_time" content="2020-03-26T06:25:36.000Z">
+<meta property="article:modified_time" content="2020-03-26T08:52:40.107Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/computerScience/1585210200.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,61 +227,194 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-computerscience/2020-03-24-applicationFTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-computerscience/2020-03-26-emailSMTP" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" target="_blank">计算机网络之应用层FTP协议</a>
-  
+    <h1 class="article-title" itemprop="name">
+      因特网中的电子邮件
     </h1>
   
 
 
   
   
-<a href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" class="archive-article-date">
-        <time datetime="2020-03-24T06:59:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" class="archive-article-date">
+        <time datetime="2020-03-26T06:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.9k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">6分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>FTP是用于两台计算机之间进行文件传输的协议。<br>本地主机的<strong>FTP客户进程</strong>建立一个到远程主机<strong>FTP服务器进程</strong>的<strong>TCP连接</strong>，并提供<strong>用户标识和口令</strong>，作为FTP命令的一部分，在该TCP连接上传送，一旦服务器向该用户授权，用户可以将存放在本地文件系统中的一个或者多个文件复制到远程文件系统。</p>
-<p>FTP协议与HTTP协议都是文本传输协议，有着相同点如都运行在TCP纸上，也有很多区别：</p>
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP)</p>
+<p>当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。<br>每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。</p>
+<p><strong>典型的邮件发送过程</strong>：</p>
 <ul>
-<li>FTP使用了<strong>两个并行的TCP连接</strong>来传输文件。<ul>
-<li><strong>控制连接</strong>：用于在两个主机之间<strong>传输控制信息</strong>。  <strong>21号端口</strong><ul>
-<li>如用户标识、口令、改变远程目录的命令，存放，获取等命令</li>
+<li>从发送方的用户代理开始</li>
+<li>传输到发送方的邮件服务器</li>
+<li>再传输到接收方的邮件服务器</li>
+<li>然后在这里被分发到接收方的邮箱中</li>
+<li>当接收方要在邮箱中读取该报文时，包含他邮箱的邮件服务器需要鉴别接收方的身份</li>
+<li>当发送方的邮件服务器不能将邮件交付给接收方的服务器，发送发服务器就会在一个报文队列中保持该报文，并在以后尝试再次发送，一定次数后仍然不成功，服务器就删除该报文，并通知发送方</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h3><p>SMTP是电子邮件的主要应用层协议，使用<strong>TCP</strong>可靠数据传输服务。<br>SMTP有两个部分：</p>
+<ul>
+<li>运行在发送方邮件服务器的客户端</li>
+<li>运行在接收方邮件服务器的服务器端</li>
+</ul>
+<p>每台邮件服务器既运行SMTP的客户端，又运行SMTP的服务器端。当邮件服务器发送邮件时，它就表现为SMTP的客户，当接收邮件时，就表现为SMTP的服务器</p>
+<p>SMTP已经存在很长时间，比HTTP要长很多，长久的时间导致了它有的特征已经陈旧了，如它<strong>限制所有邮件报文段的体部分（不只是其首部）只能采用ASCII码表示</strong>。<br>即在用SMTP传送邮件之前，需要将二进制多媒体数据编码为ASCIII码，并且在使用SMTP传输后，要求将相应的ASCII码邮件解码还原为多媒体数据。</p>
+<p><img src="/assets/img/computerScience/1585210200.jpg" alt="Correspondence"><br>使用SMTP的一次邮件发送：</p>
+<ul>
+<li>用户Alice调用她的邮件代理程序并提供Bob的邮件地址，撰写报文，并只是用户代理发送该报文</li>
+<li>Alice的用户代理把报文发给她的邮件服务器，在那里该报文被放在报文队列中</li>
+<li>运行在Alice的邮件服务器上的SMTP客户端发现了报文队列中的这个报文，它就创建一个到运行在Bob的邮件服务器上的SMTP服务器的TCP连接。</li>
+<li>在经过一些初始SMTP握手后，SMTP客户通过该TCP连接发送Alice的报文</li>
+<li>在Bob的邮件服务器上，SMTP的服务器端接受该报文。Bob的邮件服务器然后将该报文放入Bob的邮箱中</li>
+<li>在Bob方便的时候，他调用用户代理阅读该报文。</li>
+</ul>
+<p>可以发现：</p>
+<ul>
+<li>SMTP一般不使用中间邮件服务器发送邮件，即使这两个邮件服务器位于地球的两端也是这样。    如果接收方的邮件服务器没有开机，那么报文会保留在发送方邮件服务器，并等待进行新的尝试，不会在中间的某个邮件服务器保存。</li>
+<li>两个邮件服务器之间的连接是通过TCP进行的，发送方邮件服务器的SMTP在<strong>25号端口</strong>建立一个到接收方服务器的SMTP的TCP连接<ul>
+<li>如果发送邮件服务器有几个报文发往同一个接收邮件服务器，就可以通过同一个TCP连接发送这些所有的报文。</li>
 </ul>
 </li>
-<li><strong>数据连接</strong>  <strong>20号端口</strong><ul>
-<li>用于<strong>实际发送一个文件</strong></li>
+</ul>
+<h4 id="STMP与HTTP的对比"><a href="#STMP与HTTP的对比" class="headerlink" title="STMP与HTTP的对比"></a>STMP与HTTP的对比</h4><p>SMTP和HTTP都是用于一台主机向另一台主机传送文件，当进行文件传送时，都是用持续连接。</p>
+<p>区别：</p>
+<ul>
+<li>TCP连接的发起<ul>
+<li>HTTP是一个拉协议，即文件预先装在Web服务器上，用户使用HTTP从该服务器拉取这些信息， <strong>TCP连接时想接收文件的机器发起的</strong></li>
+<li>SMTP基本是一个<strong>推协议</strong>，即发送邮件服务器把文件推给接收邮件服务器，这个<strong>TCP连接是由要发送该文件的机器发起的</strong>。<ul>
+<li>注意，那么<strong>接收方从服务器获取邮件就不是通过SMTP协议了</strong>，因为那是一个拉操作，而SMTP是一个推协议</li>
 </ul>
 </li>
 </ul>
 </li>
+<li>SMTP要求报文使用ASCII码，而HTTP没有这种要求</li>
+<li>HTTP把每个对象封装到自己的HTTP响应报文中，而SMTP则把所有报文对象放在一个报文中</li>
 </ul>
-<p>由于FTP独立使用一个控制连接用于发送信息，也称FTP的控制信息是<strong>带外</strong>传送的，而HTTP协议时在传输文件的同一个TCP连接中发送请求和响应首部行，所以HTTP也称为<strong>带内</strong>发送控制信息。</p>
-    
-    <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/#more">more >></a>
-    
-    
+<p>SMTP对<strong>报文的首部(不是协议本身)</strong>有要求，需要包含源邮件地址与目的邮件地址等</p>
+<h4 id="邮件访问协议"><a href="#邮件访问协议" class="headerlink" title="邮件访问协议"></a>邮件访问协议</h4><p>发送方为什么不能直接通过用户代理发送邮件到接收方的邮件服务器呢，因为如果不通过发送方邮件服务器，用户代理没办法到达一个不可达的目的地接收服务器。</p>
+<p>接收方通过用户代理从服务器获取邮件，前面已经说过无法通过SMTP协议完成，因此引入了一个特殊的邮件访问协议，此协议将邮件服务器上的邮件传送给用户的本地PC。</p>
+<ul>
+<li><strong>第三版的邮局协议(POP3</strong>,Post Office Protoco Version 3)</li>
+<li><strong>因特网邮件访问协议</strong>(Internet Mail Access Protocol,<strong>IMAP</strong>)</li>
+</ul>
+<p>电子邮件通信过程协议：<br><img src="/assets/img/computerScience/1585211670.jpg" alt="Correspondence"></p>
+<h5 id="POP3"><a href="#POP3" class="headerlink" title="POP3"></a>POP3</h5><p>用户代理（客户）打开一个到邮件服务器<strong>端口110</strong>上的<strong>TCP连接</strong>后，POP3开始工作：</p>
+<ul>
+<li>用户代理发送用户名和口令以鉴别用户</li>
+<li>事务处理阶段：用户代理取回报文<ul>
+<li>此阶段，用户代理还可以对报文做删除标记、取消报文删除标记、获取邮件的统计信息</li>
+</ul>
+</li>
+<li>更新阶段：出现在客户发出了quit命令之后，目的是结束该POP3会话。<ul>
+<li>这时，邮件服务器删除那些被标记为删除的报文</li>
+</ul>
+</li>
+</ul>
+<h5 id="IMAP"><a href="#IMAP" class="headerlink" title="IMAP"></a>IMAP</h5><p>POP3协议是将邮件下载的本地，但是移动用户一般更喜欢在远程服务器上的文件夹中访问而不是下载到本地。POP3协议没有给用户提供任何创建远程文件夹并给报文指派文件夹的功能。</p>
+<p>IMAP服务器把每个报文和一个文件夹联系起来，当报文第一次到达服务器，它与收件人的INBOX文件夹相关联，收件人则能够把邮件移到一个新的、用户创建的文件中，阅读邮件，删除邮件的。<br>IMAP协议为用户提供了在远程文件夹中查询邮件的命令，并允许用户创建文件夹，将邮件在文件夹中移动，与POP3不同，IMAP服务器维护了IMAP会话的用户状态信息，例如文件夹的名字以及哪些报文与哪些文件夹相关联。<br>IMAP还巨有允许用户代理获取报文组件的命令，比如可以只读取报文的某个部分，而不用消耗宽带资源完整的读取整个邮件。</p>
+<h5 id="基于Web的电子邮件"><a href="#基于Web的电子邮件" class="headerlink" title="基于Web的电子邮件"></a>基于Web的电子邮件</h5><p>即用户与邮件服务器之间的通信通过HTTP协议进行，但是邮件服务器之间的通信仍然通过SMTP协议进行。</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://www.cmpedu.com/books/book/2052552.htm" target="_blank" rel="noopener">计算机网络:自顶向下法</a></li>
+</ul>
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/26/computerscience/2020-03-26-emailSMTP/" title="因特网中的电子邮件" target="_blank">https://xczllgit.github.io/2020/03/26/computerscience/2020-03-26-emailSMTP/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -311,16 +446,76 @@ var _hmt = _hmt || [];
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/26/computerscience/2020-03-26-emailSMTP/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java虚拟机垃圾收集器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -335,8 +530,31 @@ var _hmt = _hmt || [];
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SMTP协议"><span class="toc-number">2.</span> <span class="toc-text">SMTP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#STMP与HTTP的对比"><span class="toc-number">2.1.</span> <span class="toc-text">STMP与HTTP的对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#邮件访问协议"><span class="toc-number">2.2.</span> <span class="toc-text">邮件访问协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#POP3"><span class="toc-number">2.2.1.</span> <span class="toc-text">POP3</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IMAP"><span class="toc-number">2.2.2.</span> <span class="toc-text">IMAP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#基于Web的电子邮件"><span class="toc-number">2.2.3.</span> <span class="toc-text">基于Web的电子邮件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -375,583 +593,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-jvm/2020-03-24-jvmObjectDistribution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/24/jvm/2020-03-24-jvmObjectDistribution/" target="_blank">java虚拟机中的java对象</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/24/jvm/2020-03-24-jvmObjectDistribution/" class="archive-article-date">
-        <time datetime="2020-03-24T05:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>通过new 类名创建：</p>
-<ul>
-<li>根据new的参数，<strong>在常量池中定位一个类的符号引用</strong><ul>
-<li>如果没有找到这个符号引用，说明类还没有被加载，则进行类的加载、解析和初始化</li>
-</ul>
-</li>
-<li>虚拟机为对象分配内存(<strong>位于堆中</strong>)</li>
-<li><strong>初始化对象</strong>，将分配的<strong>内存初始化</strong>为零值（不包括对象头）</li>
-<li>调用对象的<code>&lt;init&gt;</code>方法<ul>
-<li>只有执行了<code>init</code>方法后，对象才是按照程序员的意愿初始化完成了</li>
-<li>包括<strong>代码块，构造方法</strong>等</li>
-</ul>
-</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/03/24/jvm/2020-03-24-jvmObjectDistribution/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/24/jvm/2020-03-24-jvmObjectDistribution/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-24-interpreterPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/" target="_blank">设计模式之解释器模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/" class="archive-article-date">
-        <time datetime="2020-03-24T02:47:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>解释器模式主要用于<strong>评估</strong> 语言的语法或表达式，属于<strong>行为型模式</strong>。<br>这种模式提供了一个表达式接口，用于解释一个特定的上下文。</p>
-<p><strong>核心</strong>：给定一个语言，定义它的文法表示，并定义一个解释器，这个解释器来解释语言中的句子。<br><strong>如何解决</strong>：构建语法树，定义终结符与非终结符。<br><strong>关键代码</strong>：构建环境类，包含解释器之外的一些全局信息，一般是 HashMap。<br><strong>优点</strong>： 1、可扩展性比较好，灵活。 2、增加了新的解释表达式的方式。 3、易于实现简单文法。<br><strong>缺点</strong>： 1、可利用场景比较少。 2、对于复杂的文法比较难维护。 3、解释器模式会引起类膨胀。 4、解释器模式采用递归调用方法。<br><strong>使用场景</strong>：</p>
-<ol>
-<li>可以将一个需要解释执行的语言中的句子表示为一个抽象语法树。</li>
-<li>一些重复出现的问题可以用一种简单的语言来进行表达。<ul>
-<li>比如加减乘除四则运算，但是公式每次都不同，有时是a+b-c<em>d，有时是a</em>b+c-d等，公式千变万化，但是都是由加减乘除四个非终结符来连接的，这时我们就可以使用解释器模式。</li>
-</ul>
-</li>
-<li>一个简单语法需要解释的场景。
-    
-    <a class="article-more-a" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-computerscience/2020-03-23-applicationProtocol" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/" target="_blank">计算机网络之应用层Http协议</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/" class="archive-article-date">
-        <time datetime="2020-03-23T07:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在因特网出现的开始，主要用途是科研，到了20世纪90年代，万维网登上了舞台。<br><strong>万维网WWW</strong>(World Wide Web)是一个大规模的、联机式的<strong>信息储藏所/资料空间</strong>，是<strong>无数个网络站点和网页的集合</strong></p>
-<p>人们可以在Web上发布信息，可以进行交互，越来越多的Web站点存储着海量的信息，吸引着更多的人前来。</p>
-<p>Web的应用层协议是<strong>超文本传输协议HTTP</strong>(HyperText Transfer Protocol)</p>
-    
-    <a class="article-more-a" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-23-jvmMemoryRegion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" target="_blank">java虚拟机内存结构</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" class="archive-article-date">
-        <time datetime="2020-03-23T04:15:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="虚拟机内存区域划分"><a href="#虚拟机内存区域划分" class="headerlink" title="虚拟机内存区域划分"></a>虚拟机内存区域划分</h3><p>在《java虚拟机规范》中，并没有提到java虚拟机内存结构，而是使用的”运行时数据区”这个术语，也就是说java虚拟机内存结构 = 运行时数据区。</p>
-<p>在hotspot中，通常来讲，运行时数据区被划分为两块区域：线程独占区和线程共享区。</p>
-<ul>
-<li>线程独占区<ul>
-<li>java虚拟机栈</li>
-<li>本地方法栈</li>
-<li>程序计数器</li>
-</ul>
-</li>
-<li>线程共享区<ul>
-<li>java堆</li>
-<li>方法区</li>
-</ul>
-</li>
-<li>直接内存（Direct Memory）：并不是java虚拟机运行时数据区的一部分，但是经常使用
-    
-    <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -989,8 +630,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

@@ -228,6 +228,145 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-designPattern/2020-03-15-adapterPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" target="_blank">设计模式之适配器模式</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" class="archive-article-date">
+        <time datetime="2020-03-15T13:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。</p>
+<p>一般以继承A类实现B类的方式进行串联，或在一个类中使用另一个类的对象</p>
+<p>适配器模式涉及到了一个单一的类，此类负责加入独立的或不兼容的接口功能。</p>
+<ul>
+<li>读卡器是作为内存卡和笔记本之间的适配器。您将内存卡插入读卡器，再将读卡器插入笔记本，这样就可以通过笔记本来读取内存卡。</li>
+</ul>
+<h4 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h4><p>将一个类的接口转换成客户期望的另一个接口，使原本不兼容的接口可以一起工作。</p>
+    
+    <a class="article-more-a" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-concurrent/2020-03-15-threadAttribute" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -723,196 +862,6 @@ document.body.addEventListener('click', function(e) {
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-concurrent/2020-03-14-threadMethods" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/14/concurrent/2020-03-14-threadMethods/" target="_blank">java并发之Thread和Object类中线程相关方法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/14/concurrent/2020-03-14-threadMethods/" class="archive-article-date">
-        <time datetime="2020-03-14T14:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Thread类中主要方法：</p>
-<table>
-<thead>
-<tr>
-<th align="left">类</th>
-<th>方法名</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Thread</td>
-<td>sleep相关</td>
-<td>线程休眠指定时间</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>join</td>
-<td>执行此方法的线程等待此方法所属线程执行完毕</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>yield</td>
-<td>放弃已经获取到的CPU资源，并马上进行资源竞争</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>currentThread</td>
-<td>获取当前执行线程的引用</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>start,run相关</td>
-<td>启动线程相关</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>Interrupt相关</td>
-<td>中断线程</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td>stop(),suspend(),resume()</td>
-<td>已废弃</td>
-</tr>
-<tr>
-<td align="left">Object</td>
-<td>wait/notify/notifyAll相关</td>
-<td>让线程暂时休息和唤醒</td>
-</tr>
-</tbody></table>
-<p>​    <strong>相关</strong>，指的重载方法，也就是方法名相同，但是参数不同，例如sleep有多个方法，只是参数不同，实际作用大同小异。</p>
-<p>关于Thread类的众多方法在前面文章基本已经提到</p>
-<ul>
-<li><a href="/2020/03/09/concurrent/2020-03-09-multiThread-build/">java并发之实现多线程的方法</a></li>
-<li><a href="/2020/03/10/concurrent/2020-03-10-startThread/">java并发之启动线程的正确和错误方式</a></li>
-<li><a href="/2020/03/11/concurrent/2020-03-11-stopThread/">java并发之线程停止、中断之最佳实践</a></li>
-</ul>
-<p>本文主要介绍Object类的并发相关方法，最后附加介绍一些Thread类的方法</p>
-    
-    <a class="article-more-a" href="/2020/03/14/concurrent/2020-03-14-threadMethods/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/14/concurrent/2020-03-14-threadMethods/">展开全文 >></a>
     </p>
     
 
