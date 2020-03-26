@@ -16,13 +16,13 @@
 <meta property="og:url" content="https://xczllgit.github.io/2020/03/07/designPattern/2020-03-07-factoryMethod/index.html">
 <meta property="og:site_name" content="xczll的博客">
 <meta property="og:description" content="介绍定义定义一个创建对象的接口，但具体是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。 工厂父类负责定义创建对象的公共接口，而子类则负责生成具体的对象。（创建型） 作用将类的实例化（具体产品的创建）延迟到工厂类的子类（具体工厂）中完成，即由子类来决定应该实例化（创建）哪一个类。">
-<meta property="og:image" content="https://xczllgit.github.io/2020/03/07/designPattern/2020-03-07-factoryMethod/%5Cassets%5Cimg%5CdesignPattern%5CfactoryMethod.png">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/designPattern/factoryMethod.png">
 <meta property="article:published_time" content="2020-03-07T09:44:18.000Z">
-<meta property="article:modified_time" content="2020-03-19T08:30:33.271Z">
+<meta property="article:modified_time" content="2020-03-26T06:28:38.261Z">
 <meta property="article:author" content="xczll">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xczllgit.github.io/2020/03/07/designPattern/2020-03-07-factoryMethod/%5Cassets%5Cimg%5CdesignPattern%5CfactoryMethod.png">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/designPattern/factoryMethod.png">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -288,7 +288,7 @@ var _hmt = _hmt || [];
 <li>前面讲述的简单工厂，一旦需要生产新产品就需要修改工厂类的方法逻辑，违背了“开闭原则”</li>
 <li>之所以可以解决简单工厂的问题，是因为工厂方法模式把具体产品的创建推迟到工厂类的 子类（具体工厂）中，<strong>此时工厂类不再负责所有产品的创建，而只是给出具体工厂必须实现的接口</strong>，这样<strong>工厂方法模式在添加新产品的时候就不修改工厂类逻辑而是添加新的工厂子类</strong>，符 合开放封闭原则，克服了简单工厂模式中缺点</li>
 </ul>
-<h3 id="模式原理"><a href="#模式原理" class="headerlink" title="模式原理"></a>模式原理</h3><h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="%5Cassets%5Cimg%5CdesignPattern%5CfactoryMethod.png" alt="img"></p>
+<h3 id="模式原理"><a href="#模式原理" class="headerlink" title="模式原理"></a>模式原理</h3><h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="/assets/img/designPattern/factoryMethod.png" alt="img"></p>
 <h4 id="模式组成"><a href="#模式组成" class="headerlink" title="模式组成"></a>模式组成</h4><table>
 <thead>
 <tr>
@@ -457,7 +457,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/designPattern//" class="article-tag-list-link color4">designPattern</a>
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
