@@ -228,6 +228,149 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-computerscience/2020-03-26-emailSMTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" target="_blank">因特网中的电子邮件</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" class="archive-article-date">
+        <time datetime="2020-03-26T06:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP)</p>
+<p>当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。<br>每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。</p>
+<p><strong>典型的邮件发送过程</strong>：</p>
+<ul>
+<li>从发送方的用户代理开始</li>
+<li>传输到发送方的邮件服务器</li>
+<li>再传输到接收方的邮件服务器</li>
+<li>然后在这里被分发到接收方的邮箱中</li>
+<li>当接收方要在邮箱中读取该报文时，包含他邮箱的邮件服务器需要鉴别接收方的身份</li>
+<li>当发送方的邮件服务器不能将邮件交付给接收方的服务器，发送发服务器就会在一个报文队列中保持该报文，并在以后尝试再次发送，一定次数后仍然不成功，服务器就删除该报文，并通知发送方</li>
+</ul>
+    
+    <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-jvm/2020-03-26-garbageCollectionMachine" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -721,154 +864,6 @@ document.body.addEventListener('click', function(e) {
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/03/25/designPattern/2020-03-25-observerPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-computerscience/2020-03-24-applicationFTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" target="_blank">计算机网络之应用层FTP协议</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" class="archive-article-date">
-        <time datetime="2020-03-24T06:59:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>FTP是用于两台计算机之间进行文件传输的协议。<br>本地主机的<strong>FTP客户进程</strong>建立一个到远程主机<strong>FTP服务器进程</strong>的<strong>TCP连接</strong>，并提供<strong>用户标识和口令</strong>，作为FTP命令的一部分，在该TCP连接上传送，一旦服务器向该用户授权，用户可以将存放在本地文件系统中的一个或者多个文件复制到远程文件系统。</p>
-<p>FTP协议与HTTP协议都是文本传输协议，有着相同点如都运行在TCP纸上，也有很多区别：</p>
-<ul>
-<li>FTP使用了<strong>两个并行的TCP连接</strong>来传输文件。<ul>
-<li><strong>控制连接</strong>：用于在两个主机之间<strong>传输控制信息</strong>。  <strong>21号端口</strong><ul>
-<li>如用户标识、口令、改变远程目录的命令，存放，获取等命令</li>
-</ul>
-</li>
-<li><strong>数据连接</strong>  <strong>20号端口</strong><ul>
-<li>用于<strong>实际发送一个文件</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>由于FTP独立使用一个控制连接用于发送信息，也称FTP的控制信息是<strong>带外</strong>传送的，而HTTP协议时在传输文件的同一个TCP连接中发送请求和响应首部行，所以HTTP也称为<strong>带内</strong>发送控制信息。</p>
-    
-    <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/">展开全文 >></a>
     </p>
     
 

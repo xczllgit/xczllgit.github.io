@@ -228,6 +228,154 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-computerscience/2020-03-24-applicationFTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" target="_blank">计算机网络之应用层FTP协议</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/24/computerscience/2020-03-24-applicationFTP/" class="archive-article-date">
+        <time datetime="2020-03-24T06:59:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>FTP是用于两台计算机之间进行文件传输的协议。<br>本地主机的<strong>FTP客户进程</strong>建立一个到远程主机<strong>FTP服务器进程</strong>的<strong>TCP连接</strong>，并提供<strong>用户标识和口令</strong>，作为FTP命令的一部分，在该TCP连接上传送，一旦服务器向该用户授权，用户可以将存放在本地文件系统中的一个或者多个文件复制到远程文件系统。</p>
+<p>FTP协议与HTTP协议都是文本传输协议，有着相同点如都运行在TCP纸上，也有很多区别：</p>
+<ul>
+<li>FTP使用了<strong>两个并行的TCP连接</strong>来传输文件。<ul>
+<li><strong>控制连接</strong>：用于在两个主机之间<strong>传输控制信息</strong>。  <strong>21号端口</strong><ul>
+<li>如用户标识、口令、改变远程目录的命令，存放，获取等命令</li>
+</ul>
+</li>
+<li><strong>数据连接</strong>  <strong>20号端口</strong><ul>
+<li>用于<strong>实际发送一个文件</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>由于FTP独立使用一个控制连接用于发送信息，也称FTP的控制信息是<strong>带外</strong>传送的，而HTTP协议时在传输文件的同一个TCP连接中发送请求和响应首部行，所以HTTP也称为<strong>带内</strong>发送控制信息。</p>
+    
+    <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/24/computerscience/2020-03-24-applicationFTP/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-jvm/2020-03-24-jvmObjectDistribution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -734,152 +882,6 @@ document.body.addEventListener('click', function(e) {
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-23-jvmIntroduction" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/23/jvm/2020-03-23-jvmIntroduction/" target="_blank">java虚拟机介绍</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/23/jvm/2020-03-23-jvmIntroduction/" class="archive-article-date">
-        <time datetime="2020-03-23T01:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="jdk、jvm、jre的关系"><a href="#jdk、jvm、jre的关系" class="headerlink" title="jdk、jvm、jre的关系"></a>jdk、jvm、jre的关系</h3><p>JDK：全名 Java Development Kit(java开发工具包)</p>
-<ul>
-<li>整个Java开发的核心，<strong>集成了jre</strong>以及其他的一些工具，如javac.exe,jar.exe等</li>
-<li>一般来说需要开发java程序，使用jdk工具包更好，能够使用很多便捷工具</li>
-</ul>
-<p>JRE：全名 Java Runtime Environment(Java运行时环境)</p>
-<ul>
-<li>主要包含jvm的标准实现和java的一些基本类库</li>
-<li>JRE可以用于服务器中，因为一般不会在服务器中直接开发java，通常是在本地主机完成程序后，上传到服务器中运行即可，因此服务器中安装JRE用于运行java程序即可。</li>
-</ul>
-<p>JVM：全名 Java Virtual Machine(Java虚拟机)</p>
-<ul>
-<li>只认识 xxx.class文件，用于将class文件中的字节码指令识别并调用操作系统的api完成动作。</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmIntroduction/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmIntroduction/">展开全文 >></a>
     </p>
     
 
