@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>理解GC日志 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/10/index.html">
+  <meta name="description" content="理解GCjava虚拟机规范没有对垃圾收集器的实现做出具体要求，因此垃圾收集器有着很多种类，每一种垃圾收集器的日志形式都是由它们自身的实现所决定，每一种日志格式都可以不一样，但是虚拟机设计者为了方便用户阅读，将各个收集器的日志都维持一定的共性。 典型的GC日志：  最前面的数字 “33.125”和“100.67”代表了GC发生的时间，是从Java虚拟机启动以来经过的秒数 GC日志开头的GC和Full">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解GC日志">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/27/jvm/2020-03-27-gcLog/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="理解GCjava虚拟机规范没有对垃圾收集器的实现做出具体要求，因此垃圾收集器有着很多种类，每一种垃圾收集器的日志形式都是由它们自身的实现所决定，每一种日志格式都可以不一样，但是虚拟机设计者为了方便用户阅读，将各个收集器的日志都维持一定的共性。 典型的GC日志：  最前面的数字 “33.125”和“100.67”代表了GC发生的时间，是从Java虚拟机启动以来经过的秒数 GC日志开头的GC和Full">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585276026.jpg">
+<meta property="article:published_time" content="2020-03-27T02:22:49.000Z">
+<meta property="article:modified_time" content="2020-03-27T02:41:31.283Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1585276026.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,331 +226,144 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-designPattern/2020-03-06-designPatternCategories" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-jvm/2020-03-27-gcLog" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" target="_blank">设计模式之三大分类</a>
-  
+    <h1 class="article-title" itemprop="name">
+      理解GC日志
     </h1>
   
 
 
   
   
-<a href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" class="archive-article-date">
-        <time datetime="2020-03-06T12:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/27/jvm/2020-03-27-gcLog/" class="archive-article-date">
+        <time datetime="2020-03-27T02:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">569字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="设计模式三大分类"><a href="#设计模式三大分类" class="headerlink" title="设计模式三大分类"></a>设计模式三大分类</h3><p>GOF23种设计模式共分为三种类型：</p>
-<ol>
-<li>创建型模式：简单工厂（不是GOF23种之一）、工厂方法、抽象工厂、建造者、单例、原型</li>
-<li>结构型模式：外观、装饰者、适配器、享元、组合、桥接、代理</li>
-<li>行为型模式：模板、迭代器、策略、解释器、观察者、备忘录、命令、中介者、责任链、访问者、状态</li>
-</ol>
-    
-    <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-06-simpleFactory" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" target="_blank">设计模式之简单工厂模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" class="archive-article-date">
-        <time datetime="2020-03-06T11:25:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><p>由一个工厂对象决定创建出哪一种产品类的实例</p>
+    <h3 id="理解GC"><a href="#理解GC" class="headerlink" title="理解GC"></a>理解GC</h3><p>java虚拟机规范没有对垃圾收集器的实现做出具体要求，因此垃圾收集器有着很多种类，每一种垃圾收集器的日志形式都是由它们自身的实现所决定，每一种日志格式都可以不一样，但是虚拟机设计者为了方便用户阅读，将各个收集器的日志都维持一定的共性。</p>
+<p>典型的GC日志：<br><img src="/assets/img/jvm/1585276026.jpg" alt="strategy"></p>
+<ul>
+<li>最前面的数字 “33.125”和“100.67”代表了GC发生的时间，是从Java虚拟机启动以来经过的<strong>秒数</strong></li>
+<li>GC日志开头的<code>GC</code>和<code>Full GC</code>说明这次垃圾收集的停顿类型，而不是用来区分新生代GC和老年代GC的。<ul>
+<li>Full代表这次GC是发生了 Stop The World的</li>
+</ul>
 </li>
-<li><p>又称为静态方法模式（创建型，但是不属于GOF23种设计模式）</p>
+<li>DefNew、Tenured、Perm等表示GC发生的区域<ul>
+<li>对于Serial收集器，新生代名为 Default New Generation，所以显示的<strong>DefNew</strong><ul>
+<li>而对于ParNew收集器，新生代就会变成 <strong>ParNew</strong>，意思是 <strong>Parallel New Generation</strong></li>
+<li>而Parallel Scavenge收集器的新生代称为 <strong>PSYoungGen</strong></li>
+</ul>
 </li>
-<li><p>现实生活中，工厂是负责生产产品的；同样，在设计模式种，简单工厂模式我们可以理解为是负责生产对象的一个类，称为”工厂类“</p>
+<li>Tenured是老年代</li>
+</ul>
+</li>
+<li>方括号内部的 <code>3324K -&gt; 152K(3712K)</code>的含义是 GC前该区域已使用容量-&gt;GC后该内存区域已使用容量（该内存区域总容量）。而方括号之外的 <code>3324K-&gt;152K(11904K)</code>表示“GC前Java堆已使用容量 -&gt; GC后Java堆已使用容量（Java堆总容量）”</li>
+<li><code>0.0025925 secs</code>表示该内存区域GC所占用的时间，单位是秒。 有的收集器会给出更具体的时间数据：<ul>
+<li>如  <code>[Times:user=0.01 sys=0.00 , real=0.02 secs]</code>,这里面的user、sys和real与Linux 的time命令所输出的时间含义一致，分别代表用户态消耗的CPU时间，内核态消耗的CPU时间，操作从开始到结束所经过的墙钟时间(Wall Clock Time)。 </li>
+<li>墙钟时间包括各种非运算的等待耗时，例如等待磁盘I/O、等待线程阻塞，而CPU时间不包括这些耗时，但当系统有多CPU或者多核的话，<strong>多线程操作会叠加这些CPU时间</strong>，所以读者看到user或sys时间超过real时间是完全正常的。</li>
+</ul>
 </li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-05-designPrinciple" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" target="_blank">设计模式之六大原则</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" class="archive-article-date">
-        <time datetime="2020-03-05T10:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h3><ul>
-<li>开闭原则</li>
-<li>依赖倒置原则</li>
-<li>单一职责原则</li>
-<li>接口隔离原则</li>
-<li>迪米特法则（最少知道原则）</li>
-<li>里氏替换原则</li>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/#more">more >></a>
-    
-    
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/27/jvm/2020-03-27-gcLog/" title="理解GC日志" target="_blank">https://xczllgit.github.io/2020/03/27/jvm/2020-03-27-gcLog/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -561,7 +375,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
@@ -573,7 +387,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
@@ -581,16 +395,85 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/27/jvm/2020-03-27-gcLog/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/27/jvm/2020-03-27-memoryDistribution/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          内存分配与回收
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/27/designPattern/2020-03-27-commandPattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2020-03-27-commandPattern</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -605,8 +488,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#理解GC"><span class="toc-number">1.</span> <span class="toc-text">理解GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -645,147 +551,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-designPattern/2020-03-04-designPattern-UML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" class="archive-article-date">
-        <time datetime="2020-03-04T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-04</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>UML类图由许多模型元素以及不同的线、箭头组成，这些元素、线、箭头分别代表了Java中的接口、类、继承依赖关系等，将Java中各个类的关系以UML类图的方式展示出来，有助于我们理清依赖与继承实现关系。</strong></p>
-    
-    <a class="article-more-a" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -823,8 +588,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
