@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>Archives: 2020 | xczll的博客</title>
+  <title>设计模式之中介者模式 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/archives/2020/page/4/index.html">
+  <meta name="description" content="介绍当多个对象之间存在通信关系的情况下，对象之间存在很强的关联性，会导致系统出现一些问题：  系统结构复杂，因为大量对象彼此关联，一个对象改变会导致其他对象发生变化，牵一发动全身 对象可重用性差：由于存在大量关联关系，就很难对对象进行重用 系统扩展性差：当系统内部关系负责，就很难对系统再进行功能的添加或修改  因此，对于系统内存在多个对象进行相互引用的情况下，为了降低引用关系复杂度，降低耦合程度，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之中介者模式">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/28/designPattern/2020-03-28-mediatorPattern/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="介绍当多个对象之间存在通信关系的情况下，对象之间存在很强的关联性，会导致系统出现一些问题：  系统结构复杂，因为大量对象彼此关联，一个对象改变会导致其他对象发生变化，牵一发动全身 对象可重用性差：由于存在大量关联关系，就很难对对象进行重用 系统扩展性差：当系统内部关系负责，就很难对系统再进行功能的添加或修改  因此，对于系统内存在多个对象进行相互引用的情况下，为了降低引用关系复杂度，降低耦合程度，">
+<meta property="article:published_time" content="2020-03-28T04:39:06.000Z">
+<meta property="article:modified_time" content="2020-03-28T05:52:16.637Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
@@ -221,95 +224,145 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-designPattern/2020-03-28-mediatorPattern" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" class="archive-article-date">
-        <time datetime="2020-03-16T12:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" target="_blank">java并发之线程安全</a>
   
+    <h1 class="article-title" itemprop="name">
+      设计模式之中介者模式
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<a href="/2020/03/28/designPattern/2020-03-28-mediatorPattern/" class="archive-article-date">
+        <time datetime="2020-03-28T04:39:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">775字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
 
 
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>当多个对象之间存在通信关系的情况下，对象之间存在很强的关联性，会导致系统出现一些问题：</p>
+<ul>
+<li>系统结构复杂，因为大量对象彼此关联，一个对象改变会导致其他对象发生变化，牵一发动全身</li>
+<li>对象可重用性差：由于存在大量关联关系，就很难对对象进行重用</li>
+<li>系统扩展性差：当系统内部关系负责，就很难对系统再进行功能的添加或修改</li>
+</ul>
+<p>因此，对于系统内存在多个对象进行相互引用的情况下，为了降低引用关系复杂度，降低耦合程度，就可以使用中介者模式了，这就是中介者模式诞生的原因</p>
+<a id="more"></a>
+
+<p><strong>定义</strong>：用一个<strong>中介对象来封装一系列的对象交互</strong>，<strong>中介者使各对象不需要显式地相互引用</strong>，从而使其耦合松散，而且可以独立地改变它们之间的交互。<br><strong>何时使用</strong>：多个类相互耦合，形成了网状结构。<br><strong>如何解决</strong>：将上述<strong>网状结构分离为星型结构</strong><br><strong>关键代码</strong>：对象之间的通信封装到一个类中单独处理。<br><strong>应用实例</strong>： 1、中国加入 WTO 之前是各个国家相互贸易，结构复杂，现在是各个国家通过 WTO 来互相贸易。 2、机场调度系统。 3、MVC 框架，其中C（控制器）就是 M（模型）和 V（视图）的中介者。</p>
+<p><strong>优点</strong>：1、降低了类的复杂度，将一对多转化成了一对一。 2、各个类之间的解耦。 3、符合迪米特原则。<br><strong>缺点</strong>：中介者十分关键，出现问题会波及整个系统</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>通过聊天室实例来演示中介者模式，实例中，多个用户可以向聊天室发送消息，聊天室向所有的用户显示消息。<br>原本各个用户要想找其他人发送消息需要单独打开窗口，在n个用户下，最多出现 n(n-1)/2个窗口，而在聊天室模式中，N个用户只需要N个窗口即可，大大的缩减了系统复杂度</p>
+<h4 id="用户类"><a href="#用户类" class="headerlink" title="用户类"></a>用户类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> name;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.name  = name;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">      ChatRoom.showMessage(<span class="keyword">this</span>,message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="聊天室类"><a href="#聊天室类" class="headerlink" title="聊天室类"></a>聊天室类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatRoom</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">(User user, String message)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="keyword">new</span> Date().toString()</span><br><span class="line">         + <span class="string">" ["</span> + user.getName() +<span class="string">"] : "</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通信测试"><a href="#通信测试" class="headerlink" title="通信测试"></a>通信测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      User robert = <span class="keyword">new</span> User(<span class="string">"Robert"</span>);</span><br><span class="line">      User john = <span class="keyword">new</span> User(<span class="string">"John"</span>);</span><br><span class="line"> </span><br><span class="line">      robert.sendMessage(<span class="string">"Hi! John!"</span>);</span><br><span class="line">      john.sendMessage(<span class="string">"Hello! Robert!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果:</span><br><span class="line">Thu Jan <span class="number">31</span> <span class="number">16</span>:<span class="number">05</span>:<span class="number">46</span> IST <span class="number">2013</span> [Robert] : Hi! John!</span><br><span class="line">Thu Jan <span class="number">31</span> <span class="number">16</span>:<span class="number">05</span>:<span class="number">46</span> IST <span class="number">2013</span> [John] : Hello! Robert!</span><br></pre></td></tr></table></figure>
+<p>可以看到，在此示例中，各个用户需要给其他用户发送的消息，都统一发送给中介类聊天室管理，而聊天室这里显示的直接将信息打印。</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/mediator.html" target="_blank" rel="noopener">中介者模式</a></li>
+<li><a href="https://www.runoob.com/design-pattern/mediator-pattern.html" target="_blank" rel="noopener">中介者模式</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/28/designPattern/2020-03-28-mediatorPattern/" title="设计模式之中介者模式" target="_blank">https://xczllgit.github.io/2020/03/28/designPattern/2020-03-28-mediatorPattern/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
   </div>
-</article>
-  
+  <div class="article-info article-info-index">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" class="archive-article-date">
-        <time datetime="2020-03-16T11:39:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" target="_blank">设计模式之享元模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -321,7 +374,7 @@ var _hmt = _hmt || [];
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -334,455 +387,163 @@ var _hmt = _hmt || [];
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/28/designPattern/2020-03-28-mediatorPattern/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" class="archive-article-date">
-        <time datetime="2020-03-15T13:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java虚拟机Class文件结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/27/computerscience/2020-03-27-internetDNS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DNS服务</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" target="_blank">设计模式之适配器模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用户类"><span class="toc-number">2.1.</span> <span class="toc-text">用户类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#聊天室类"><span class="toc-number">2.2.</span> <span class="toc-text">聊天室类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通信测试"><span class="toc-number">2.3.</span> <span class="toc-text">通信测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" class="archive-article-date">
-        <time datetime="2020-03-15T12:17:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" target="_blank">java并发之线程属性</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadException/" class="archive-article-date">
-        <time datetime="2020-03-15T11:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadException/" target="_blank">java并发之异常处理</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/hello-world/" class="archive-article-date">
-        <time datetime="2020-03-15T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">介绍</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/欢迎//" class="article-tag-list-link color3">欢迎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-14T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/concurrent/2020-03-14-threadMethods/" class="archive-article-date">
-        <time datetime="2020-03-14T14:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/concurrent/2020-03-14-threadMethods/" target="_blank">java并发之Thread和Object类中线程相关方法</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" class="archive-article-date">
-        <time datetime="2020-03-14T13:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" target="_blank">设计模式之外观模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/12/concurrent/2020-03-12-threadStatus/" class="archive-article-date">
-        <time datetime="2020-03-12T12:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-12</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/12/concurrent/2020-03-12-threadStatus/" target="_blank">java并发之线程的状态</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2020/page/5/">5</a><a class="page-number" href="/archives/2020/page/6/">6</a><a class="extend next" rel="next" href="/archives/2020/page/5/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -821,8 +582,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

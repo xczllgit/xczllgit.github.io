@@ -258,18 +258,9 @@ var _hmt = _hmt || [];
   <div class="article-entry" itemprop="articleBody">
     
     <p>欢迎来到xczll的博客，这是我的第一篇文章，用来介绍本博客站点。</p>
-<h3 id="博客主题"><a href="#博客主题" class="headerlink" title="博客主题"></a>博客主题</h3><p>本博客系统主题来自<a href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank" rel="noopener">yilia-plus</a></p>
-<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>博客文章主要是我在学习Java后台开发过程中所记录，目前分类有：</p>
-<ul>
-<li>Java设计模式</li>
-<li>Java多线程并发核心知识</li>
-<li>Java虚拟机相关知识</li>
-<li>计算机网络相关</li>
-</ul>
-<p>可以通过博客左方的分类页进入分类界面看到当前所有文章分类，在归档页能够找到目前所有文章。</p>
-<p>在左方的所有文章能够打开额外的隐藏页，在隐藏页中有着搜索功能及tag标签，通过搜索或者tag标签也可以找到你所想找到的文章。</p>
-<p>希望在这里能找到你所需要的，thank you for visiting！</p>
-
+    
+    <a class="article-more-a" href="/2020/03/15/hello-world/#more">more >></a>
+    
     
 
     
@@ -312,6 +303,414 @@ var _hmt = _hmt || [];
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/03/15/hello-world/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-computerscience/2020-03-28-transferLayer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/28/computerscience/2020-03-28-transferLayer/" target="_blank">运输层概述</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/28/computerscience/2020-03-28-transferLayer/" class="archive-article-date">
+        <time datetime="2020-03-28T07:10:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h3><p>运输层位于应用层与网络层之间，在这一层中，最关键的是两种因特网运输层协议：TCP和UDP。<br>运输层协议为运行在不同主机上的应用进程提供了<strong>逻辑通信</strong></p>
+<ul>
+<li><strong>通过逻辑通信，运行不同进程的主机好像直接相连一样</strong>，实际上它们通过了很多路由器和链路相连。应用进程使用运输层提供的逻辑通信功能<strong>彼此发送报文，而无需考虑承载这些报文的物理基础设施的细节</strong>。</li>
+<li>运输层提供的是 <strong>进程和进程</strong> 之间的逻辑通信。
+    
+    <a class="article-more-a" href="/2020/03/28/computerscience/2020-03-28-transferLayer/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/28/computerscience/2020-03-28-transferLayer/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-jvm/2020-03-28-jvmClassByteCode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/" target="_blank">java虚拟机Class文件结构</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/" class="archive-article-date">
+        <time datetime="2020-03-28T05:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>对于Java语言，程序员写出来的java程序是.java结尾的文件，此文件不能直接被计算机执行，需要经过编译处理，编译处理后的文件就是 .class文件，class文件中就是二进制字节码组成的内容，能够被jvm所识别执行。<br>Class文件中包含了Java虚拟机指令集和符号表以及若干其他辅助信息，在Java语言中的个中国变量、关键字和运算符号的语义都可以由多条字节码命令组成。</p>
+    
+    <a class="article-more-a" href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-designPattern/2020-03-28-mediatorPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/28/designPattern/2020-03-28-mediatorPattern/" target="_blank">设计模式之中介者模式</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/28/designPattern/2020-03-28-mediatorPattern/" class="archive-article-date">
+        <time datetime="2020-03-28T04:39:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>当多个对象之间存在通信关系的情况下，对象之间存在很强的关联性，会导致系统出现一些问题：</p>
+<ul>
+<li>系统结构复杂，因为大量对象彼此关联，一个对象改变会导致其他对象发生变化，牵一发动全身</li>
+<li>对象可重用性差：由于存在大量关联关系，就很难对对象进行重用</li>
+<li>系统扩展性差：当系统内部关系负责，就很难对系统再进行功能的添加或修改</li>
+</ul>
+<p>因此，对于系统内存在多个对象进行相互引用的情况下，为了降低引用关系复杂度，降低耦合程度，就可以使用中介者模式了，这就是中介者模式诞生的原因</p>
+    
+    <a class="article-more-a" href="/2020/03/28/designPattern/2020-03-28-mediatorPattern/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/28/designPattern/2020-03-28-mediatorPattern/">展开全文 >></a>
     </p>
     
 
@@ -513,444 +912,9 @@ document.body.addEventListener('click', function(e) {
 </script>
     
   
-    <article id="post-jvm/2020-03-27-memoryDistribution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/27/jvm/2020-03-27-memoryDistribution/" target="_blank">内存分配与回收</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/27/jvm/2020-03-27-memoryDistribution/" class="archive-article-date">
-        <time datetime="2020-03-27T04:47:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="对象优先在Eden分配"><a href="#对象优先在Eden分配" class="headerlink" title="对象优先在Eden分配"></a>对象优先在Eden分配</h3><p>大多数情况下，对象优先分配到新生代的Eden区，当Eden区没有足够空间进行分配，将进行一次minor GC。<br>虚拟机提供了-XX:+PrintGCDetails这个收集器日志参数，告诉虚拟机在发生垃圾收集行为时打印内存回收日志，并且在进程退出的时候输出当前的内存各区域分配情况。</p>
-<ul>
-<li>-Xms20M：限制Java堆初始大小20MB</li>
-<li>-Xmx20M：限制Java堆最大20MB， 与上一条结合用就限定了Java堆容量就是20MB</li>
-<li>-Xmn10M：分配新生代大小10MB；    也就同时分配了老年代10MB<ul>
-<li>-XX:SurvivorRation=8： 决定了新生代中 Eden区与一个Survivor区的空间比例是 8：1</li>
-</ul>
-</li>
-</ul>
-<p><strong>新生代GC(Minor GC)</strong>：指发生在新生代的垃圾收集动作，因为Java对象大多都具备朝生夕灭的特性，所以Minor GC非常频繁，一般回收速度也比较快。<br><strong>老年代GC（Major GC/Full GC）</strong>：指发生在老年代的GC，出现了Major GC，经常会伴随至少一次的Minor GC（但非绝对的，在Parallel Scavenge收集器的收集策略里就有直接进行Major GC的策略选择过程）。Major GC的速度一般会比Minor GC慢10倍以上。</p>
-    
-    <a class="article-more-a" href="/2020/03/27/jvm/2020-03-27-memoryDistribution/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/27/jvm/2020-03-27-memoryDistribution/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-27-gcLog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/27/jvm/2020-03-27-gcLog/" target="_blank">理解GC日志</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/27/jvm/2020-03-27-gcLog/" class="archive-article-date">
-        <time datetime="2020-03-27T02:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="理解GC"><a href="#理解GC" class="headerlink" title="理解GC"></a>理解GC</h3><p>java虚拟机规范没有对垃圾收集器的实现做出具体要求，因此垃圾收集器有着很多种类，每一种垃圾收集器的日志形式都是由它们自身的实现所决定，每一种日志格式都可以不一样，但是虚拟机设计者为了方便用户阅读，将各个收集器的日志都维持一定的共性。</p>
-<p>典型的GC日志：<br><img src="/assets/img/jvm/1585276026.jpg" alt="strategy"></p>
-<ul>
-<li>最前面的数字 “33.125”和“100.67”代表了GC发生的时间，是从Java虚拟机启动以来经过的<strong>秒数</strong></li>
-<li>GC日志开头的<code>GC</code>和<code>Full GC</code>说明这次垃圾收集的停顿类型，而不是用来区分新生代GC和老年代GC的。<ul>
-<li>Full代表这次GC是发生了 Stop The World的</li>
-</ul>
-</li>
-<li>DefNew、Tenured、Perm等表示GC发生的区域<ul>
-<li>对于Serial收集器，新生代名为 Default New Generation，所以显示的<strong>DefNew</strong><ul>
-<li>而对于ParNew收集器，新生代就会变成 <strong>ParNew</strong>，意思是 <strong>Parallel New Generation</strong></li>
-<li>而Parallel Scavenge收集器的新生代称为 <strong>PSYoungGen</strong></li>
-</ul>
-</li>
-<li>Tenured是老年代</li>
-</ul>
-</li>
-<li>方括号内部的 <code>3324K -&gt; 152K(3712K)</code>的含义是 GC前该区域已使用容量-&gt;GC后该内存区域已使用容量（该内存区域总容量）。而方括号之外的 <code>3324K-&gt;152K(11904K)</code>表示“GC前Java堆已使用容量 -&gt; GC后Java堆已使用容量（Java堆总容量）”</li>
-<li><code>0.0025925 secs</code>表示该内存区域GC所占用的时间，单位是秒。 有的收集器会给出更具体的时间数据：<ul>
-<li>如  <code>[Times:user=0.01 sys=0.00 , real=0.02 secs]</code>,这里面的user、sys和real与Linux 的time命令所输出的时间含义一致，分别代表用户态消耗的CPU时间，内核态消耗的CPU时间，操作从开始到结束所经过的墙钟时间(Wall Clock Time)。 </li>
-<li>墙钟时间包括各种非运算的等待耗时，例如等待磁盘I/O、等待线程阻塞，而CPU时间不包括这些耗时，但当系统有多CPU或者多核的话，<strong>多线程操作会叠加这些CPU时间</strong>，所以读者看到user或sys时间超过real时间是完全正常的。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/27/jvm/2020-03-27-gcLog/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-27-commandPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/27/designPattern/2020-03-27-commandPattern/" target="_blank">2020-03-27-commandPattern</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/27/designPattern/2020-03-27-commandPattern/" class="archive-article-date">
-        <time datetime="2020-03-27T01:05:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>命令模式<strong>将请求以命令的方式包裹在对象中</strong>，并传给调用对象，是一种数据驱动的设计模式，属于行为型模式。</p>
-<p><strong>目的</strong>：将一个请求封装成一个对象，从而使您可以用不同的请求对客户进行参数化；从而可以对请求进行排队或者记录日志，以及支持可撤销的操作。</p>
-<p>在软件设计时，经常需要向某些对象发送请求，但是并不知道请求的接收者是谁，也不知道被请求的操作是什么，我们只需要在程序运行时指定具体的接收者即可。此时就可以使用命令模式进行设计，能够让请求发送者和请求接收者解耦，让对象之间的调用关系更加灵活。<br>命令模式可以让发送者和接收者完全解耦，<strong>发送者与接收者之间没有直接引用关系</strong>，<strong>发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求</strong>。这就是命令模式的<strong>模式动机</strong>。</p>
-    
-    <a class="article-more-a" href="/2020/03/27/designPattern/2020-03-27-commandPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/27/designPattern/2020-03-27-commandPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 

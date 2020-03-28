@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>Archives: 2020 | xczll的博客</title>
+  <title>运输层概述 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/archives/2020/page/4/index.html">
+  <meta name="description" content="运输层服务运输层位于应用层与网络层之间，在这一层中，最关键的是两种因特网运输层协议：TCP和UDP。运输层协议为运行在不同主机上的应用进程提供了逻辑通信  通过逻辑通信，运行不同进程的主机好像直接相连一样，实际上它们通过了很多路由器和链路相连。应用进程使用运输层提供的逻辑通信功能彼此发送报文，而无需考虑承载这些报文的物理基础设施的细节。 运输层提供的是 进程和进程 之间的逻辑通信。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运输层概述">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/28/computerscience/2020-03-28-transferLayer/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="运输层服务运输层位于应用层与网络层之间，在这一层中，最关键的是两种因特网运输层协议：TCP和UDP。运输层协议为运行在不同主机上的应用进程提供了逻辑通信  通过逻辑通信，运行不同进程的主机好像直接相连一样，实际上它们通过了很多路由器和链路相连。应用进程使用运输层提供的逻辑通信功能彼此发送报文，而无需考虑承载这些报文的物理基础设施的细节。 运输层提供的是 进程和进程 之间的逻辑通信。">
+<meta property="article:published_time" content="2020-03-28T07:10:23.000Z">
+<meta property="article:modified_time" content="2020-03-28T08:40:22.011Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
@@ -221,568 +224,338 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-computerscience/2020-03-28-transferLayer" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" class="archive-article-date">
-        <time datetime="2020-03-16T12:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/concurrent/2020-03-16-threadSecurity/" target="_blank">java并发之线程安全</a>
   
+    <h1 class="article-title" itemprop="name">
+      运输层概述
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/28/computerscience/2020-03-28-transferLayer/" class="archive-article-date">
+        <time datetime="2020-03-28T07:10:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.4k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">4分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h3><p>运输层位于应用层与网络层之间，在这一层中，最关键的是两种因特网运输层协议：TCP和UDP。<br>运输层协议为运行在不同主机上的应用进程提供了<strong>逻辑通信</strong></p>
+<ul>
+<li><strong>通过逻辑通信，运行不同进程的主机好像直接相连一样</strong>，实际上它们通过了很多路由器和链路相连。应用进程使用运输层提供的逻辑通信功能<strong>彼此发送报文，而无需考虑承载这些报文的物理基础设施的细节</strong>。</li>
+<li>运输层提供的是 <strong>进程和进程</strong> 之间的逻辑通信。<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="运输层和网络层的关系"><a href="#运输层和网络层的关系" class="headerlink" title="运输层和网络层的关系"></a>运输层和网络层的关系</h3><p>在协议栈中，运输层刚好位于网络层之上。<br><strong>网络层提供了主机之间的逻辑通信，而运输层提供了不同主机上进程之间的逻辑通信。</strong></p>
+<p>以家庭之间的通信为例：</p>
+<ul>
+<li>A家庭中有a、b、c、d四个成员；B家庭中有 q、w、e、r四个成员；</li>
+<li>A家庭中a成员收取整个家庭的信件后负责去邮局寄信和取信，B家庭中q成员收取整个家庭的信件后负责去邮局寄信和取信</li>
+<li>邮局负责将信件送达到另一个地区的邮局</li>
+</ul>
+<p>在此例中, 邮局负责两个家庭之间的逻辑通信,是将信件从一家送到另一家,而不是从一个人送到另一个人. 另一方面,a和q成员收取和分发家庭成员的信件,在各个家庭成员来看,a和q就是邮件服务,尽管他们只是端到端交付过程的一部分.<br>此例中:</p>
+<ul>
+<li>应用层报文 = 信件</li>
+<li>进程 = 家庭成员</li>
+<li>主机(又称端系统) = 家庭</li>
+<li>运输层协议 = a和q</li>
+<li>网络层协议 = 邮件服务 </li>
+</ul>
+<p>值得注意的是,a和q都是在各自家庭工作,并没有参与到邮件的实际运输,类似地,运输层协议只工作在端系统中。在端系统中，运输层协议将来自应用进程的报文移动到网络边缘(即网络层)，反过来也一样，但对有关这些报文在网络中的传输并不做规定。<br>当a和q出现了一些事情而无法提供服务时，两个家庭指定另外的成员代替他们的工作，而另外的成员比较粗心，可能会导致信件丢失，并且收取信件的频率降低，这就相当于是更换了运输层协议，不同的协议所做的服务是不同的。</p>
+<p>从上面我们能发现，<strong>运输层协议所能提供的服务明显受制于网络层提供的服务</strong>，当网络层传输信件的时间很长时，运输层并不能保证信件到达的时间。</p>
+<ul>
+<li>如果网络层协议无法为主机之间发送的运输层报文段提供时延或带宽保证的话，运输层协议也就无法提供保证。</li>
+</ul>
+<p>但是，运输层也能提供某些网络层协议没有提供的服务，如运输层协议可以将报文加密，这样即使网络层不能保证报文传输的机密性，加密的操作也能保证报文不容易被其他人读取。</p>
+<h3 id="因特网运输层概述"><a href="#因特网运输层概述" class="headerlink" title="因特网运输层概述"></a>因特网运输层概述</h3><p>运输层中主要有两种运输协议：TCP与UDP</p>
+<ul>
+<li><strong>TCP</strong>为调用它的应用程序提供了一种<strong>可靠的、面向连接</strong>的服务</li>
+<li><strong>UDP</strong>则提供了一种<strong>不可靠、无连接</strong>的服务</li>
+</ul>
+<p>为了方便，将<strong>运输层分组称之为报文段</strong>，而<strong>网络层的分组称之为数据报</strong>。<br>网络层协议(网际协议)叫做IP。IP提供了主机之间的逻辑通信，服务模型是<strong>“尽力而为交付”</strong>，也就是说IP并不会做任何确保，不保证报文段的交付完整、按序交付等，因此，<strong>IP被称为不可靠服务</strong>。</p>
+<p>每台主机至少需要有一个网络层地址，也就是IP地址。</p>
+<h3 id="多路复用与多路分解"><a href="#多路复用与多路分解" class="headerlink" title="多路复用与多路分解"></a>多路复用与多路分解</h3><p>在主机中，一般有多个网络应用进程在运行，当计算机中的运输层从底层的网络层接收数据时，需要将接收到的数据定向到对应的进程。<br>一个进程有一个或多个套接字(Socket),它想到那个鱼从网络向进程传递数据和从进程向网络传递数据的门户。因此在接收主机中的运输层实际上并没有直接将数据交付给进程，而是将数据交给了一个中间的套接字。<br>主机中的套接字有不止一个，因此<strong>每个套接字都有唯一的标识符</strong>，标识符的格式取决于它是UDP还是TCP套接字。<br>为了将到达的运输层报文段定向到适当的套接字，<strong>每个运输层报文段中具有几个字段，运输层通过检查这些字段，将报文定向到对应的套接字</strong>。    </p>
+<ul>
+<li>将运输层报文段中的数据正确交付到套接字的工作叫做<strong>多路分解</strong></li>
+<li>在源主机从不同套接字中收集数据块，并为每个数据块封装上首部信息从而生成报文段，然后将报文段传递到网络层，所有这些工作称为<strong>多路复用</strong>。</li>
+</ul>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://www.cmpedu.com/books/book/2052552.htm" target="_blank" rel="noopener">计算机网络:自顶向下法</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/28/computerscience/2020-03-28-transferLayer/" title="运输层概述" target="_blank">https://xczllgit.github.io/2020/03/28/computerscience/2020-03-28-transferLayer/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/28/computerscience/2020-03-28-transferLayer/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" class="archive-article-date">
-        <time datetime="2020-03-16T11:39:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/28/jvm/2020-03-28-jvmClassByteCode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java虚拟机Class文件结构</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/16/designPattern/2020-03-16-flyWeightPattern/" target="_blank">设计模式之享元模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#运输层服务"><span class="toc-number">1.</span> <span class="toc-text">运输层服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运输层和网络层的关系"><span class="toc-number">2.</span> <span class="toc-text">运输层和网络层的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因特网运输层概述"><span class="toc-number">3.</span> <span class="toc-text">因特网运输层概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多路复用与多路分解"><span class="toc-number">4.</span> <span class="toc-text">多路复用与多路分解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" class="archive-article-date">
-        <time datetime="2020-03-15T13:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/designPattern/2020-03-15-adapterPattern/" target="_blank">设计模式之适配器模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" class="archive-article-date">
-        <time datetime="2020-03-15T12:17:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadAttribute/" target="_blank">java并发之线程属性</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/concurrent/2020-03-15-threadException/" class="archive-article-date">
-        <time datetime="2020-03-15T11:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/concurrent/2020-03-15-threadException/" target="_blank">java并发之异常处理</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/15/hello-world/" class="archive-article-date">
-        <time datetime="2020-03-15T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/15/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">介绍</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/欢迎//" class="article-tag-list-link color3">欢迎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-14T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-decoratorPattern/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/concurrent/2020-03-14-threadMethods/" class="archive-article-date">
-        <time datetime="2020-03-14T14:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/concurrent/2020-03-14-threadMethods/" target="_blank">java并发之Thread和Object类中线程相关方法</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" class="archive-article-date">
-        <time datetime="2020-03-14T13:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/14/designPattern/2020-03-14-appearancePattern/" target="_blank">设计模式之外观模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/12/concurrent/2020-03-12-threadStatus/" class="archive-article-date">
-        <time datetime="2020-03-12T12:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-12</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/12/concurrent/2020-03-12-threadStatus/" target="_blank">java并发之线程的状态</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java多线程并发基础//" class="article-tag-list-link color2">java多线程并发基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2020/page/5/">5</a><a class="page-number" href="/archives/2020/page/6/">6</a><a class="extend next" rel="next" href="/archives/2020/page/5/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -821,8 +594,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

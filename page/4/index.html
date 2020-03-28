@@ -228,6 +228,429 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-designPattern/2020-03-24-interpreterPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/" target="_blank">设计模式之解释器模式</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/" class="archive-article-date">
+        <time datetime="2020-03-24T02:47:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>解释器模式主要用于<strong>评估</strong> 语言的语法或表达式，属于<strong>行为型模式</strong>。<br>这种模式提供了一个表达式接口，用于解释一个特定的上下文。</p>
+<p><strong>核心</strong>：给定一个语言，定义它的文法表示，并定义一个解释器，这个解释器来解释语言中的句子。<br><strong>如何解决</strong>：构建语法树，定义终结符与非终结符。<br><strong>关键代码</strong>：构建环境类，包含解释器之外的一些全局信息，一般是 HashMap。<br><strong>优点</strong>： 1、可扩展性比较好，灵活。 2、增加了新的解释表达式的方式。 3、易于实现简单文法。<br><strong>缺点</strong>： 1、可利用场景比较少。 2、对于复杂的文法比较难维护。 3、解释器模式会引起类膨胀。 4、解释器模式采用递归调用方法。<br><strong>使用场景</strong>：</p>
+<ol>
+<li>可以将一个需要解释执行的语言中的句子表示为一个抽象语法树。</li>
+<li>一些重复出现的问题可以用一种简单的语言来进行表达。<ul>
+<li>比如加减乘除四则运算，但是公式每次都不同，有时是a+b-c<em>d，有时是a</em>b+c-d等，公式千变万化，但是都是由加减乘除四个非终结符来连接的，这时我们就可以使用解释器模式。</li>
+</ul>
+</li>
+<li>一个简单语法需要解释的场景。
+    
+    <a class="article-more-a" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/24/designPattern/2020-03-24-interpreterPattern/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-computerscience/2020-03-23-applicationProtocol" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/" target="_blank">计算机网络之应用层Http协议</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/" class="archive-article-date">
+        <time datetime="2020-03-23T07:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在因特网出现的开始，主要用途是科研，到了20世纪90年代，万维网登上了舞台。<br><strong>万维网WWW</strong>(World Wide Web)是一个大规模的、联机式的<strong>信息储藏所/资料空间</strong>，是<strong>无数个网络站点和网页的集合</strong></p>
+<p>人们可以在Web上发布信息，可以进行交互，越来越多的Web站点存储着海量的信息，吸引着更多的人前来。</p>
+<p>Web的应用层协议是<strong>超文本传输协议HTTP</strong>(HyperText Transfer Protocol)</p>
+    
+    <a class="article-more-a" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/23/computerscience/2020-03-23-applicationProtocol/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-jvm/2020-03-23-jvmMemoryRegion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" target="_blank">java虚拟机内存结构</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/" class="archive-article-date">
+        <time datetime="2020-03-23T04:15:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="虚拟机内存区域划分"><a href="#虚拟机内存区域划分" class="headerlink" title="虚拟机内存区域划分"></a>虚拟机内存区域划分</h3><p>在《java虚拟机规范》中，并没有提到java虚拟机内存结构，而是使用的”运行时数据区”这个术语，也就是说java虚拟机内存结构 = 运行时数据区。</p>
+<p>在hotspot中，通常来讲，运行时数据区被划分为两块区域：线程独占区和线程共享区。</p>
+<ul>
+<li>线程独占区<ul>
+<li>java虚拟机栈</li>
+<li>本地方法栈</li>
+<li>程序计数器</li>
+</ul>
+</li>
+<li>线程共享区<ul>
+<li>java堆</li>
+<li>方法区</li>
+</ul>
+</li>
+<li>直接内存（Direct Memory）：并不是java虚拟机运行时数据区的一部分，但是经常使用
+    
+    <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/23/jvm/2020-03-23-jvmMemoryRegion/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-jvm/2020-03-23-jvmIntroduction" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -508,431 +931,9 @@ document.body.addEventListener('click', function(e) {
 </script>
     
   
-    <article id="post-computerscience/2020-03-22-applicationLayerProtocolPrinciple" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" target="_blank">计算机网络之应用层协议原理</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" class="archive-article-date">
-        <time datetime="2020-03-22T01:50:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>应用层包含了能进行人机交互并且产生网络流量的程序<br>经典的基于文本的几种应用：电子邮件、计算机远程访问、文件传输、新闻组、文本聊天等，后来又出现了万维网(包含web冲浪、搜索、电商)，即时通讯等</p>
-<p>应用层的程序是数之不尽的，对应用层的学习主要集中于原理和实现</p>
-<h2 id="协议原理"><a href="#协议原理" class="headerlink" title="协议原理"></a>协议原理</h2><p>研发网络应用程序的核心是写出能够运行在不同的端系统和通过网络彼此通信的程序。如web应用程序、p2p文件共享系统等。</p>
-<h3 id="应用程序体系"><a href="#应用程序体系" class="headerlink" title="应用程序体系"></a>应用程序体系</h3><p>在编写应用程序之前需要有一个宽泛的体系结构计划。应用程序体系不同于网络结构体系(五层、七层模型等)那么固定，应用程序体系由程序研发者设计。目前有两种主流体系结构：</p>
-<ul>
-<li>客户机/服务器体系结构<ul>
-<li>将多个计算机分为客户机和服务器两种<ul>
-<li>服务器接收来自客户机的请求并处理</li>
-<li>客户机之间一般不相互通信</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>对等(P2P)体系结构<ul>
-<li>任意两台计算机彼此依赖，直接相互通信，不需要通过专门的服务器。</li>
-<li>任意间断连接的主机对——称为对等方</li>
-</ul>
-</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-22-iteratorPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/" target="_blank">设计模式之迭代器模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/" class="archive-article-date">
-        <time datetime="2020-03-22T00:41:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>迭代器模式用于顺序访问集合对象的元素，不需要知道集合对象的底层表示。、<br>迭代器模式属于<strong>行为型模式</strong>。</p>
-<p><strong>主要解决</strong>：不同的方式来遍历整个集合对象</p>
-<p><strong>如何解决</strong>：把在元素之间游走的责任交给迭代器，而不是聚合对象。</p>
-<p><strong>关键代码</strong>：定义接口：hasNext，next</p>
-<p><strong>应用实例</strong>：Java中的iterator</p>
-    
-    <a class="article-more-a" href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/22/designPattern/2020-03-22-iteratorPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-computerscience/2020-03-21-osiAndTcpIpModel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/21/computerscience/2020-03-21-osiAndTcpIpModel/" target="_blank">OSI与TCP-IP参考模型</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/21/computerscience/2020-03-21-osiAndTcpIpModel/" class="archive-article-date">
-        <time datetime="2020-03-21T01:43:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><h3 id="ISO-OSI参考模型的来源"><a href="#ISO-OSI参考模型的来源" class="headerlink" title="ISO/OSI参考模型的来源"></a>ISO/OSI参考模型的来源</h3><p>主要是为了解决计算机网络复杂的大问题，在20世纪70年代后期，国际标准化组织(ISO)提出计算机网络应该分为七层，称为<code>开放系统互联(OSI)模型</code>。</p>
-<p><img src="/assets/img/computerScience/1584755576.jpg" alt="Correspondence"></p>
-    
-    <a class="article-more-a" href="/2020/03/21/computerscience/2020-03-21-osiAndTcpIpModel/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/21/computerscience/2020-03-21-osiAndTcpIpModel/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
