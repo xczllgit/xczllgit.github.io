@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>Archives | xczll的博客</title>
+  <title>jvm之类加载 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/archives/page/6/index.html">
+  <meta name="description" content="简介当程序主动使用某个类时，如果该类还未被加载到内存，才会对其进行加载，JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化。  懒加载机制：需要用的时候，才会加载，而不是在程序运行的开始就把所有类加载了 节省资源 首次打开速度稍慢   在java代码中，类型的加载、连接与初始化过程都是在程序运行期间完成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm之类加载">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/29/jvm/2020-03-29-classLoaderMechanisms/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="简介当程序主动使用某个类时，如果该类还未被加载到内存，才会对其进行加载，JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化。  懒加载机制：需要用的时候，才会加载，而不是在程序运行的开始就把所有类加载了 节省资源 首次打开速度稍慢   在java代码中，类型的加载、连接与初始化过程都是在程序运行期间完成">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585455970.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585466687.png">
+<meta property="article:published_time" content="2020-03-29T03:51:24.000Z">
+<meta property="article:modified_time" content="2020-03-29T08:06:32.014Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1585455970.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -221,298 +227,415 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-jvm/2020-03-29-classLoaderMechanisms" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/07/designPattern/2020-03-07-factoryMethod/" class="archive-article-date">
-        <time datetime="2020-03-07T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/07/designPattern/2020-03-07-factoryMethod/" target="_blank">设计模式之工厂方法</a>
   
+    <h1 class="article-title" itemprop="name">
+      jvm之类加载
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/29/jvm/2020-03-29-classLoaderMechanisms/" class="archive-article-date">
+        <time datetime="2020-03-29T03:51:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2.4k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">8分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>当程序<strong>主动使用某个类</strong>时，如果该类还未被加载到内存，才会对其进行加载，JVM会通过<strong>加载</strong>、<strong>连接</strong>、<strong>初始化</strong>3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化。</p>
+<ul>
+<li>懒加载机制：需要用的时候，才会加载，而不是在程序运行的开始就把所有类加载了<ul>
+<li>节省资源</li>
+<li>首次打开速度稍慢</li>
+</ul>
+</li>
+<li>在java代码中，类型的加载、连接与初始化过程都是在<strong>程序运行期间</strong>完成的<ul>
+<li>加载、连接与初始化 是类从磁盘加载到内存中经历的三个阶段</li>
+<li>程序运行期间：不是在编译期间完成加载，而是在运行程序途中，需要加载了，才会加载；可以认为是懒加载<a id="more"></a>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="类加载注意事项"><a href="#类加载注意事项" class="headerlink" title="类加载注意事项"></a>类加载注意事项</h4><ol>
+<li>类加载器并不需要等待某个类被“首次主动使用”时再加载它</li>
+<li>JVM规范<strong>允许</strong>类加载器在预料到某个类要被使用时就<strong>预先加载</strong>它</li>
+<li>如果在预先加载的过程中遇到了.class文件缺失或存在错误，类加载器必须在程序<strong>首次主动使用</strong>该类时<strong>才会报告错误(LinkageError错误)</strong>，如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误</li>
+</ol>
+<h3 id="类加载时机"><a href="#类加载时机" class="headerlink" title="类加载时机"></a>类加载时机</h3><h4 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h4><p><img src="/assets/img/jvm/1585455970.jpg" alt="strategy"><br>由图可知，类从被加载到内存开始，到卸载出内存为止，整个生命周期包括七个阶段，而<strong>验证、准备、解析3个阶段统称为连接</strong>。<br>其中，加载、验证、准备、初始化和卸载这五个阶段的顺序是固定的，类的加载过程必须按照这种顺序开始。<br>解析阶段则不一定，它可以在某些情况下在初始化后才开始。</p>
+<h3 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h3><h4 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h4><ul>
+<li>通过一个类的全限定名获取定义此类的二进制流</li>
+<li>将这个字节流所代表的静态存储结构转化为<strong>方法区</strong>的<strong>运行时数据结构</strong></li>
+<li>在堆区创建一个java.lang.class对象<ul>
+<li>封装了类在方法区内的数据</li>
+<li>向Java程序员提供了访问方法区内的数据结构的接口</li>
+<li>简单来说就是作为这个类的各种数据的访问入口</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong>：<br><strong>Class对象是存放在堆区的</strong>，不是方法区，这点很多人容易犯错。类的<strong>元数据才是存在方法区的</strong>。【元数据并不是类的Class对象。<strong>Class对象是加载的最终产品</strong>，存放在堆中，<strong>类的方法代码，变量名，方法名，访问权限，返回值等等都是在方法区</strong>的】<br><img src="/assets/img/jvm/1585466687.png" alt="strategy"></p>
+<p><strong>Class对象与new出来的对象之间的关系</strong><br>new出来的对象以car为例。可以把car的Class类看成具体的一个人，而new car则是人物映像，<strong>具体的一个人（Class）是唯一的，人物映像（new car）是多个的</strong>。镜子中的每个人物映像都是根据具体的人映造出来的，也就是说<strong>每个new出来的对象都是以Class类为模板参照出来的</strong>！为啥可以参照捏？因为Class对象提供了访问方法区内的数据结构的接口。</p>
+<p><strong>加载阶段总结</strong>：<br>.class文件(二进制数据) ——&gt; 读取到内存 ——&gt; 数据放进方法区 ——&gt; 堆中创建对应Class对象 ——&gt; 提供访问方法区的接口</p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>主要是为了确保Class字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全</p>
+<ul>
+<li>文件格式验证：确保是class文件</li>
+<li>元数据验证：保证数据没有危害</li>
+<li>字节码验证：确保程序的语言符合规则</li>
+<li>符号引用验证：保证引用解析动作能正确执行</li>
+</ul>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>当完成字节码文件的校验之后，JVM 便会开始为类变量<strong>分配内存并初始化</strong>。准备阶段是正式<strong>为类变量分配内存并设置类变量初始值的阶段</strong>，<strong>这些内存都将在方法区中分配</strong>。</p>
+<p>内存分配的对象：</p>
+<ul>
+<li>类变量：指的是被static修饰的变量</li>
+<li>类成员变量：除了类变量之外的其他所有类型的变量<br>注意，在<strong>准备阶段，JVM只会为类变量分配内存</strong>。 类成员变量的内存分配需要等待初始化阶段才能开始</li>
+</ul>
+<p><strong>初始化</strong>：</p>
+<ul>
+<li>由于只会为类变量分配内存，所以当然只会初始化类变量；    类成员变量不会在这个时候初始化</li>
+<li>初始化指的是为<strong>变量赋予Java语言中该数据类型的默认值，而不是用户代码中初始化的值</strong>。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> exam = <span class="number">666</span>;</span><br></pre></td></tr></table></figure>
+这段代码在准备阶段之后，exam的值将是0，而不是666；<br>注意<br>注意<br>注意<br>但如果一个变量是常量（<strong>被static final修饰</strong>）的话，那么<strong>在准备阶段，属性便会被赋予用户希望的值</strong>。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> exam = <span class="number">666</span>;</span><br></pre></td></tr></table></figure>
+此时的代码在准备阶段之后，exam的值就是666了。</li>
+</ul>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><p>解析阶段是虚拟机将常量池中的符号引用替换成直接引用的过程。一个符号引用多次解析后，就会将解析的结果进行缓存，避免多次解析浪费资源</p>
+<ul>
+<li>符号引用：以一组符号来描述引用的目标，符号可以是任何形式的字面量，只要使用时能够无歧义的定位到目标即可</li>
+<li>直接引用：<ul>
+<li>直接指向目标的指针（比如，指向“类型”【Class对象】、类变量、类方法的直接引用可能是指向方法区的指针）</li>
+<li>相对偏移量（比如，指向实例变量、实例方法的直接引用都是偏移量）</li>
+<li>一个能间接定位到目标的句柄</li>
+</ul>
+</li>
+</ul>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ul>
+<li>初始化，是类加载的最后一步</li>
+<li>初始化时执行<code>&lt;clinit&gt;</code>方法(class init)的过程</li>
+</ul>
+<p>到了初始化阶段，用户定义的Java程序代码才真正开始执行。<br>Java程序对类的使用分为两种方式：</p>
+<ul>
+<li><strong>主动使用</strong><ul>
+<li>创建类的实例，也就是new的方式</li>
+<li>访问某个类或接口的静态变量，或者对该静态变量赋值(凡是被final修饰不不不其实更准确的说是<strong>在编译期把结果放入常量池的静态字段除外</strong>)</li>
+<li>调用类的静态方法</li>
+<li>反射</li>
+<li><strong>初始化某个类的子类，则其父类也会被初始化</strong></li>
+<li>Java虚拟机启动时被标明为启动类的类，还有就是<strong>main方法的类会首先被初始化</strong></li>
+</ul>
+</li>
+<li>被动使用：除了上述六种情况外，使用类的方式都看作是对类的被动使用</li>
+</ul>
+<p>初始化过程：</p>
+<ul>
+<li>类初始化方法：编译器会按照其出现顺序，收集：<strong>类变量（static变量）的赋值语句、静态代码块，最终组成类初始化方法</strong>。类初始化方法一般在类初始化的时候执行。</li>
+<li>对象初始化方法：编译器会按照其出现顺序，收集：<strong>成员变量</strong>的赋值语句、<strong>普通代码块</strong>，最后收集<strong>构造函数的代码</strong>，最终<strong>组成对象初始化方法</strong>，值得特别注意的是，如果没有监测或者收集到构造函数的代码，则将不会执行对象初始化方法。<strong>对象初始化方法一般在实例化类对象的时候执行</strong>。</li>
+</ul>
+<p>注意，静态类变量，代码块，只会在<strong>首次</strong>主动调用类的时候<strong>进行初始化</strong>，<strong>后面调用类，是不会再执行静态代码块的。</strong></p>
+<h4 id="使用与卸载"><a href="#使用与卸载" class="headerlink" title="使用与卸载"></a>使用与卸载</h4><p>当 JVM 完成初始化阶段之后，JVM 便开始<strong>从入口方法开始执行用户的程序代码</strong>。<br>当用户程序代码执行完毕后，JVM 便开始<strong>销毁创建的 Class 对象</strong>，最后负责运行的 <strong>JVM 也退出内存</strong>。</p>
+<p>在以下几种情况，Java虚拟机将结束生命周期：</p>
+<ul>
+<li>执行System.exit()方法</li>
+<li>程序正常执行结束</li>
+<li>程序在执行过程中遇到了异常或错误而异常终止</li>
+<li>由于操作系统出现错误而导致Java虚拟机进程终止。</li>
+</ul>
+<h3 id="接口的加载"><a href="#接口的加载" class="headerlink" title="接口的加载"></a>接口的加载</h3><p>接口的加载与类加载过程有所不同。<br>当一个类在初始化时，要求其父类全部都已经初始化过了。但是一个接口在初始化时，并不要求其父接口全部都完成了初始化，当真正用到父接口的时候才会初始化。</p>
+<h3 id="理解首次使用"><a href="#理解首次使用" class="headerlink" title="理解首次使用"></a>理解首次使用</h3><ol>
+<li>main方法的类会首先被初始化，如果有父类，先初始化父类<ul>
+<li>如果main方法的类还有静态代码块，先初始化静态代码块，再初始化main方法</li>
+</ul>
+</li>
+<li>定义一个对象，如 <code>Fath fath</code>; 这只是声明了一个引用，不会执行什么</li>
+<li>当运行到 <code>Fath fath = new Fath()</code>；看到关键字new，并且将引用fath指向了Fath对象，就说明主动使用了，所以Fath类会被初始化<ul>
+<li>当后面再使用 new Fath()时，由于不再是首次使用，就不会再初始化Fath类了</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/qq_44543508/article/details/102983363" target="_blank" rel="noopener">java类的加载以及ClassLoader源码分析</a></li>
+<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/29/jvm/2020-03-29-classLoaderMechanisms/" title="jvm之类加载" target="_blank">https://xczllgit.github.io/2020/03/29/jvm/2020-03-29-classLoaderMechanisms/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/29/jvm/2020-03-29-classLoaderMechanisms/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" class="archive-article-date">
-        <time datetime="2020-03-06T12:34:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/29/computerscience/2020-03-29-transferUDP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          运输层UDP协议
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/29/designPattern/2020-03-29-chainOfResponsibility/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之责任链模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/06/designPattern/2020-03-06-designPatternCategories/" target="_blank">设计模式之三大分类</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类加载注意事项"><span class="toc-number">1.1.</span> <span class="toc-text">类加载注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载时机"><span class="toc-number">2.</span> <span class="toc-text">类加载时机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类的生命周期"><span class="toc-number">2.1.</span> <span class="toc-text">类的生命周期</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载过程"><span class="toc-number">3.</span> <span class="toc-text">类加载过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加载"><span class="toc-number">3.1.</span> <span class="toc-text">加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证"><span class="toc-number">3.2.</span> <span class="toc-text">验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#准备"><span class="toc-number">3.3.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解析"><span class="toc-number">3.4.</span> <span class="toc-text">解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化"><span class="toc-number">3.5.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用与卸载"><span class="toc-number">3.6.</span> <span class="toc-text">使用与卸载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口的加载"><span class="toc-number">4.</span> <span class="toc-text">接口的加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解首次使用"><span class="toc-number">5.</span> <span class="toc-text">理解首次使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" class="archive-article-date">
-        <time datetime="2020-03-06T11:25:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/06/designPattern/2020-03-06-simpleFactory/" target="_blank">设计模式之简单工厂模式</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" class="archive-article-date">
-        <time datetime="2020-03-05T10:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/05/designPattern/2020-03-05-designPrinciple/" target="_blank">设计模式之六大原则</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" class="archive-article-date">
-        <time datetime="2020-03-04T09:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-04</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/03/04/designPattern/2020-03-04-designPattern-UML/" target="_blank">设计模式之UML类图</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -551,8 +674,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
