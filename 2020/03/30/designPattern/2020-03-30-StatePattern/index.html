@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>设计模式之状态模式 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/4/index.html">
+  <meta name="description" content="简介在状态模式（State Pattern）中，类的行为是基于它的状态改变的。这种类型的设计模式属于行为型模式。在状态模式中，一个对象可以在其内部状态改变时改变其行为，这个对象看上去就像是改变了它的类一样。 主要解决：对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。如何解决：将各种具体的状态抽象为类，然后把各种状态类抽象为抽象状态类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之状态模式">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/30/designPattern/2020-03-30-StatePattern/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="简介在状态模式（State Pattern）中，类的行为是基于它的状态改变的。这种类型的设计模式属于行为型模式。在状态模式中，一个对象可以在其内部状态改变时改变其行为，这个对象看上去就像是改变了它的类一样。 主要解决：对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。如何解决：将各种具体的状态抽象为类，然后把各种状态类抽象为抽象状态类。">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/designPattern/1585536722.jpg">
+<meta property="article:published_time" content="2020-03-30T02:03:52.000Z">
+<meta property="article:modified_time" content="2020-03-30T03:10:08.993Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/designPattern/1585536722.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,612 +226,152 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-computerscience/2020-03-26-emailSMTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-designPattern/2020-03-30-StatePattern" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" target="_blank">因特网中的电子邮件</a>
-  
+    <h1 class="article-title" itemprop="name">
+      设计模式之状态模式
     </h1>
   
 
 
   
   
-<a href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" class="archive-article-date">
-        <time datetime="2020-03-26T06:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/30/designPattern/2020-03-30-StatePattern/" class="archive-article-date">
+        <time datetime="2020-03-30T02:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">910字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">3分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP)</p>
-<p>当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。<br>每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。</p>
-<p><strong>典型的邮件发送过程</strong>：</p>
-<ul>
-<li>从发送方的用户代理开始</li>
-<li>传输到发送方的邮件服务器</li>
-<li>再传输到接收方的邮件服务器</li>
-<li>然后在这里被分发到接收方的邮箱中</li>
-<li>当接收方要在邮箱中读取该报文时，包含他邮箱的邮件服务器需要鉴别接收方的身份</li>
-<li>当发送方的邮件服务器不能将邮件交付给接收方的服务器，发送发服务器就会在一个报文队列中保持该报文，并在以后尝试再次发送，一定次数后仍然不成功，服务器就删除该报文，并通知发送方</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-26-garbageCollectionMachine" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" target="_blank">java虚拟机垃圾收集器</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" class="archive-article-date">
-        <time datetime="2020-03-26T02:02:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>垃圾收集算法是内存回收的方法，那么垃圾收集器就是根据算法去进行垃圾回收的具体实现。java虚拟机规范没有规定垃圾收集器应该如何实现，所以不同公司有着不同的垃圾收集器，下面介绍java7 Update14之后的HotSpot虚拟机，需要注意的是<strong>没有最好的，只有最适合的垃圾收集器</strong></p>
-    
-    <a class="article-more-a" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-26-mementoPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/" target="_blank">设计模式之备忘录模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/26/designPattern/2020-03-26-mementoPattern/" class="archive-article-date">
-        <time datetime="2020-03-26T01:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在日常使用程序中，我们经常会使用到一个快捷键：<code>ctrl+z</code>，让我们的程序回到上一步的状态，而备忘录模式(Memento Pattern)就是为了保存一个对象的某个状态，以便于在适当的时候恢复对象，属于<strong>行为型模式</strong></p>
-<p><strong>主要解决</strong>：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原来保存的状态</p>
-<p><strong>优点</strong>：1、提供了一种可以恢复状态的机制；  2、实现了信息的封装，使得用户不需要关心状态的保存细节。<br><strong>缺点</strong>：<strong>消耗资源</strong>。如果类的成员变量过多，势必会占用比较大的资源，而且每一次保存都会消耗一定的内存。</p>
-<p><strong>主要思路</strong>：</p>
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在状态模式（State Pattern）中，<strong>类的行为是基于它的状态改变的</strong>。这种类型的设计模式属于<strong>行为型模式</strong>。<br>在状态模式中，一个对象可以在其内部状态改变时改变其行为，这个对象看上去就像是改变了它的类一样。</p>
+<p><strong>主要解决</strong>：对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。<br><strong>如何解决</strong>：将各种具体的状态抽象为类，然后把各种状态类抽象为抽象状态类。</p>
+<a id="more"></a>
+<p><strong>优点</strong>：</p>
 <ol>
-<li>首先备忘录类，也就是将当前类状态备份的类，需要有当前类中需要备份的属性</li>
-<li>将当前类此时的属性值赋值给备忘录类</li>
-<li>将备忘录类统一管理起来</li>
-<li>在需要的时候，当前类通过某种标记指定使用哪一个备忘录类进行恢复</li>
+<li>封装了转换规则</li>
+<li>枚举可能的状态，在枚举状态之前需要确定状态种类</li>
+<li>将所有与某个状态有关的行为放到一个类中，并且可以方便地增加新的状态，只需要改变对象状态即可改变对象的行为</li>
+<li>允许状态转换逻辑与状态对象合成一体，而不是某一个巨大的条件语句块。</li>
+<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
 </ol>
-    
-    <a class="article-more-a" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-25-jvmGarbageCollection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" target="_blank">java虚拟机垃圾回收</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" class="archive-article-date">
-        <time datetime="2020-03-25T09:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>不同于C/C++，java语言有着自动垃圾回收机制，这让程序员免于手动操作对象或其他资源回收问题，提高了实际开发效率。但是在实际工程中，当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集成为了高并发系统的瓶颈时，垃圾回收机制的原理就是绕不开的一道坎，因此对于这些“自动化”的技术仍然有着必要去深入了解。</p>
-<p>对于java虚拟机内存结构，其中对于线程独占区的程序计数器、虚拟机栈、本地方法栈3个区域的内存随着线程而生灭，栈帧随着方法的开始和结束有序入栈与出栈，因此这3个区域的内存回收与分配不需要过多考虑。<br>而对于线程共享区的Java堆和方法区，它们由多个线程共享，每个线程对于内存的要求都是不同的，只有在程序运行时才能知道具体情况，因此这部分的内存回收与分配是我们需要关注的。</p>
-    
-    <a class="article-more-a" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-25-observerPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/25/designPattern/2020-03-25-observerPattern/" target="_blank">设计模式之观察者模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/25/designPattern/2020-03-25-observerPattern/" class="archive-article-date">
-        <time datetime="2020-03-25T09:11:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>当一个对象存在多个依赖它的对象时，此对象的改变就会影响众多因素，因此我们希望当此对象改变时，可以自动通知它的依赖对象并自动更新依赖对象中的值。<br>观察者模式就是为此而生，定义对象间的<strong>一对多的依赖关系</strong>，当一个对象状态改变时，所有依赖于它的对象都<strong>得到通知并被自动更新。</strong>属于<strong>行为型模式</strong></p>
-<p><strong>优点</strong>：1、观察者和被观察者是抽象耦合的。  2、需要建立一套触发机制</p>
 <p><strong>缺点</strong>：</p>
 <ol>
-<li>观察者过多，通知观察者需要花费大量时间。  </li>
-<li>如果存在某些bug，如观察者与被观察者彼此观察，就会导致无限循环。</li>
-<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
+<li>状态模式的使用必然会增加系统类和对象的个数。</li>
+<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱。</li>
+<li>状态模式对”开闭原则”的支持并不太好，对于可以切换状态的状态模式，增加新的状态类需要修改那些负责状态转换的源代码，否则无法切换到新增状态，而且修改某个状态类的行为也需修改对应类的源代码。</li>
 </ol>
-<p><strong>使用场景</strong>：</p>
+<p>状态模式的示意性类图：<br><img src="/assets/img/designPattern/1585536722.jpg" alt="uml"><br>状态模式中涉及的角色：</p>
 <ul>
-<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
-<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
-<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
-<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……，可以使用观察者模式创建一种链式触发机制。</li>
+<li>环境(Context)：定义客户端所感兴趣的接口，保留一个具体状态类的示例。这个具体状态类的实例给出此环境对象的现有状态。</li>
+<li>抽象状态(State)角色：定义一个接口，用以封装环境（Context）对象的一个特定的状态所对应的行为。</li>
+<li>具体状态(ConcreteState)角色：每一个具体状态类都实现了<strong>环境（Context）的一个状态所对应的行为</strong>。</li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/25/designPattern/2020-03-25-observerPattern/#more">more >></a>
-    
-    
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="抽象状态类"><a href="#抽象状态类" class="headerlink" title="抽象状态类"></a>抽象状态类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAction</span><span class="params">(Context context)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="具体状态角色"><a href="#具体状态角色" class="headerlink" title="具体状态角色"></a>具体状态角色</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StartState</span> <span class="keyword">implements</span> <span class="title">State</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAction</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Player is in start state"</span>);</span><br><span class="line">      context.setState(<span class="keyword">this</span>); </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Start State"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StopState</span> <span class="keyword">implements</span> <span class="title">State</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAction</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Player is in stop state"</span>);</span><br><span class="line">      context.setState(<span class="keyword">this</span>); </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Stop State"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义两种具体状态，在doAction方法中做出不同表现以区分两种状态</p>
+<h4 id="环境类"><a href="#环境类" class="headerlink" title="环境类"></a>环境类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> State state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Context</span><span class="params">()</span></span>&#123;</span><br><span class="line">      state = <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(State state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;     </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> State <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>环境类也就是被我们所关注的对象，它的状态被抽取出来为了状态类，通过<strong>环境类与不同状态类的组合</strong>实现不同的表现。</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StatePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Context context = <span class="keyword">new</span> Context();</span><br><span class="line"> </span><br><span class="line">      StartState startState = <span class="keyword">new</span> StartState();</span><br><span class="line">      startState.doAction(context);</span><br><span class="line"> </span><br><span class="line">      System.out.println(context.getState().toString());</span><br><span class="line"> </span><br><span class="line">      StopState stopState = <span class="keyword">new</span> StopState();</span><br><span class="line">      stopState.doAction(context);</span><br><span class="line"> </span><br><span class="line">      System.out.println(context.getState().toString());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">Player is in start state</span><br><span class="line">Start State</span><br><span class="line">Player is in stop state</span><br><span class="line">Stop State</span><br></pre></td></tr></table></figure>
+<p>可以看到，上述程序中，通过两种状态类与同一个环境类的组合，可以表现出不同的输出结果,同一个context通过分别组合StartState和StopState实现了两种状态的转换。</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.runoob.com/design-pattern/state-pattern.html" target="_blank" rel="noopener">状态模式</a></li>
+<li><a href="https://www.cnblogs.com/java-my-life/archive/2012/06/08/2538146.html" target="_blank" rel="noopener">JAVA与模式》之状态模式</a></li>
+</ul>
 
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/30/designPattern/2020-03-30-StatePattern/" title="设计模式之状态模式" target="_blank">https://xczllgit.github.io/2020/03/30/designPattern/2020-03-30-StatePattern/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -862,16 +403,85 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/25/designPattern/2020-03-25-observerPattern/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/30/designPattern/2020-03-30-StatePattern/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/30/jvm/2020-03-30-classLoader/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          jvm之类加载器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/30/designPattern/2020-03-30-visitorPattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之访问者模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -886,8 +496,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#抽象状态类"><span class="toc-number">2.1.</span> <span class="toc-text">抽象状态类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#具体状态角色"><span class="toc-number">2.2.</span> <span class="toc-text">具体状态角色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境类"><span class="toc-number">2.3.</span> <span class="toc-text">环境类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">2.4.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -926,14 +559,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -971,8 +596,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

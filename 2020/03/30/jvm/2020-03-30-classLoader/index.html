@@ -6,22 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xczllgit.github.io">
-  <title>xczll的博客</title>
+  <title>jvm之类加载器 | xczll的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="希望白前辈保佑，事事顺利"> -->
-  
-  <meta name="description" content="希望白前辈保佑，事事顺利">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xczll的博客">
-<meta property="og:url" content="https://xczllgit.github.io/page/4/index.html">
+  <meta name="description" content="简介虚拟机的设计团队把类加载阶段中的“通过一个类的全限定名来获取描述此类的二进制字节码流”，把这动作放到虚拟机外部去实现，以便让应用程序自己决定如何去获取所需要的类。实现这个动作的代码模块称之为类加载器类加载器负责加载所有的类，它为所有被载入内存中的类生成了一个java.lang.Class实例对象  任何一个类，在内存(堆)中只会有一个Class实例对象 new出来的对象都可以理解为这个Clas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm之类加载器">
+<meta property="og:url" content="https://xczllgit.github.io/2020/03/30/jvm/2020-03-30-classLoader/index.html">
 <meta property="og:site_name" content="xczll的博客">
-<meta property="og:description" content="希望白前辈保佑，事事顺利">
+<meta property="og:description" content="简介虚拟机的设计团队把类加载阶段中的“通过一个类的全限定名来获取描述此类的二进制字节码流”，把这动作放到虚拟机外部去实现，以便让应用程序自己决定如何去获取所需要的类。实现这个动作的代码模块称之为类加载器类加载器负责加载所有的类，它为所有被载入内存中的类生成了一个java.lang.Class实例对象  任何一个类，在内存(堆)中只会有一个Class实例对象 new出来的对象都可以理解为这个Clas">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585548948.jpg">
+<meta property="og:image" content="https://xczllgit.github.io/assets/img/jvm/1585548999.jpg">
+<meta property="article:published_time" content="2020-03-30T03:19:10.000Z">
+<meta property="article:modified_time" content="2020-03-30T06:22:38.092Z">
 <meta property="article:author" content="xczll">
+<meta property="article:tag" content="java虚拟机">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xczllgit.github.io/assets/img/jvm/1585548948.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xczll的博客" type="application/atom+xml">
   
@@ -225,189 +227,210 @@ var _hmt = _hmt || [];
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-computerscience/2020-03-26-emailSMTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-jvm/2020-03-30-classLoader" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" target="_blank">因特网中的电子邮件</a>
-  
+    <h1 class="article-title" itemprop="name">
+      jvm之类加载器
     </h1>
   
 
 
   
   
-<a href="/2020/03/26/computerscience/2020-03-26-emailSMTP/" class="archive-article-date">
-        <time datetime="2020-03-26T06:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/03/30/jvm/2020-03-30-classLoader/" class="archive-article-date">
+        <time datetime="2020-03-30T03:19:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.9k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>电子邮件是一种异步通信媒介，当用户方便时就可以进行收发邮件。一般将电子邮件系统分为3个主要组成部分：用户代理、邮件服务器、简单邮件传输协议(Simple Mail Transfer Protocol,SMTP)</p>
-<p>当用户写完邮件后，他的邮件代理就会向其邮件服务器发送邮件，此时邮件放在邮件服务器的外出报文队列中。<br>每个接收方在某个邮件服务器上有一个邮箱，这个邮箱管理和维护着发送给他的报文。</p>
-<p><strong>典型的邮件发送过程</strong>：</p>
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>虚拟机的设计团队把类加载阶段中的“通过一个类的全限定名来获取描述此类的二进制字节码流”，把这动作放到虚拟机外部去实现，以便让<strong>应用程序自己决定如何去获取所需要的类</strong>。实现这个动作的代码模块称之为<strong>类加载器</strong><br>类加载器负责加载所有的类，它为所有被载入内存中的类生成了一个<code>java.lang.Class实例对象</code></p>
 <ul>
-<li>从发送方的用户代理开始</li>
-<li>传输到发送方的邮件服务器</li>
-<li>再传输到接收方的邮件服务器</li>
-<li>然后在这里被分发到接收方的邮箱中</li>
-<li>当接收方要在邮箱中读取该报文时，包含他邮箱的邮件服务器需要鉴别接收方的身份</li>
-<li>当发送方的邮件服务器不能将邮件交付给接收方的服务器，发送发服务器就会在一个报文队列中保持该报文，并在以后尝试再次发送，一定次数后仍然不成功，服务器就删除该报文，并通知发送方</li>
+<li>任何一个类，在内存(堆)中只会有一个Class实例对象<ul>
+<li>new出来的对象都可以理解为这个Class对象的映射</li>
 </ul>
-    
-    <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/#more">more >></a>
-    
-    
+</li>
+<li>唯一标识符<ul>
+<li>Java中，一个类用其<strong>全限定类名(包名+类名)作为标识</strong></li>
+<li>JVM中，一个类使用<strong>全限定类名和其类加载器</strong>作为其唯一标识符<ul>
+<li><strong>同一个字节码文件，被不同的类加载器加载出来的类时不相等的</strong>。<a id="more"></a>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="类加载器分类"><a href="#类加载器分类" class="headerlink" title="类加载器分类"></a>类加载器分类</h3><ul>
+<li><strong>启动类加载器</strong><ul>
+<li>主要加载的是JVM自身需要的类，这个类加载使用C++实现，是虚拟机自身的一部分</li>
+<li>所有的包名为java.开头的类均被 <strong>BootstrapClassLoader</strong>加载</li>
+</ul>
+</li>
+<li><strong>扩展类加载器</strong><ul>
+<li>负责加载JDK\jre\lib\ext目录中，或者由java.ext.dirs系统变量指定的路径中的所有类库（如javax.开头的类）</li>
+</ul>
+</li>
+<li><strong>系统类加载器</strong><ul>
+<li>负责加载<strong>用户类路径（ClassPath）</strong>所指定的类</li>
+</ul>
+</li>
+<li>线程上下文类加载器<ul>
+<li>很特殊的一种</li>
+<li>类似Thread.currentThread().getContextClassLoader()获取线程上下文类加载器</li>
+<li>线程上下文加载器其实很重要，它违背（破坏）双亲委派模型，很好地打破了双亲委派模型的局限性，尽管在开发中很少用到，但是框架组件开发要频繁使用到线程上下文类加载器，如Tomcat等等…</li>
+</ul>
+</li>
+</ul>
+<p>除了上述的类加载器之外，在必要时，我们还可以自定义类加载器，通过继承ClassLoader类，重写其中的loadClass方法，生成Class对象。<br>自定义类加载器示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//自定义类加载器</span></span><br><span class="line">    ClassLoader classLoader = <span class="keyword">new</span> ClassLoader()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Class&lt;?&gt; loadClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">            <span class="comment">//传入的name是需要加载的类的全限定类名</span></span><br><span class="line">            String fileName = name.substring(name.lastIndexOf(<span class="string">"."</span>)+<span class="number">1</span>)+<span class="string">".class"</span>;</span><br><span class="line">            InputStream ins = getClass().getResourceAsStream(fileName);</span><br><span class="line">            <span class="keyword">if</span>(ins==<span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">super</span>.loadClass(name);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[ins.available()];</span><br><span class="line">                ins.read(buff);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> defineClass(name,buff,<span class="number">0</span>,buff.length);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//使用自定义类加载器</span></span><br><span class="line">    Object c = classLoader.loadClass(<span class="string">"com.roocon.classloadercustomize.ClassLoaderDemo"</span>).newInstance();</span><br><span class="line">    System.out.println(c.getClass());</span><br><span class="line">    System.out.println(c <span class="keyword">instanceof</span> ClassLoaderDemo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义类加载器流程：</p>
+<ul>
+<li>根据全限定类名获取到文件名</li>
+<li>根据文件名获取到输入流（InputStream）</li>
+<li>将输入流的数据存入byte数组</li>
+<li>使用<strong>defineClass函数</strong>，将<strong>根据全限定类名和byte数组，生成Class对象</strong><br>注意：一个ClassLoader创建时如果没有指定parent，那么它的parent默认就是AppClassLoader(系统/应用类加载器)。</li>
+</ul>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>每个类加载器都有自己的命名空间，<strong>命名空间由该加载器及所有父加载器所加载的类组成</strong>。</p>
+<ul>
+<li>同一个命名空间中，不会出现类的完整名字(包括类的包名)相同的两个类</li>
+</ul>
+<p>在不同的命名空间中，有可能会出现类的完整名字相同的两个类。</p>
+<p>由子加载器加载的类能看见父加载器的类，由父亲加载器加载的类不能看见子加载器加载的类</p>
+<ul>
+<li>只有在<strong>相同的命名空间中</strong>，<strong>每个类才只能被加载一次</strong></li>
+<li>反过来说就是<strong>一个类在不同的命名空间中是可以被加载多次的</strong>，而被<strong>加载多次的Class对象是互相独立</strong>的！</li>
+<li>这就是因为<strong>不同的类加载器加载同一个class文件，会生成不同的Class对象</strong></li>
+</ul>
+<p>结论：</p>
+<ol>
+<li>加载一个类（File1）的时候，这个类里面调用了其他的类（File2）或者其他类方法的初始化代码，那么这<strong>里面的类也会试着从这个类的加载器开始向上委托加载</strong>，如果全都加载不了就报<strong>NoClassDefFoundError</strong>异常。</li>
+<li>父亲加载器加载的类（File2）不能看见子加载器加载的类（File1）</li>
+<li>由子加载器加载的类（File1）能看见父加载器的类（File2）</li>
+<li>如果<strong>两个加载器之间没有直接或间接的父子关系，那么它们各自加载类相互不可见</strong>。</li>
+</ol>
+<h3 id="类加载机制与双亲委派模型"><a href="#类加载机制与双亲委派模型" class="headerlink" title="类加载机制与双亲委派模型"></a>类加载机制与双亲委派模型</h3><p><strong>全盘负责</strong>：当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入</p>
+<p>双亲委派：</p>
+<ol>
+<li>当AppClassLoader加载一个class时，它首先不会自己去尝试加载这个类，而是把类加载请求委派给父类加载器ExtClassLoader去完成。</li>
+<li>当 ExtClassLoader加载一个class时，它首先也不会自己去尝试加载这个类，而是把类加载请求委派给BootStrapClassLoader去完成。</li>
+<li>如果 BootStrapClassLoader加载失败（例如在 $JAVA_HOME/jre/lib里未查找到该class），会使用 ExtClassLoader来尝试加载；</li>
+<li>若ExtClassLoader也加载失败，则会使用 AppClassLoader来加载，如果AppClassLoader也加载失败，则会报出异常 ClassNotFoundException。<br><img src="/assets/img/jvm/1585548948.jpg" alt="strategy"></li>
+</ol>
+<p>各个类加载器继承关系图：<br><img src="/assets/img/jvm/1585548999.jpg" alt="strategy"></p>
+<p>顶层的类加载器是抽象类ClassLoader类，其后<strong>所有的类加载器都继承自ClassLoader（不包括启动类加载器）</strong><br>ClassLoader源码中的<strong>loadClass(String)方法</strong>该方法<strong>加载指定名称（包括包名）的二进制类型</strong>，loadClass()方法是ClassLoader类自己实现的，<strong>该方法中的逻辑就是双亲委派模式的实现</strong></p>
+<p>loadClass()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Class&lt;?&gt; loadClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="keyword">return</span> loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</span><br><span class="line">      <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">          <span class="comment">// 先从缓存查找该class对象，找到就不用重新加载</span></span><br><span class="line">          Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">          <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;</span><br><span class="line">                      <span class="comment">//如果找不到，则委托给父类加载器去加载</span></span><br><span class="line">                      c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">                  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  <span class="comment">//如果没有父类，则委托给启动加载器去加载</span></span><br><span class="line">                      c = findBootstrapClassOrNull(name);</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                  <span class="comment">// ClassNotFoundException thrown if class not found</span></span><br><span class="line">                  <span class="comment">// from the non-null parent class loader</span></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                  <span class="comment">// If still not found, then invoke findClass in order</span></span><br><span class="line">                  <span class="comment">// 如果都没有找到，则通过自定义实现的findClass去查找并加载</span></span><br><span class="line">                  c = findClass(name);</span><br><span class="line"></span><br><span class="line">                  <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                  sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                  sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                  sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (resolve) &#123;<span class="comment">//是否需要在加载时进行解析</span></span><br><span class="line">              resolveClass(c);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> c;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>双亲委派模型的意义：</p>
+<ul>
+<li>系统的防止内存中出现多份同样的字节码<ul>
+<li>因为存在缓存机制</li>
+</ul>
+</li>
+<li>保证Java程序的安全稳定运行<ul>
+<li>假设通过网络传递一个名为java.lang.Integer的类，通过双亲委托模式传递到启动类加载器，而启动类加载器在核心Java API发现这个名字的类，发现该类已被加载，并不会重新加载网络传递的过来的java.lang.Integer，而直接返回已加载过的Integer.class，这样便可以防止核心API库被随意篡改。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/qq_44543508/article/details/102983363" target="_blank" rel="noopener">java类的加载以及ClassLoader源码分析</a></li>
+<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
+</ul>
 
     
 
     
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/computerscience/2020-03-26-emailSMTP/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/reward/wechatpay.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-        
-        
+      </a>
     </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-26-garbageCollectionMachine" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" target="_blank">java虚拟机垃圾收集器</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/" class="archive-article-date">
-        <time datetime="2020-03-26T02:02:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>垃圾收集算法是内存回收的方法，那么垃圾收集器就是根据算法去进行垃圾回收的具体实现。java虚拟机规范没有规定垃圾收集器应该如何实现，所以不同公司有着不同的垃圾收集器，下面介绍java7 Update14之后的HotSpot虚拟机，需要注意的是<strong>没有最好的，只有最适合的垃圾收集器</strong></p>
-    
-    <a class="article-more-a" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/#more">more >></a>
-    
     
 
     
-
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          xczll
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://xczllgit.github.io/2020/03/30/jvm/2020-03-30-classLoader/" title="jvm之类加载器" target="_blank">https://xczllgit.github.io/2020/03/30/jvm/2020-03-30-classLoader/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
     
 
   </div>
@@ -439,16 +462,85 @@ document.body.addEventListener('click', function(e) {
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/jvm/2020-03-26-garbageCollectionMachine/">展开全文 >></a>
-    </p>
+
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://xczllgit.github.io/2020/03/30/jvm/2020-03-30-classLoader/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/30/jvm/2020-03-30-byteCodeExecuteEngine/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          虚拟机字节码执行引擎
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/30/designPattern/2020-03-30-StatePattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之状态模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -463,8 +555,31 @@ document.body.addEventListener('click', function(e) {
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载器分类"><span class="toc-number">2.</span> <span class="toc-text">类加载器分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命名空间"><span class="toc-number">3.</span> <span class="toc-text">命名空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载机制与双亲委派模型"><span class="toc-number">4.</span> <span class="toc-text">类加载机制与双亲委派模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -503,437 +618,6 @@ document.body.addEventListener('click', function(e) {
     });
 </script>
     
-  
-    <article id="post-designPattern/2020-03-26-mementoPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/" target="_blank">设计模式之备忘录模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/26/designPattern/2020-03-26-mementoPattern/" class="archive-article-date">
-        <time datetime="2020-03-26T01:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在日常使用程序中，我们经常会使用到一个快捷键：<code>ctrl+z</code>，让我们的程序回到上一步的状态，而备忘录模式(Memento Pattern)就是为了保存一个对象的某个状态，以便于在适当的时候恢复对象，属于<strong>行为型模式</strong></p>
-<p><strong>主要解决</strong>：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原来保存的状态</p>
-<p><strong>优点</strong>：1、提供了一种可以恢复状态的机制；  2、实现了信息的封装，使得用户不需要关心状态的保存细节。<br><strong>缺点</strong>：<strong>消耗资源</strong>。如果类的成员变量过多，势必会占用比较大的资源，而且每一次保存都会消耗一定的内存。</p>
-<p><strong>主要思路</strong>：</p>
-<ol>
-<li>首先备忘录类，也就是将当前类状态备份的类，需要有当前类中需要备份的属性</li>
-<li>将当前类此时的属性值赋值给备忘录类</li>
-<li>将备忘录类统一管理起来</li>
-<li>在需要的时候，当前类通过某种标记指定使用哪一个备忘录类进行恢复</li>
-</ol>
-    
-    <a class="article-more-a" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/26/designPattern/2020-03-26-mementoPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-25-jvmGarbageCollection" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" target="_blank">java虚拟机垃圾回收</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/" class="archive-article-date">
-        <time datetime="2020-03-25T09:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>不同于C/C++，java语言有着自动垃圾回收机制，这让程序员免于手动操作对象或其他资源回收问题，提高了实际开发效率。但是在实际工程中，当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集成为了高并发系统的瓶颈时，垃圾回收机制的原理就是绕不开的一道坎，因此对于这些“自动化”的技术仍然有着必要去深入了解。</p>
-<p>对于java虚拟机内存结构，其中对于线程独占区的程序计数器、虚拟机栈、本地方法栈3个区域的内存随着线程而生灭，栈帧随着方法的开始和结束有序入栈与出栈，因此这3个区域的内存回收与分配不需要过多考虑。<br>而对于线程共享区的Java堆和方法区，它们由多个线程共享，每个线程对于内存的要求都是不同的，只有在程序运行时才能知道具体情况，因此这部分的内存回收与分配是我们需要关注的。</p>
-    
-    <a class="article-more-a" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/25/jvm/2020-03-25-jvmGarbageCollection/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-25-observerPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/25/designPattern/2020-03-25-observerPattern/" target="_blank">设计模式之观察者模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/25/designPattern/2020-03-25-observerPattern/" class="archive-article-date">
-        <time datetime="2020-03-25T09:11:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>当一个对象存在多个依赖它的对象时，此对象的改变就会影响众多因素，因此我们希望当此对象改变时，可以自动通知它的依赖对象并自动更新依赖对象中的值。<br>观察者模式就是为此而生，定义对象间的<strong>一对多的依赖关系</strong>，当一个对象状态改变时，所有依赖于它的对象都<strong>得到通知并被自动更新。</strong>属于<strong>行为型模式</strong></p>
-<p><strong>优点</strong>：1、观察者和被观察者是抽象耦合的。  2、需要建立一套触发机制</p>
-<p><strong>缺点</strong>：</p>
-<ol>
-<li>观察者过多，通知观察者需要花费大量时间。  </li>
-<li>如果存在某些bug，如观察者与被观察者彼此观察，就会导致无限循环。</li>
-<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
-</ol>
-<p><strong>使用场景</strong>：</p>
-<ul>
-<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
-<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
-<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
-<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……，可以使用观察者模式创建一种链式触发机制。</li>
-</ul>
-    
-    <a class="article-more-a" href="/2020/03/25/designPattern/2020-03-25-observerPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/25/designPattern/2020-03-25-observerPattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -971,8 +655,8 @@ document.body.addEventListener('click', function(e) {
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
