@@ -366,7 +366,7 @@ document.body.addEventListener('click', function(e) {
 </script>
     
   
-    <article id="post-jvm/2020-03-30-byteCodeExecuteEngine" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-algorithm/2020-04-19-quickSort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -374,7 +374,7 @@ document.body.addEventListener('click', function(e) {
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/03/30/jvm/2020-03-30-byteCodeExecuteEngine/" target="_blank">虚拟机字节码执行引擎</a>
+	  <a class="article-title" href="/2020/04/19/algorithm/2020-04-19-quickSort/" target="_blank">快速排序</a>
   
     </h1>
   
@@ -382,8 +382,8 @@ document.body.addEventListener('click', function(e) {
 
   
   
-<a href="/2020/03/30/jvm/2020-03-30-byteCodeExecuteEngine/" class="archive-article-date">
-        <time datetime="2020-03-30T06:27:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
+<a href="/2020/04/19/algorithm/2020-04-19-quickSort/" class="archive-article-date">
+        <time datetime="2020-04-19T11:16:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
 </a>
 
   
@@ -395,155 +395,417 @@ document.body.addEventListener('click', function(e) {
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>当字节码文件从磁盘加载到内存形成了java.lang.Class对象之后，就需要由虚拟机进行执行了。<br>对于所有的Java虚拟机的执行引擎在表面来看都是一致的：</p>
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>快速排序，可能是应用最为广泛的排序算法，它实现简单，适合于各种不同输入数据，并且一般来讲比其他排序算法都快很多，并且是原地排序(只需要一个很小的辅助栈)，将<strong>长度为N的数组排序所需的时间和NlgN成正比</strong></p>
+<p>基本原理：将一个数组分为两个子数组，将两部分独立排序，当两子数组都有序时，整个数组也就自然有序了，<strong>不需要归并子数组</strong>。</p>
+<p>快速排序与归并排序是互补的：归并排序将数组分成两个子数组分别排序，并将有序的子数组归并以将整个数组排序；而快速排序将数组排序的方式则是当两个子数组都有序时整个数组也就自然有序了。</p>
+    
+    <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-quickSort/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法与数据结构//" class="article-tag-list-link color3">算法与数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-quickSort/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-algorithm/2020-04-19-mergeSort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/04/19/algorithm/2020-04-19-mergeSort/" target="_blank">归并排序</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/04/19/algorithm/2020-04-19-mergeSort/" class="archive-article-date">
+        <time datetime="2020-04-19T08:48:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>归并，就是将两个有序的数组归并成一个更大的有序数组。 归并排序，就是要将一个数组排序，可以先递归地将它分成两半分别排序，然后将结果归并起来。<br>使用归并排序，能够保证任意长度为N的数组排序所需时间和<strong>NlogN</strong>成正比，主要缺点就是它所需额外空间和N成正比。</p>
+<p>对于归并排序，一种非常直接的办法就是将两个不同的有序数组归并到第三个数组中，但是，当使用归并排序对一个大数组排序时，需要进行很多次归并，如果每次归并时都创建一个新数组来存储排序，会带来不必要的空间损耗和其他问题。因此，原地归并是一个非常需要的办法，但是实现起来比较复杂。</p>
+    
+    <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-mergeSort/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法与数据结构//" class="article-tag-list-link color3">算法与数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-mergeSort/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-algorithm/2020-04-19-shellSort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/04/19/algorithm/2020-04-19-shellSort/" target="_blank">希尔排序</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/04/19/algorithm/2020-04-19-shellSort/" class="archive-article-date">
+        <time datetime="2020-04-19T05:46:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>对于插入排序来说，如果数组初始阶段越混乱，倒置元素对越多，那么插入排序所需要时间就越多，甚至达到N^2级别时间复杂度。而对于几乎已经排好序的数组来说，插入排序的性能又很高，可以达到线性排序的效率。因此对于这样的特点，<strong>对插入排序进行了改进，改进后的算法被称为希尔排序</strong>。</p>
+<p>希尔排序的思想是使数组中任意间隔为h的元素都是有序的。这样的h有序数组被称为h有序数组，也就是h个互相独立的有序数组交错在一起组成的一个数组。<br>实现希尔排序的方法思想：先将整个待排序的数组根据间隔h分割成多个子数组，对于这些子数组进行插入排序，然后不断的减少间隔h，重复这样的操作，等到整个数组基本有序时，再对整体记录进行插入排序即可。</p>
+    
+    <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-shellSort/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法与数据结构//" class="article-tag-list-link color3">算法与数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-shellSort/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-algorithm/2020-04-19-bubbleSortion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/04/19/algorithm/2020-04-19-bubbleSortion/" target="_blank">冒泡排序</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/04/19/algorithm/2020-04-19-bubbleSortion/" class="archive-article-date">
+        <time datetime="2020-04-19T05:12:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>冒泡排序，经常出现在各类计算机教材关于排序算法的第一个，它是一种比较简单的排序算法。<br>冒泡排序的原理是不停的比较数组中相邻的两个元素，如果元素的顺序与所需顺序不同，则将其进行交换，然后索引向前移动一位，再进行比较，当数组中所有元素都不再需要交换时，数组就是有序状态了。<br>从原理中我们可以看到，这种算法能很快的得到数组中较大的元素。</p>
 <ul>
-<li>输入的是字节码文件</li>
-<li>处理过程是字节码解析的等效过程</li>
-<li>输出的是执行结果
+<li>假定数组a[]的第一个元素是a[0]，它与a[1]进行比较，a[0]&gt;a[1],那么就交换a[0]与a[1]</li>
+<li>交换后的a[1]与a[2]比较，重复过程，如果当  a[1]与a[i]交换之后，此时 a[i]&lt; a[i+1]了，那么就不会再交换它们</li>
+<li>接下来又会比较a[i+1]与a[i+2]，以此到最后，此轮循环结束，数组末尾的元素一定是最大值</li>
+<li>每一轮循环都会得到一个在当前无序范围数组中的最大值存放到末尾<br>这样的算法流程，看起来就像是一个最大的水泡在向上冒，因此称为冒泡排序法。
     
-    <a class="article-more-a" href="/2020/03/30/jvm/2020-03-30-byteCodeExecuteEngine/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/30/jvm/2020-03-30-byteCodeExecuteEngine/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-jvm/2020-03-30-classLoader" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/30/jvm/2020-03-30-classLoader/" target="_blank">jvm之类加载器</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/30/jvm/2020-03-30-classLoader/" class="archive-article-date">
-        <time datetime="2020-03-30T03:19:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>虚拟机的设计团队把类加载阶段中的“通过一个类的全限定名来获取描述此类的二进制字节码流”，把这动作放到虚拟机外部去实现，以便让<strong>应用程序自己决定如何去获取所需要的类</strong>。实现这个动作的代码模块称之为<strong>类加载器</strong><br>类加载器负责加载所有的类，它为所有被载入内存中的类生成了一个<code>java.lang.Class实例对象</code></p>
-<ul>
-<li>任何一个类，在内存(堆)中只会有一个Class实例对象<ul>
-<li>new出来的对象都可以理解为这个Class对象的映射</li>
-</ul>
-</li>
-<li>唯一标识符<ul>
-<li>Java中，一个类用其<strong>全限定类名(包名+类名)作为标识</strong></li>
-<li>JVM中，一个类使用<strong>全限定类名和其类加载器</strong>作为其唯一标识符<ul>
-<li><strong>同一个字节码文件，被不同的类加载器加载出来的类时不相等的</strong>。
-    
-    <a class="article-more-a" href="/2020/03/30/jvm/2020-03-30-classLoader/#more">more >></a>
+    <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-bubbleSortion/#more">more >></a>
     
     
 
@@ -560,7 +822,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
         		</li>
       		
 		</ul>
@@ -572,7 +834,7 @@ document.body.addEventListener('click', function(e) {
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
+        			<a href="/categories/算法与数据结构//" class="article-tag-list-link color3">算法与数据结构</a>
         		</li>
       		
 		</ul>
@@ -581,278 +843,7 @@ document.body.addEventListener('click', function(e) {
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/30/jvm/2020-03-30-classLoader/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-30-StatePattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/30/designPattern/2020-03-30-StatePattern/" target="_blank">设计模式之状态模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/30/designPattern/2020-03-30-StatePattern/" class="archive-article-date">
-        <time datetime="2020-03-30T02:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在状态模式（State Pattern）中，<strong>类的行为是基于它的状态改变的</strong>。这种类型的设计模式属于<strong>行为型模式</strong>。<br>在状态模式中，一个对象可以在其内部状态改变时改变其行为，这个对象看上去就像是改变了它的类一样。</p>
-<p><strong>主要解决</strong>：对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。<br><strong>如何解决</strong>：将各种具体的状态抽象为类，然后把各种状态类抽象为抽象状态类。</p>
-    
-    <a class="article-more-a" href="/2020/03/30/designPattern/2020-03-30-StatePattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/30/designPattern/2020-03-30-StatePattern/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-designPattern/2020-03-30-visitorPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/30/designPattern/2020-03-30-visitorPattern/" target="_blank">设计模式之访问者模式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/30/designPattern/2020-03-30-visitorPattern/" class="archive-article-date">
-        <time datetime="2020-03-30T01:12:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在访问者模式（Visitor Pattern）中，我们使用了一个访问者类，它改变了元素类的执行算法。通过这种方式，元素的<strong>执行算法可以随着访问者改变而改变</strong>。这种类型的设计模式属于<strong>行为型模式</strong>。根据模式，元素对象已接受访问者对象，这样访问者对象就可以处理元素对象上的操作。</p>
-<p><strong>定义</strong>：封装一些作用于某种数据结构中的各元素的操作，它可以在不改变这个数据结构的前提下定义作用于这些元素的新操作。<br><strong>主要解决</strong>：稳定的数据结构和易变的操作耦合问题<br><strong>优点</strong>：1、符合单一职责原则；2、具有很好的扩展性<br><strong>缺点</strong>：1、具体元素对访问者公布细节，违反了迪米特原则；2、违反了依赖倒置原则，依赖具体类而没有依赖抽象<br>使用场景：</p>
-<ol>
-<li>对象结构中对象对应的类很少改变，但经常需要在此对象结构上定义新的操作</li>
-<li>需要对一个对象结构中的对象进行很多不同的且不相关的操作，而需要避免让这些操作”污染”这些对象的类，也不希望在增加新操作时修改这些类。
-    
-    <a class="article-more-a" href="/2020/03/30/designPattern/2020-03-30-visitorPattern/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/30/designPattern/2020-03-30-visitorPattern/">展开全文 >></a>
+      <a class="article-more-a" href="/2020/04/19/algorithm/2020-04-19-bubbleSortion/">展开全文 >></a>
     </p>
     
 
@@ -918,7 +909,7 @@ document.body.addEventListener('click', function(e) {
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1066,6 +1057,10 @@ document.body.addEventListener('click', function(e) {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">java虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
             
             <div class="clearfix"></div>
