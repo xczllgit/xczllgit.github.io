@@ -228,6 +228,142 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-computerscience/2020-03-28-transferLayer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/28/computerscience/2020-03-28-transferLayer/" target="_blank">运输层概述</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/28/computerscience/2020-03-28-transferLayer/" class="archive-article-date">
+        <time datetime="2020-03-28T07:10:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="运输层服务"><a href="#运输层服务" class="headerlink" title="运输层服务"></a>运输层服务</h3><p>运输层位于应用层与网络层之间，在这一层中，最关键的是两种因特网运输层协议：TCP和UDP。<br>运输层协议为运行在不同主机上的应用进程提供了<strong>逻辑通信</strong></p>
+<ul>
+<li><strong>通过逻辑通信，运行不同进程的主机好像直接相连一样</strong>，实际上它们通过了很多路由器和链路相连。应用进程使用运输层提供的逻辑通信功能<strong>彼此发送报文，而无需考虑承载这些报文的物理基础设施的细节</strong>。</li>
+<li>运输层提供的是 <strong>进程和进程</strong> 之间的逻辑通信。
+    
+    <a class="article-more-a" href="/2020/03/28/computerscience/2020-03-28-transferLayer/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/28/computerscience/2020-03-28-transferLayer/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-jvm/2020-03-28-jvmClassByteCode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -780,167 +916,9 @@ document.body.addEventListener('click', function(e) {
 </script>
     
   
-    <article id="post-jvm/2020-03-27-gcLog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/27/jvm/2020-03-27-gcLog/" target="_blank">理解GC日志</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/27/jvm/2020-03-27-gcLog/" class="archive-article-date">
-        <time datetime="2020-03-27T02:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="理解GC"><a href="#理解GC" class="headerlink" title="理解GC"></a>理解GC</h3><p>java虚拟机规范没有对垃圾收集器的实现做出具体要求，因此垃圾收集器有着很多种类，每一种垃圾收集器的日志形式都是由它们自身的实现所决定，每一种日志格式都可以不一样，但是虚拟机设计者为了方便用户阅读，将各个收集器的日志都维持一定的共性。</p>
-<p>典型的GC日志：<br><img src="/assets/img/jvm/1585276026.jpg" alt="strategy"></p>
-<ul>
-<li>最前面的数字 “33.125”和“100.67”代表了GC发生的时间，是从Java虚拟机启动以来经过的<strong>秒数</strong></li>
-<li>GC日志开头的<code>GC</code>和<code>Full GC</code>说明这次垃圾收集的停顿类型，而不是用来区分新生代GC和老年代GC的。<ul>
-<li>Full代表这次GC是发生了 Stop The World的</li>
-</ul>
-</li>
-<li>DefNew、Tenured、Perm等表示GC发生的区域<ul>
-<li>对于Serial收集器，新生代名为 Default New Generation，所以显示的<strong>DefNew</strong><ul>
-<li>而对于ParNew收集器，新生代就会变成 <strong>ParNew</strong>，意思是 <strong>Parallel New Generation</strong></li>
-<li>而Parallel Scavenge收集器的新生代称为 <strong>PSYoungGen</strong></li>
-</ul>
-</li>
-<li>Tenured是老年代</li>
-</ul>
-</li>
-<li>方括号内部的 <code>3324K -&gt; 152K(3712K)</code>的含义是 GC前该区域已使用容量-&gt;GC后该内存区域已使用容量（该内存区域总容量）。而方括号之外的 <code>3324K-&gt;152K(11904K)</code>表示“GC前Java堆已使用容量 -&gt; GC后Java堆已使用容量（Java堆总容量）”</li>
-<li><code>0.0025925 secs</code>表示该内存区域GC所占用的时间，单位是秒。 有的收集器会给出更具体的时间数据：<ul>
-<li>如  <code>[Times:user=0.01 sys=0.00 , real=0.02 secs]</code>,这里面的user、sys和real与Linux 的time命令所输出的时间含义一致，分别代表用户态消耗的CPU时间，内核态消耗的CPU时间，操作从开始到结束所经过的墙钟时间(Wall Clock Time)。 </li>
-<li>墙钟时间包括各种非运算的等待耗时，例如等待磁盘I/O、等待线程阻塞，而CPU时间不包括这些耗时，但当系统有多CPU或者多核的话，<strong>多线程操作会叠加这些CPU时间</strong>，所以读者看到user或sys时间超过real时间是完全正常的。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="">深入理解java虚拟机 第二版(机械工业出版社)</a></li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java虚拟机//" class="article-tag-list-link color3">java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/27/jvm/2020-03-27-gcLog/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1092,6 +1070,10 @@ document.body.addEventListener('click', function(e) {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java源码分析</a>
               </li>
             
             <div class="clearfix"></div>
