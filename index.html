@@ -395,7 +395,7 @@ document.body.addEventListener('click', function(e) {
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><strong>在golang的设计思想中，panic是用于在已知的错误发生时中断程序运行，比如空指针，数组越界等，在golang的创始人眼中，这些错误都是不被允许的，因此只要发生，就需要中断程序运行，然而在实际的应用中，我们并不总是希望panic的出现使服务崩溃，因此golang提供了recover函数，可以用于捕捉panic，将其转换为一般的错误进行处理。本文主要介绍如何 panic与recover 之间的关系。</strong></p>
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><strong>在golang的设计思想中，panic是用于在已知的错误发生时中断程序运行，比如空指针，数组越界等，在golang的创始人眼中，这些错误都是不被允许的，因此只要发生，就需要中断程序运行，然而在实际的应用中，我们并不总是希望panic的出现使服务崩溃，因此golang提供了recover函数，可以用于捕捉panic，将其转换为一般的错误进行处理。本文主要介绍panic与recover 之间的关系。</strong></p>
 <p>在了解panic与recover之前，需要先了解golang的defer机制，可以参考前一篇文章 <strong>了解defer</strong></p>
     
     <a class="article-more-a" href="/2021/08/07/golang/2021-08-07-panic-recover/#more">more >></a>
@@ -1045,11 +1045,11 @@ document.body.addEventListener('click', function(e) {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color2">java并发</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java并发</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
