@@ -228,6 +228,291 @@ var _hmt = _hmt || [];
             
 
   
+    <article id="post-designPattern/2020-03-23-strategyPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/23/designPattern/2020-03-23-strategyPattern/" target="_blank">设计模式之策略模式</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/23/designPattern/2020-03-23-strategyPattern/" class="archive-article-date">
+        <time datetime="2020-03-23T01:15:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在策略性模式中，一个<strong>类的行为或其算法可以在运行时更改</strong>，这种类型的设计模式属于<strong>行为型模式</strong>。<br>在策略模式中，我们创建表示各种策略的对象，和一个行为随着策略对象改变而改变的context对象。策略对象改变context对象的执行算法。</p>
+<p><strong>意图</strong>：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。<br><strong>主要解决</strong>：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。<br><strong>何时使用</strong>：一个系统有许多许多类(这些类通常继承了同一个父类或者实现了同一个接口)，而区分它们的只是他们直接的行为。<br><strong>如何解决</strong>：将一系列相似算法封装成一个一个的类，任意地替换。<br><strong>关键代码</strong>：实现同一个接口<br><strong>优点</strong>： 1、算法可以自由切换。 2、避免使用多重条件判断。 3、扩展性良好。<br>缺点：1、策略类会增多。 2、所有策略类都需要对外暴露。</p>
+    
+    <a class="article-more-a" href="/2020/03/23/designPattern/2020-03-23-strategyPattern/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/23/designPattern/2020-03-23-strategyPattern/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
+    <article id="post-computerscience/2020-03-22-applicationLayerProtocolPrinciple" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" target="_blank">计算机网络之应用层协议原理</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/" class="archive-article-date">
+        <time datetime="2020-03-22T01:50:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>应用层包含了能进行人机交互并且产生网络流量的程序<br>经典的基于文本的几种应用：电子邮件、计算机远程访问、文件传输、新闻组、文本聊天等，后来又出现了万维网(包含web冲浪、搜索、电商)，即时通讯等</p>
+<p>应用层的程序是数之不尽的，对应用层的学习主要集中于原理和实现</p>
+<h2 id="协议原理"><a href="#协议原理" class="headerlink" title="协议原理"></a>协议原理</h2><p>研发网络应用程序的核心是写出能够运行在不同的端系统和通过网络彼此通信的程序。如web应用程序、p2p文件共享系统等。</p>
+<h3 id="应用程序体系"><a href="#应用程序体系" class="headerlink" title="应用程序体系"></a>应用程序体系</h3><p>在编写应用程序之前需要有一个宽泛的体系结构计划。应用程序体系不同于网络结构体系(五层、七层模型等)那么固定，应用程序体系由程序研发者设计。目前有两种主流体系结构：</p>
+<ul>
+<li>客户机/服务器体系结构<ul>
+<li>将多个计算机分为客户机和服务器两种<ul>
+<li>服务器接收来自客户机的请求并处理</li>
+<li>客户机之间一般不相互通信</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对等(P2P)体系结构<ul>
+<li>任意两台计算机彼此依赖，直接相互通信，不需要通过专门的服务器。</li>
+<li>任意间断连接的主机对——称为对等方</li>
+</ul>
+</li>
+</ul>
+    
+    <a class="article-more-a" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/03/22/computerscience/2020-03-22-applicationLayerProtocolPrinciple/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <div id="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+    el: '#comment' ,
+    notify:false, 
+    verify:false, 
+    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
+    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
+    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
+    path:window.location.pathname, 
+    avatar:'mm' 
+});
+
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('vsubmit')) {
+        const email = document.querySelector('input[type=email]');
+        const nick = document.querySelector('input[name=nick]');
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if (!email.value || !nick.value || !reg.test(email.value)) {
+            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+            const vmark = document.querySelector('.vmark');
+            vmark.innerHTML = str;
+            vmark.style.display = 'block';
+
+            setTimeout(function() {
+                vmark.style.display = 'none';
+                vmark.innerHTML = '';
+            }, 2500);
+        }
+    }
+    });
+</script>
+    
+  
     <article id="post-designPattern/2020-03-22-iteratorPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -634,304 +919,6 @@ document.body.addEventListener('click', function(e) {
 </script>
     
   
-    <article id="post-computerscience/2020-03-20-networkIndexOfPerformance" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/20/computerscience/2020-03-20-networkIndexOfPerformance/" target="_blank">计算机网络性能指标</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/20/computerscience/2020-03-20-networkIndexOfPerformance/" class="archive-article-date">
-        <time datetime="2020-03-20T11:17:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>计算机网络性能指标主要为：</p>
-<ul>
-<li>速率：数据率或数据传输率</li>
-<li>带宽：表示通信链路传输数据的能力</li>
-<li>吞吐量：表示一段时间内的通过的数据量</li>
-<li>时延：数据传输从发送到接受的时间间隔</li>
-<li>时延带宽积：时延*带宽</li>
-<li>往返时延RTT:数据从发送到确认的时间</li>
-<li>利用率:信道与网络的利用效率</li>
-</ul>
-<h3 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h3><p>速率：即数据率或数据传输率或比特率</p>
-<ul>
-<li>连接在计算机网络上的主机在数字信道上传输数据位数的速率。（一位即一个二进制bit位）</li>
-</ul>
-<p>速率单位：</p>
-    
-    <a class="article-more-a" href="/2020/03/20/computerscience/2020-03-20-networkIndexOfPerformance/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/20/computerscience/2020-03-20-networkIndexOfPerformance/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
-    <article id="post-computerscience/2020-03-20-computerNetworkOverview" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/20/computerscience/2020-03-20-computerNetworkOverview/" target="_blank">计算机网络概述</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/20/computerscience/2020-03-20-computerNetworkOverview/" class="archive-article-date">
-        <time datetime="2020-03-20T10:49:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="1、计算机网络的概念"><a href="#1、计算机网络的概念" class="headerlink" title="1、计算机网络的概念"></a>1、计算机网络的概念</h3><p>计算机网络：是一个将分散、具有独立功能的计算机通过<strong>通信设备和线路</strong>连接起来，由功能完善的<strong>软件</strong>实现<strong>资源共享和信息传递</strong>的系统；是一个互联的、自治的计算机集合。</p>
-<ul>
-<li>互联：互联互通</li>
-<li>自治：没有主从关系，彼此之间相互独立</li>
-</ul>
-<h3 id="2、计算机网络的组成与功能"><a href="#2、计算机网络的组成与功能" class="headerlink" title="2、计算机网络的组成与功能"></a>2、计算机网络的组成与功能</h3><p><strong>计算机网络组成</strong>：</p>
-<ol>
-<li>物理组成部分：硬件、软件、协议；<ul>
-<li>硬件：通信链路、交换机等</li>
-<li>软件：程序</li>
-<li>协议：一系列规则的集合，保证了有效信息传输</li>
-</ul>
-</li>
-<li>功能组成：通信子网、资源子网<ul>
-<li>通信子网：实现数据通信</li>
-<li>资源子网：实现资源共享/数据处理</li>
-</ul>
-</li>
-</ol>
-    
-    <a class="article-more-a" href="/2020/03/20/computerscience/2020-03-20-computerNetworkOverview/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/计算机网络//" class="article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/20/computerscience/2020-03-20-computerNetworkOverview/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <div id="comment"></div>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-new Valine({
-    el: '#comment' ,
-    notify:false, 
-    verify:false, 
-    appId: 'DK0P5TfkRcMN9yairxPU2iX4-gzGzoHsz',
-    appKey: 'BbP3y4AeOP650Tv38DcvVfHf',
-    placeholder: 'ヾﾉ≧∀≦)o欢迎评论!',
-    path:window.location.pathname, 
-    avatar:'mm' 
-});
-
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('vsubmit')) {
-        const email = document.querySelector('input[type=email]');
-        const nick = document.querySelector('input[name=nick]');
-        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!email.value || !nick.value || !reg.test(email.value)) {
-            const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
-            const vmark = document.querySelector('.vmark');
-            vmark.innerHTML = str;
-            vmark.style.display = 'block';
-
-            setTimeout(function() {
-                vmark.style.display = 'none';
-                vmark.innerHTML = '';
-            }, 2500);
-        }
-    }
-    });
-</script>
-    
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/9/">Next &amp;raquo;</a>
@@ -1090,6 +1077,10 @@ document.body.addEventListener('click', function(e) {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">java虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">go语言基础</a>
               </li>
             
             <div class="clearfix"></div>
